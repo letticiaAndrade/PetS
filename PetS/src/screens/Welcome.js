@@ -10,7 +10,7 @@ import {
 
 // imports dos componentes personalizados
 import ButtonStep from "../components/ButtonStep.js";
-
+import ButtonOutline from "../components/ButtonOutline.js";
 // import hooks nativos
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -223,25 +223,29 @@ export const Welcome = () => {
                 </View>
 
                 <View style={{ width: sizeScreen }}>
-                    <View style={{ alignItems: "center", margin: 70 }}>
+                    <View style={{ alignItems: "baseline", marginVertical: 20, marginLeft: 20 }}>
                         <Image
                             source={logo}
                             style={{ width: 84, height: 82 }}
                             resizeMode="contain"
                         />
                     </View>
-                    <View style={{ alignItems: "center" }}>
+                    <View style={{ alignItems: "center", marginBottom: 40 }}>
                         <Image
                             style={{ width: 256, height: 210 }}
                             source={group}
                             resizeMode="contain"
                         />
                     </View>
-                    <View>
-                        <Text style={{ color: "#EAEAEA" }}>
-                            Faça o login ou crie uma conta para começar à procurar o seu <Text style={{ color: "#00D5B0" }}>bichinho</Text>!
+                    <View style={{ alignItems: 'center', marginBottom: 40 }}>
+                        <Text style={{ color: "#EAEAEA", fontSize: 24 }}>
+                            Faça o login ou crie uma conta
+                            {"\n"}para começar à procurar o seu
+                            <Text style={{ color: "#00D5B0" }}>{"\n"}bichinho</Text>!
                         </Text>
                     </View>
+
+
 
                     <View style={{ alignItems: "center" }}>
                         <TouchableOpacity
@@ -259,19 +263,36 @@ export const Welcome = () => {
                             <Text style={{ color: "#B67830" }}>ENTRAR</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <View style={{ borderBottomColor: "#FFEDCB", borderBottomWidth: 1, width: 150, }}>
-                        </View>
-                        <Text style={{ color: "#FFEDCB", marginHorizontal: 10 }}>
-                            OU
-                        </Text>
-                        <View style={{ borderBottomColor: "#FFEDCB", borderBottomWidth: 1, width: 150 }}>
-
-                        </View>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginVertical: 15
+                        }}
+                    >
+                        <View
+                            style={{
+                                borderBottomColor: "#FFEDCB",
+                                borderBottomWidth: 1,
+                                width: 150,
+                            }}
+                        ></View>
+                        <Text style={{ color: "#FFEDCB", marginHorizontal: 10 }}>OU</Text>
+                        <View
+                            style={{
+                                borderBottomColor: "#FFEDCB",
+                                borderBottomWidth: 1,
+                                width: 150,
+                            }}
+                        ></View>
                     </View>
 
+
+                    <ButtonOutline text={"CADASTRE-SE"} />
+
                 </View>
-            </ScrollView >
+            </ScrollView>
 
             <View
                 style={{
