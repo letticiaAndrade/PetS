@@ -1,8 +1,16 @@
 //imports dos componentes nativos
-import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    ScrollView,
+    Dimensions,
+    TouchableOpacity,
+} from "react-native";
 
 // imports dos componentes personalizados
 import ButtonStep from "../components/ButtonStep.js";
+
 // import hooks nativos
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -12,6 +20,7 @@ import pet1 from "../../assets/pet1.png";
 import pet2 from "../../assets/pet2.png";
 import logo from "../../assets/Logo.png";
 import pet3 from "../../assets/pet3.png";
+import group from "../../assets/petsGroup.png";
 
 export const Welcome = () => {
     // criando a constante para pegar a tela inteira do celular e ocupar na screen da visao
@@ -214,42 +223,55 @@ export const Welcome = () => {
                 </View>
 
                 <View style={{ width: sizeScreen }}>
-                    <Text>step4</Text>
                     <View style={{ alignItems: "center", margin: 70 }}>
                         <Image
                             source={logo}
-                            style={{ width: 170, height: 167 }}
+                            style={{ width: 84, height: 82 }}
                             resizeMode="contain"
                         />
                     </View>
-                    <View
-                        style={{
-                            height: 84,
-                            width: sizeScreen,
-                            paddingRight: 20,
-                            paddingTop: 30,
-                            alignItems: "flex-end",
-                            borderWidth: 2,
-                        }}
-                    >
-                        <FontAwesome.Button
-                            name="chevron-right"
-                            color="#B67830"
-                            borderRadius={20}
-                            size={49}
-                            style={{
-                                alignSelf: "center",
-                                backgroundColor: "#FFEDCB",
-
-                                height: 100,
-                                width: 150,
-                            }}
-                            iconStyle={{ marginHorizontal: 45 }}
-                            onPress={() => setStep(4)}
-                        ></FontAwesome.Button>
+                    <View style={{ alignItems: "center" }}>
+                        <Image
+                            style={{ width: 256, height: 210 }}
+                            source={group}
+                            resizeMode="contain"
+                        />
                     </View>
+                    <View>
+                        <Text style={{ color: "#EAEAEA" }}>
+                            Faça o login ou crie uma conta para começar à procurar o seu <Text style={{ color: "#00D5B0" }}>bichinho</Text>!
+                        </Text>
+                    </View>
+
+                    <View style={{ alignItems: "center" }}>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={{
+                                backgroundColor: "#FFEDCB",
+                                width: 348,
+                                height: 48,
+                                elevation: 10,
+                                borderRadius: 10,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <Text style={{ color: "#B67830" }}>ENTRAR</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{ borderBottomColor: "#FFEDCB", borderBottomWidth: 1, width: 150, }}>
+                        </View>
+                        <Text style={{ color: "#FFEDCB", marginHorizontal: 10 }}>
+                            OU
+                        </Text>
+                        <View style={{ borderBottomColor: "#FFEDCB", borderBottomWidth: 1, width: 150 }}>
+
+                        </View>
+                    </View>
+
                 </View>
-            </ScrollView>
+            </ScrollView >
 
             <View
                 style={{
@@ -257,7 +279,6 @@ export const Welcome = () => {
                     position: "absolute",
                     bottom: 65,
                     left: 60,
-
                 }}
             >
                 {["", "", ""].map((item, i) => (
