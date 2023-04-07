@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 export default ButtonOutline = ({ text }) => {
     return (
         <View style={{ alignItems: "center" }}>
-            <TouchableOpacity style={style.button}>
+            <TouchableOpacity activeOpacity={0.6} style={style.button}>
                 <Text style={style.text}>{text}</Text>
             </TouchableOpacity>
         </View>
@@ -12,6 +12,7 @@ export default ButtonOutline = ({ text }) => {
 
 const style = StyleSheet.create({
     button: {
+
         borderWidth: 1,
         width: 348,
         height: 48,
