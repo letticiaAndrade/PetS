@@ -86,7 +86,7 @@ export const Welcome = () => {
                             height: 84,
                             width: sizeScreen,
                             paddingRight: 20,
-                            marginTop: 80,
+                            marginTop: 60,
                             alignItems: "flex-end",
                         }}
                     >
@@ -96,16 +96,17 @@ export const Welcome = () => {
                             borderRadius={20}
                             size={40}
                             style={{
-                                alignSelf: "center",
+                                alignItems: 'center',
                                 backgroundColor: "#FFEDCB",
-                                height: 100,
-                                width: 100,
+                                height: 84,
+                                width: 84,
+
                             }}
-                            iconStyle={{ marginHorizontal: 30 }}
+                            iconStyle={{ marginHorizontal: 18 }}
                             onPress={() => setStep(1)}
                         ></FontAwesome.Button>
                     </View>
-                    <View></View>
+
                 </View>
 
                 <View style={{ width: sizeScreen }}>
@@ -140,7 +141,7 @@ export const Welcome = () => {
                             height: 84,
                             width: sizeScreen,
                             paddingRight: 20,
-                            marginTop: 70,
+                            marginTop: 60,
                             alignItems: "flex-end",
                         }}
                     >
@@ -152,10 +153,10 @@ export const Welcome = () => {
                             style={{
                                 alignSelf: "center",
                                 backgroundColor: "#FFEDCB",
-                                height: 100,
-                                width: 100,
+                                height: 84,
+                                width: 84,
                             }}
-                            iconStyle={{ marginHorizontal: 30 }}
+                            iconStyle={{ marginHorizontal: 18 }}
                             onPress={() => setStep(2)}
                         ></FontAwesome.Button>
                     </View>
@@ -200,7 +201,7 @@ export const Welcome = () => {
                             height: 84,
                             width: sizeScreen,
                             paddingRight: 20,
-                            marginTop: 40,
+                            marginTop: 35,
                             alignItems: "flex-end",
                         }}
                     >
@@ -212,10 +213,10 @@ export const Welcome = () => {
                             style={{
                                 alignSelf: "center",
                                 backgroundColor: "#FFEDCB",
-                                height: 100,
-                                width: 100,
+                                height: 84,
+                                width: 84,
                             }}
-                            iconStyle={{ marginHorizontal: 30 }}
+                            iconStyle={{ marginHorizontal: 18 }}
                             onPress={() => setStep(3)}
                         ></FontAwesome.Button>
                     </View>
@@ -244,8 +245,6 @@ export const Welcome = () => {
                             <Text style={{ color: "#00D5B0" }}>{"\n"}bichinho</Text>!
                         </Text>
                     </View>
-
-
 
                     <View style={{ alignItems: "center" }}>
                         <TouchableOpacity
@@ -298,11 +297,11 @@ export const Welcome = () => {
                 style={{
                     flexDirection: "row",
                     position: "absolute",
-                    bottom: 65,
+                    bottom: 87,
                     left: 60,
                 }}
             >
-                {["", "", ""].map((item, i) => (
+                {["", "", "", ""].map((item, i) => (
                     <View
                         // a key com função de de direcionar o qual step atual
                         key={i}
