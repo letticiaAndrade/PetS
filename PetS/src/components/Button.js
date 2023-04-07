@@ -1,23 +1,18 @@
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 
 export default Button = ({ text }) => {
-
     return (
         <View style={{ alignItems: "center" }}>
             <TouchableOpacity activeOpacity={0.7} style={style.button}>
-                <Text style={style.text}>
-                    {text}
-                </Text>
-
+                <Text style={style.text}>{text}</Text>
             </TouchableOpacity>
 
-            <Text style={{ color: "#B67830" }}>ENTRAR</Text>
+            <Text style={style.text}>ENTRAR</Text>
         </View>
-    )
+    );
 };
 
 const style = StyleSheet.create({
-
     button: {
         backgroundColor: "#B67830",
         width: 348,
@@ -29,7 +24,6 @@ const style = StyleSheet.create({
     },
 
     text: {
-        color: '#FFEDCB',
-    }
-
+        color: "#FFEDCB",
+    },
 });
