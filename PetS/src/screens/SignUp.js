@@ -1,5 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
+
+
 import { useState } from "react";
 
 import Button from "../components/Button.js";
@@ -9,10 +11,13 @@ import { TextInput } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Logo from "../../assets/Logo.png";
+
 import { SignIn } from "./SignIn.js";
 
 export const SignUp = ({ navigation }) => {
     const [text, setText] = useState("");
+
+
 
     return (
         <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
