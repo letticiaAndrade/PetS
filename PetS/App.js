@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { Welcome } from './src/screens/Welcome.js'
-import { SignIn } from './src/screens/SignIn.js';
+import { SignUp } from './src/screens/SignUp.js';
 
 export default function App() {
   return (
     <>
 
-      <SignIn />
+
+      <SignUp />
       <StatusBar style="auto" />
     </>
 
