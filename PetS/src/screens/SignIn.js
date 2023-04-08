@@ -36,7 +36,7 @@ export const SignIn = ({ navigation }) => {
             <View
                 style={{
                     paddingHorizontal: 15,
-                    paddingVertical: 40,
+                    paddingVertical: 10,
                     alignItems: "center",
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -79,7 +79,7 @@ export const SignIn = ({ navigation }) => {
                 </Text>
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
                 <Controller
                     name="email"
                     control={control}
@@ -109,7 +109,7 @@ export const SignIn = ({ navigation }) => {
                 )}
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
                 <Controller
                     name="password"
                     control={control}
