@@ -10,7 +10,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Logo from "../../assets/Logo.png";
 
-export const SignUp = () => {
+export const SignUp = ({ navigation }) => {
     const [text, setText] = useState("");
 
     return (
@@ -32,7 +32,7 @@ export const SignUp = () => {
                         size={54}
                         activeOpacity={1}
                         style={{ width: 60, height: 54 }}
-                        onPress={""}
+                        onPress={() => navigation.goBack()}
                         iconStyle={{ width: 54, height: 54 }}
                     ></Ionicons.Button>
                 </View>
