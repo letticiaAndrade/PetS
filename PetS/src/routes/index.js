@@ -1,12 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthRoutes } from "./stackRoutes";
+import { AuthRoutes, Routes } from "./stackRoutes";
 
 const Stack = createNativeStackNavigator();
-const RootRoutes = () => (
-    <Stack.Navigator initialRouteName={"AuthRoutes"} screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="AuthRoutes" component={AuthRoutes} />
-
-    </Stack.Navigator>
-)
+const RootRoutes = () => {
+    return (
+        <Stack.Navigator initialRouteName={"AuthRoutes"} screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="AuthRoutes" component={AuthRoutes} />
+            <Stack.Screen name="Routes" component={Routes} />
+        </Stack.Navigator>
+    )
+}
 
 export default RootRoutes;
