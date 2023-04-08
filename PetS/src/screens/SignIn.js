@@ -9,10 +9,16 @@ import { TextInput } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Logo from "../../assets/Logo.png";
+
 import { SignUp } from "./SignUp.js";
+
+import { Routes } from "../routes/stackRoutes.js";
 
 export const SignIn = ({ navigation }) => {
     const [text, setText] = useState("");
+    const onSubmit = () => {
+        navigation.navigate(Routes)
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
@@ -79,7 +85,7 @@ export const SignIn = ({ navigation }) => {
                 />
             </View>
             <View style={{ marginVertical: 30 }}>
-                <Button text={"ENTRAR"} />
+                <Button onPress={onSubmit} text={"ENTRAR"} />
             </View>
             <View
                 style={{
