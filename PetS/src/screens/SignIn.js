@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Button from "../components/Button.js";
 
-import { TextInput } from "react-native-paper";
+import { HelperText, TextInput } from "react-native-paper";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -14,11 +14,22 @@ import { SignUp } from "./SignUp.js";
 
 import { Routes } from "../routes/stackRoutes.js";
 
+import { Controller, useForm } from "react-hook-form";
+
 export const SignIn = ({ navigation }) => {
     const [text, setText] = useState("");
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: { email: "", password: "" },
+    });
+
     const onSubmit = () => {
-        navigation.navigate(Routes)
-    }
+        navigation.navigate(Routes);
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
@@ -53,7 +64,14 @@ export const SignIn = ({ navigation }) => {
             </View>
 
             <View style={{ margin: 30 }}>
-                <Text style={{ color: "#342E29", fontWeight: "bold", fontSize: 32, marginBottom: 10 }}>
+                <Text
+                    style={{
+                        color: "#342E29",
+                        fontWeight: "bold",
+                        fontSize: 32,
+                        marginBottom: 10,
+                    }}
+                >
                     Bem vindo de volta!
                 </Text>
                 <Text style={{ color: "#342E29", opacity: 0.6, fontSize: 20 }}>
@@ -62,30 +80,64 @@ export const SignIn = ({ navigation }) => {
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
-                <TextInput
-                    label="Email"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    value={text}
-                    onChangeText={(text) => setText(text)}
-                    left={<TextInput.Icon icon="email" />}
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                        required: "Campo obrigatório.",
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.email)}
+                            label="Email"
+                            mode="outlined"
+                            activeOutlineColor="#342E29"
+                            left={<TextInput.Icon icon="email" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.email) && (
+                    <HelperText
+                        style={{ marginBottom: 5 }}
+                        type="error"
+                        visible={Boolean(errors.email)}
+                    >
+                        {errors.email.message}
+                    </HelperText>
+                )}
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
-                <TextInput
-                    selectionColor="#FFEDCB"
-                    activeOutlineColor="#342E29"
-                    secureTextEntry={true}
-                    label="Senha"
-                    mode="outlined"
-                    textColor="#342E29"
-                    activeUnderlineColor="#FFEDCB"
-                    left={<TextInput.Icon icon="lock" />}
+                <Controller name="password" control={control}
+                    rules={{ required: "Campo obrigatório." }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+
+
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.password)}
+                            selectionColor="#FFEDCB"
+                            activeOutlineColor="#342E29"
+                            secureTextEntry={true}
+                            label="Senha"
+                            mode="outlined"
+                            textColor="#342E29"
+                            activeUnderlineColor="#FFEDCB"
+                            left={<TextInput.Icon icon="lock" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.password) && (
+                    <HelperText type="error" visible={Boolean(errors.password)}>{errors.password.message}</HelperText>
+                )}
             </View>
             <View style={{ marginVertical: 30 }}>
-                <Button onPress={onSubmit} text={"ENTRAR"} />
+                <Button onPress={handleSubmit(onSubmit)} text={"ENTRAR"} />
             </View>
             <View
                 style={{
