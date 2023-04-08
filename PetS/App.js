@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { SignUp } from './src/screens/SignUp.js';
+import { StatusBar } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 
 import Routes from "./src/routes"
