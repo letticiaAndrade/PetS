@@ -1,9 +1,9 @@
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 
-export default Button = ({ text }) => {
+export default Button = ({ text, onPress }) => {
     return (
         <View style={{ alignItems: "center" }}>
-            <TouchableOpacity activeOpacity={0.7} style={style.button}>
+            <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={style.button}>
                 <Text style={style.text}>{text}</Text>
             </TouchableOpacity>
         </View>
