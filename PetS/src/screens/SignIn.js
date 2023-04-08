@@ -101,7 +101,6 @@ export const SignIn = ({ navigation }) => {
                 />
                 {Boolean(errors.email) && (
                     <HelperText
-                        style={{ marginBottom: 5 }}
                         type="error"
                         visible={Boolean(errors.email)}
                     >
@@ -111,11 +110,11 @@ export const SignIn = ({ navigation }) => {
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
-                <Controller name="password" control={control}
+                <Controller
+                    name="password"
+                    control={control}
                     rules={{ required: "Campo obrigatório." }}
                     render={({ field: { onChange, onBlur, value } }) => (
-
-
                         <TextInput
                             value={value}
                             onBlur={onBlur}
@@ -133,10 +132,12 @@ export const SignIn = ({ navigation }) => {
                     )}
                 />
                 {Boolean(errors.password) && (
-                    <HelperText type="error" visible={Boolean(errors.password)}>{errors.password.message}</HelperText>
+                    <HelperText type="error" visible={Boolean(errors.password)}>
+                        {errors.password.message}
+                    </HelperText>
                 )}
             </View>
-            <View style={{ marginVertical: 30 }}>
+            <View style={{ marginVertical: 10 }}>
                 <Button onPress={handleSubmit(onSubmit)} text={"ENTRAR"} />
             </View>
             <View
