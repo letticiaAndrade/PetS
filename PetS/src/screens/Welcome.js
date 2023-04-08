@@ -22,7 +22,11 @@ import logo from "../../assets/Logo.png";
 import pet3 from "../../assets/pet3.png";
 import group from "../../assets/petsGroup.png";
 
-export const Welcome = () => {
+import { SignIn } from "./SignIn.js";
+
+import { SignUp } from "./SignUp.js";
+
+export const Welcome = ({ navigation }) => {
     // criando a constante para pegar a tela inteira do celular e ocupar na screen da visao
     const sizeScreen = Dimensions.get("window").width;
 
@@ -250,6 +254,7 @@ export const Welcome = () => {
                     <View style={{ alignItems: "center" }}>
                         <TouchableOpacity
                             activeOpacity={0.7}
+                            onPress={() => navigation.navigate(SignIn)}
                             style={{
                                 backgroundColor: "#FFEDCB",
                                 width: 348,
@@ -258,6 +263,7 @@ export const Welcome = () => {
                                 borderRadius: 10,
                                 alignItems: "center",
                                 justifyContent: "center",
+
                             }}
                         >
                             <Text style={{ color: "#B67830" }}>ENTRAR</Text>
@@ -289,7 +295,7 @@ export const Welcome = () => {
                     </View>
 
 
-                    <ButtonOutline text={"CADASTRE-SE"} />
+                    <ButtonOutline onPress={() => navigation.navigate(SignUp)} text={"CADASTRE-SE"} />
 
                 </View>
             </ScrollView>
