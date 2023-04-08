@@ -1,13 +1,18 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { useState } from "react";
+
+import Button from "../components/Button.js";
+
 import { TextInput } from "react-native-paper";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Logo from "../../assets/Logo.png";
 
 export const SignIn = () => {
     const [text, setText] = useState("");
+
     return (
         <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
             <View
@@ -40,8 +45,8 @@ export const SignIn = () => {
                 </View>
             </View>
 
-            <View style={{}}>
-                <Text style={{ color: "#342E29", fontWeight: "bold", fontSize: 32 }}>
+            <View style={{ margin: 30 }}>
+                <Text style={{ color: "#342E29", fontWeight: "bold", fontSize: 32, marginBottom: 10 }}>
                     Bem vindo de volta!
                 </Text>
                 <Text style={{ color: "#342E29", opacity: 0.6, fontSize: 20 }}>
@@ -49,18 +54,22 @@ export const SignIn = () => {
                 </Text>
             </View>
 
-            <View>
+            <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
                 <TextInput
                     label="Email"
                     mode="outlined"
+                    activeOutlineColor="#342E29"
                     value={text}
                     onChangeText={(text) => setText(text)}
                     left={<TextInput.Icon icon="email" />}
                 />
             </View>
 
-            <View>
+            <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
                 <TextInput
+                    selectionColor="#FFEDCB"
+                    activeOutlineColor="#342E29"
+                    secureTextEntry={true}
                     label="Senha"
                     mode="outlined"
                     textColor="#342E29"
@@ -68,8 +77,16 @@ export const SignIn = () => {
                     left={<TextInput.Icon icon="lock" />}
                 />
             </View>
-
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ marginVertical: 30 }}>
+                <Button text={"ENTRAR"} />
+            </View>
+            <View
+                style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    marginVertical: 30,
+                }}
+            >
                 <Text style={{ color: "#342E29", fontSize: 20, paddingRight: 10 }}>
                     Não tem uma conta?
                 </Text>
