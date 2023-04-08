@@ -6,8 +6,6 @@ export default Button = ({ text }) => {
             <TouchableOpacity activeOpacity={0.7} style={style.button}>
                 <Text style={style.text}>{text}</Text>
             </TouchableOpacity>
-
-            <Text style={style.text}>ENTRAR</Text>
         </View>
     );
 };
