@@ -9,6 +9,7 @@ import { TextInput } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Logo from "../../assets/Logo.png";
+import { SignUp } from "./SignUp.js";
 
 export const SignIn = ({ navigation }) => {
     const [text, setText] = useState("");
@@ -90,7 +91,7 @@ export const SignIn = ({ navigation }) => {
                 <Text style={{ color: "#342E29", fontSize: 20, paddingRight: 10 }}>
                     Não tem uma conta?
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate(SignUp)}>
                     <Text style={{ color: "#B67830", fontSize: 20, letterSpacing: 1 }}>
                         Registre-se
                     </Text>
