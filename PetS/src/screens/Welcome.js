@@ -50,7 +50,8 @@ export const Welcome = () => {
                 // ativa o scroll horizontal
                 horizontal
                 // faz com que o usuŕaio não passe de tela com o dedo
-                scrollEnabled={true}
+                scrollEnabled={false}
+
                 style={{ flex: 1, backgroundColor: "#B67830" }}
             >
                 <View style={{ width: sizeScreen }}>
