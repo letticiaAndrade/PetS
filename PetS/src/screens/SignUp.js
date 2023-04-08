@@ -1,12 +1,12 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
-
+import { Controller, useForm } from "react-hook-form"
 
 import { useState } from "react";
 
 import Button from "../components/Button.js";
 
-import { TextInput } from "react-native-paper";
+import { HelperText, TextInput } from "react-native-paper";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -16,15 +16,24 @@ import { SignIn } from "./SignIn.js";
 
 export const SignUp = ({ navigation }) => {
     const [text, setText] = useState("");
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: { name: "", phone: "", email: "", password: "" },
+    });
 
-
+    const onSubmit = () => {
+        navigation.navigate(Routes);
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
             <View
                 style={{
                     paddingHorizontal: 15,
-                    paddingVertical: 35,
+                    paddingVertical: 10,
                     alignItems: "center",
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -67,23 +76,62 @@ export const SignUp = ({ navigation }) => {
                 </Text>
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 15 }}>
-                <TextInput
-                    label="NOME COMPLETO"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
+            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+                <Controller
+                    name="name"
+                    control={control}
+                    rules={{
+                        required: "Campo obrigatório.",
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
 
-                    left={<TextInput.Icon icon="account" />}
+
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.name)}
+                            label="NOME COMPLETO"
+                            mode="outlined"
+                            activeOutlineColor="#342E29"
+                            left={<TextInput.Icon icon="account" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.name) && (
+                    <HelperText type="error" visible={Boolean(errors.name)}>{errors.name.message}</HelperText>
+                )}
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-                <TextInput
-                    label="TELEFONE"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="phone" />}
+                <Controller
+                    name="phone"
+                    control={control}
+                    rules={{
+                        required: "Campo obrigatório",
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.phone)}
+                            label="TELEFONE"
+                            mode="outlined"
+                            activeOutlineColor="#342E29"
+                            left={<TextInput.Icon icon="phone" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.phone) && (
+                    <HelperText
+
+                        type="error"
+                        visible={Boolean(errors.phone)}
+                    >
+                        {errors.phone.message}
+                    </HelperText>
+                )}
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
                 <TextInput
@@ -108,8 +156,8 @@ export const SignUp = ({ navigation }) => {
                     left={<TextInput.Icon icon="lock" />}
                 />
             </View>
-            <View style={{ marginVertical: 30 }}>
-                <Button text={"CADASTRAR"} />
+            <View style={{ marginVertical: 10 }}>
+                <Button onPress={handleSubmit(onSubmit)} text={"CADASTRAR"} />
             </View>
             <View
                 style={{
