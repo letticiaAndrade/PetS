@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
-export default ButtonOutline = ({ text, onPress = null }) => {
+export default ButtonOutline = ({ text, onPress }) => {
     return (
         <View style={{ alignItems: "center" }}>
             <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={style.button}>
