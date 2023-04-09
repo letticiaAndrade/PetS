@@ -13,6 +13,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Logo from "../../assets/Logo.png";
 
 import { SignIn } from "./SignIn.js";
+import { Routes } from "../routes/stackRoutes.js";
 
 export const SignUp = ({ navigation }) => {
     const [text, setText] = useState("");
