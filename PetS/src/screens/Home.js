@@ -1,12 +1,13 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 
 import Logo from "../../assets/Logo.png";
+import { Avatar } from "react-native-paper";
+import CardAnimal from "../components/CardAnimal";
 
-import ButtonOutline from "../components/ButtonOutline";
 export const Home = () => {
     const pets = [
         {
-            id: 1,
+            _id: 1,
             image:
                 "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
             name: "Lucca",
@@ -14,7 +15,7 @@ export const Home = () => {
         },
 
         {
-            id: 2,
+            _id: 2,
             image:
                 "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
             name: "Lucca",
@@ -22,7 +23,7 @@ export const Home = () => {
         },
 
         {
-            id: 3,
+            _id: 3,
             image:
                 "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80",
             name: "Lucca",
@@ -30,7 +31,7 @@ export const Home = () => {
         },
 
         {
-            id: 4,
+            _id: 4,
             image:
                 "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
             name: "Lucca",
@@ -38,7 +39,7 @@ export const Home = () => {
         },
 
         {
-            id: 5,
+            _id: 5,
             image:
                 "https://images.unsplash.com/photo-1615497001839-b0a0eac3274c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
             name: "Lucca",
@@ -63,17 +64,8 @@ export const Home = () => {
                     />
                 </View>
                 <View>
-                    <TouchableOpacity
-                        style={{
-                            width: 54,
-                            height: 54,
-                            backgroundColor: "#FFCB14",
-                            borderRadius: 30,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Text style={{ color: "#342E29" }}>LM</Text>
+                    <TouchableOpacity>
+                        <Avatar.Text size={54} label="LM" labelStyle={{ color: '#342E29' }} style={{ backgroundColor: '#FFCB14' }} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -88,7 +80,7 @@ export const Home = () => {
                 }}
             >
                 <View>
-                    <Text>Animais Perdidos:</Text>
+                    <Text style={style.text}>Animais Perdidos:</Text>
                 </View>
                 <View style={{}}>
                     <TouchableOpacity
@@ -99,11 +91,29 @@ export const Home = () => {
                             borderRadius: 6,
                             alignItems: "center",
                         }}
+
                     >
-                        <Text>VER MAIS</Text>
+
+                        <Text style={style.text}>VER MAIS</Text>
                     </TouchableOpacity>
                 </View>
+            </View>
+
+            <View>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {pets.map((item) => (
+                        <View>
+                            <CardAnimal item={item} />
+                        </View>
+                    ))}
+                </ScrollView>
             </View>
         </View>
     );
 };
+
+const style = StyleSheet.create({
+    text: {
+        color: "#342E29",
+    },
+});
