@@ -1,10 +1,20 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
+    ScrollView,
+} from "react-native";
 
 import Logo from "../../assets/Logo.png";
 import { Avatar } from "react-native-paper";
 import CardAnimal from "../components/CardAnimal";
+import { LostPets } from "./LostPets";
+import { Profile } from "./Profile";
+import { ListNav } from "../components/ListNav";
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
     const pets = [
         {
             _id: 1,
@@ -64,8 +74,16 @@ export const Home = () => {
                     />
                 </View>
                 <View>
-                    <TouchableOpacity>
-                        <Avatar.Text size={54} label="LM" labelStyle={{ color: '#342E29' }} style={{ backgroundColor: '#FFCB14' }} />
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={() => navigation.navigate(Profile)}
+                    >
+                        <Avatar.Text
+                            size={54}
+                            label="LM"
+                            labelStyle={{ color: "#342E29" }}
+                            style={{ backgroundColor: "#FFCB14" }}
+                        />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -80,7 +98,9 @@ export const Home = () => {
                 }}
             >
                 <View>
-                    <Text style={style.text}>Animais Perdidos:</Text>
+                    <Text style={[style.text, { fontWeight: "bold" }]}>
+                        Animais Perdidos:
+                    </Text>
                 </View>
                 <View style={{}}>
                     <TouchableOpacity
@@ -91,9 +111,9 @@ export const Home = () => {
                             borderRadius: 6,
                             alignItems: "center",
                         }}
-
+                        onPress={() => navigation.navigate(LostPets)}
+                        activeOpacity={0.5}
                     >
-
                         <Text style={style.text}>VER MAIS</Text>
                     </TouchableOpacity>
                 </View>
@@ -108,6 +128,14 @@ export const Home = () => {
                     ))}
                 </ScrollView>
             </View>
+
+            <View style={{ marginVertical: 30, marginHorizontal: 15 }}>
+                <Text style={[style.text, { fontWeight: "bold" }]}>
+                    Navegue pelas categorias:
+                </Text>
+            </View>
+
+            <ListNav />
         </View>
     );
 };
@@ -115,5 +143,6 @@ export const Home = () => {
 const style = StyleSheet.create({
     text: {
         color: "#342E29",
+        fontSize: 16,
     },
 });
