@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { SignUp, SignIn, Welcome, Profile, Home } from "../screens";
+import { SignUp, SignIn, Welcome, Profile, Home, LostPets } from "../screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +14,7 @@ export const AuthRoutes = () => {
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
         </Stack.Navigator>
-    )
+    );
 };
 
 export const Routes = () => {
@@ -25,7 +25,7 @@ export const Routes = () => {
         >
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="LostPets" component={LostPets} />
         </Stack.Navigator>
-    )
+    );
 };
-
