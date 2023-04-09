@@ -15,6 +15,7 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
     "react-native": "0.71.6",
     "react-native-paper": "^5.6.0",
     "react-native-safe-area-context": "4.5.0",
