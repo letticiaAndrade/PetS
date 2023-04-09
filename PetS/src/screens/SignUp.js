@@ -134,27 +134,62 @@ export const SignUp = ({ navigation }) => {
                 )}
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-                <TextInput
-                    label="EMAIL"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    value={text}
-                    onChangeText={(text) => setText(text)}
-                    left={<TextInput.Icon icon="email" />}
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                        required: "Campo obrigatório.",
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.email)}
+                            label="EMAIL"
+                            mode="outlined"
+                            activeOutlineColor="#342E29"
+                            left={<TextInput.Icon icon="email" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.email) && (
+                    <HelperText
+                        type="error"
+                        visible={Boolean(errors.email)}
+                    >
+                        {errors.email.message}
+                    </HelperText>
+                )}
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-                <TextInput
-                    selectionColor="#FFEDCB"
-                    activeOutlineColor="#342E29"
-                    secureTextEntry={true}
-                    label="SENHA"
-                    mode="outlined"
-                    textColor="#342E29"
-                    activeUnderlineColor="#FFEDCB"
-                    left={<TextInput.Icon icon="lock" />}
+                <Controller
+                    name="password"
+                    control={control}
+                    rules={{ required: "Campo obrigatório." }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            error={Boolean(errors.password)}
+                            selectionColor="#FFEDCB"
+                            activeOutlineColor="#342E29"
+                            secureTextEntry={true}
+                            label="SENHA"
+                            mode="outlined"
+                            textColor="#342E29"
+                            activeUnderlineColor="#FFEDCB"
+                            left={<TextInput.Icon icon="lock" />}
+                        />
+                    )}
                 />
+                {Boolean(errors.password) && (
+                    <HelperText type="error" visible={Boolean(errors.password)}>
+                        {errors.password.message}
+                    </HelperText>
+                )}
             </View>
             <View style={{ marginVertical: 10 }}>
                 <Button onPress={handleSubmit(onSubmit)} text={"CADASTRAR"} />
