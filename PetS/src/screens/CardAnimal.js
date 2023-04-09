@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 export const CardAnimal = () => {
     return (
         <View>
-            <Text></Text>
+            <Text>Card animal visitante</Text>
         </View>
     )
 }

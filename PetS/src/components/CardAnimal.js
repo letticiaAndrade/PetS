@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 export default CardAnimal = ({ item }) => {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8}>
             <Card.Content>
                 <View style={{}}>
                     <Card.Cover
@@ -19,11 +19,11 @@ export default CardAnimal = ({ item }) => {
                                 height: 70,
                                 backgroundColor: "#342E29",
                                 opacity: 0.7,
-                                position: 'absolute',
+                                position: "absolute",
                                 alignItems: "baseline",
                                 padding: 5,
                                 borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20
+                                borderBottomRightRadius: 20,
                             }}
                         >
                             <Text style={{ color: "#EAEAEA" }}>{item?.name}</Text>

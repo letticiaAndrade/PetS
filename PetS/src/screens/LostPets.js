@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 export const LostPets = () => {
     return (
         <View>
-            <Text></Text>
+            <Text>Animais perdidos</Text>
         </View>
     )
 }

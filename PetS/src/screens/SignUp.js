@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form";
 
 import { useState } from "react";
 
@@ -50,6 +50,8 @@ export const SignUp = ({ navigation }) => {
                         style={{ width: 60, height: 54 }}
                         onPress={() => navigation.goBack()}
                         iconStyle={{ width: 54, height: 54 }}
+
+
                     ></Ionicons.Button>
                 </View>
                 <View style={{}}>
@@ -85,8 +87,6 @@ export const SignUp = ({ navigation }) => {
                         required: "Campo obrigatório.",
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
-
-
                         <TextInput
                             value={value}
                             onBlur={onBlur}
@@ -100,7 +100,9 @@ export const SignUp = ({ navigation }) => {
                     )}
                 />
                 {Boolean(errors.name) && (
-                    <HelperText type="error" visible={Boolean(errors.name)}>{errors.name.message}</HelperText>
+                    <HelperText type="error" visible={Boolean(errors.name)}>
+                        {errors.name.message}
+                    </HelperText>
                 )}
             </View>
 
@@ -125,11 +127,7 @@ export const SignUp = ({ navigation }) => {
                     )}
                 />
                 {Boolean(errors.phone) && (
-                    <HelperText
-
-                        type="error"
-                        visible={Boolean(errors.phone)}
-                    >
+                    <HelperText type="error" visible={Boolean(errors.phone)}>
                         {errors.phone.message}
                     </HelperText>
                 )}
@@ -155,10 +153,7 @@ export const SignUp = ({ navigation }) => {
                     )}
                 />
                 {Boolean(errors.email) && (
-                    <HelperText
-                        type="error"
-                        visible={Boolean(errors.email)}
-                    >
+                    <HelperText type="error" visible={Boolean(errors.email)}>
                         {errors.email.message}
                     </HelperText>
                 )}
