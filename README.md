@@ -23,4 +23,7 @@ Para solucionar esses problemas, surge o aplicativo móvel PetS. Dentro dele é 
 Tornando o acesso fácil para os pets com os possíveis tutores.
 </li>
 </ul>
+<hr>
+<h3>Protótipo com o Figma</h3>
+
 
