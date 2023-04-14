@@ -3,7 +3,7 @@
 
 
 <h3>Projeto para dispositivos móveis:</h3>
-<h3>Problema</h3>
+<h3>Contexto do problema</h3>
 <hr>
 <ul>
 <li>O projeto foi pensado para resolver o problema de aumentar o número de pets adotados e diminuir o número  de pets na rua ou perdidos;</li>
