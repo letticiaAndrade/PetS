@@ -1,24 +1,31 @@
+// imports dos componentes nativos
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { useState } from "react";
 
+// imports de componentes personalizados
 import Button from "../components/Button.js";
 
+// imports do react native paper
 import { HelperText, TextInput } from "react-native-paper";
 
+// import dos icones
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+// import das imagens
 import Logo from "../../assets/Logo.png";
 
+// import de outros arquivos para rotas
 import { SignUp } from "./SignUp.js";
-
 import { Routes } from "../routes/stackRoutes.js";
 
+// import do hook form
 import { Controller, useForm } from "react-hook-form";
 
 export const SignIn = ({ navigation }) => {
     const [text, setText] = useState("");
 
+    // todas as constantes usadas do hook form e os valores 
     const {
         control,
         handleSubmit,
@@ -27,6 +34,7 @@ export const SignIn = ({ navigation }) => {
         defaultValues: { email: "", password: "" },
     });
 
+    // função para o envio do form no banco de dados
     const onSubmit = () => {
         navigation.navigate(Routes);
     };

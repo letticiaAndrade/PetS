@@ -3,6 +3,8 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
+
+// exportando a lista de categorias
 export const ListNav = () => {
     const listCategory = [
         {

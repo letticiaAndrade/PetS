@@ -22,8 +22,8 @@ import logo from "../../assets/Logo.png";
 import pet3 from "../../assets/pet3.png";
 import group from "../../assets/petsGroup.png";
 
+// imports dos arquivos para direcionar as rotas
 import { SignIn } from "./SignIn.js";
-
 import { SignUp } from "./SignUp.js";
 
 export const Welcome = ({ navigation }) => {

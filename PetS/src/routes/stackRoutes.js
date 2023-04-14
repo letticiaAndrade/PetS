@@ -4,6 +4,7 @@ import { SignUp, SignIn, Welcome, Profile, Home, LostPets } from "../screens";
 
 const Stack = createNativeStackNavigator();
 
+// exportando a rota de autenticação
 export const AuthRoutes = () => {
     return (
         <Stack.Navigator
@@ -16,7 +17,7 @@ export const AuthRoutes = () => {
         </Stack.Navigator>
     );
 };
-
+// exportando outra rota
 export const Routes = () => {
     return (
         <Stack.Navigator
