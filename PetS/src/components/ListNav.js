@@ -41,16 +41,52 @@ export const ListNav = () => {
     return (
         <View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View>
-                    <TouchableOpacity>
-                        <Card.Content>
-                            <FontAwesome5.Button onPress={""} name="dog">
 
-                            </FontAwesome5.Button>
-                        </Card.Content>
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="dog" size={40} />
+                        </View>
                         <Card.Title title="Cães" />
                     </TouchableOpacity>
                 </View>
+
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="cat" size={40} />
+                        </View>
+                        <Card.Title title="Gatos" />
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="dog" size={40} />
+                        </View>
+                        <Card.Title title="Cães" />
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="dog" size={40} />
+                        </View>
+                        <Card.Title title="Cães" />
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="dog" size={40} />
+                        </View>
+                        <Card.Title title="Cães" />
+                    </TouchableOpacity>
+                </View>
+
             </ScrollView>
         </View>
     );
