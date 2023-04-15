@@ -40,7 +40,7 @@ export const ListNav = () => {
     ];
     return (
         <View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <ScrollView horizontal style={{}} showsHorizontalScrollIndicator={false}>
 
                 <View>
                     <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
@@ -65,7 +65,7 @@ export const ListNav = () => {
                         <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
                             <FontAwesome5 name="dog" size={40} />
                         </View>
-                        <Card.Title title="Cães" />
+                        <Card.Title title="Coelhos" />
                     </TouchableOpacity>
                 </View>
 
@@ -74,7 +74,7 @@ export const ListNav = () => {
                         <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
                             <FontAwesome5 name="dog" size={40} />
                         </View>
-                        <Card.Title title="Cães" />
+                        <Card.Title title="Aves" />
                     </TouchableOpacity>
                 </View>
 
@@ -83,7 +83,16 @@ export const ListNav = () => {
                         <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
                             <FontAwesome5 name="dog" size={40} />
                         </View>
-                        <Card.Title title="Cães" />
+                        <Card.Title title="Reptéis" />
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
+                        <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
+                            <FontAwesome5 name="dog" size={40} />
+                        </View>
+                        <Card.Title title="Peixes" />
                     </TouchableOpacity>
                 </View>
 
