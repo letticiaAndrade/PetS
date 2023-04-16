@@ -1,13 +1,23 @@
-import { View, Text } from "react-native";
+// imports dos componentes nativos
+import { View, Text, TouchableOpacity } from "react-native";
+
+// imports dos componentes do paper
+import { Avatar } from "react-native-paper";
+
+// imports dos icones 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { TouchableOpacity } from "react-native";
 
+// imports das telas de navegação
 import { MyPosts } from "../screens/MyPosts.js";
 import { MyLostPets } from "./MyLostPets.js";
+import { EditProfile } from "./EditProfile.js";
+
 export const Profile = ({ navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: '#FFEDCB' }}>
+
+
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
                 <Ionicons.Button
                     name="arrow-back-circle"
@@ -22,8 +32,26 @@ export const Profile = ({ navigation }) => {
 
                 <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 110 }}>MEU PERFIL</Text>
             </View>
-            <View>
 
+            <View style={{}}>
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => navigation.navigate(EditProfile)}
+                    style={{ marginBottom: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}
+                >
+                    <Avatar.Text
+                        size={109}
+                        label="LM"
+                        labelStyle={{ color: "#342E29" }}
+                        style={{ backgroundColor: "#FFCB14" }}
+                    />
+                    <View style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 18 }}>Leticia</Text>
+                        <Text>(79)9 9999-9999</Text>
+                    </View>
+
+                    <FontAwesome name="edit" size={24} color={"#B67830"} />
+                </TouchableOpacity>
             </View>
             <View>
                 <Text style={{ paddingHorizontal: 20, opacity: 0.7, color: "#342E29", fontSize: 16 }}>Conta</Text>
