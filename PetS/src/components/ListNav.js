@@ -90,7 +90,7 @@ export const ListNav = () => {
                 <View>
                     <TouchableOpacity onPress={""} style={{ alignItems: 'center' }}>
                         <View style={{ borderWidth: 1, padding: 10, borderRadius: 8 }}>
-                            <FontAwesome5 name="dog" size={40} />
+                            <FontAwesome5 name="fish" size={40} />
                         </View>
                         <Card.Title title="Peixes" />
                     </TouchableOpacity>
