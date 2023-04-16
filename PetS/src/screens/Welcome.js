@@ -313,7 +313,7 @@ export const Welcome = ({ navigation }) => {
                         // a key com função de de direcionar o qual step atual
                         key={i}
                         style={{
-                            backgroundColor: i === step ? "#00D5B0" : "gray",
+                            backgroundColor: i === step ? "#FFEDCB" : "gray",
                             height: 15,
                             // condição para mudar os dimensões do progress button quando selecionado o step
                             width: i === step ? 30 : 15,
