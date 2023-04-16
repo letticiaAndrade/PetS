@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
 
+import Button from "../components/Button.js"
 import { Controller, useForm } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
 export const EditProfile = ({ navigation }) => {
@@ -69,8 +70,10 @@ export const EditProfile = ({ navigation }) => {
                 />
             </View>
 
+            <View style={{ marginTop: 50 }}>
 
-
+                <Button text={"SALVAR ALTERAÇÕES"} onPress={""} />
+            </View>
         </View >
     )
 };
