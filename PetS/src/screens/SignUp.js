@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import { Controller, useForm } from "react-hook-form";
 
@@ -30,7 +30,7 @@ export const SignUp = ({ navigation }) => {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
+        <View style={style.content}>
             <View
                 style={{
                     paddingHorizontal: 15,
@@ -209,3 +209,10 @@ export const SignUp = ({ navigation }) => {
         </View>
     );
 };
+
+const style = StyleSheet.create({
+    content: {
+        flex: 1,
+        backgroundColor: '#FFEDCB'
+    }
+})

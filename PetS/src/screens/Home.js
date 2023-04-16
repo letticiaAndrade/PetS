@@ -57,7 +57,7 @@ export const Home = ({ navigation }) => {
         },
     ];
     return (
-        <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
+        <View style={style.content}>
             <View
                 style={{
                     flexDirection: "row",
@@ -141,6 +141,11 @@ export const Home = ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
+    content: {
+        flex: 1,
+        backgroundColor: '#FFEDCB'
+    },
+
     text: {
         color: "#342E29",
         fontSize: 16,

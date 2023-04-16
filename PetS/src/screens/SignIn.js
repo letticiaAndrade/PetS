@@ -1,5 +1,5 @@
 // imports dos componentes nativos
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import { useState } from "react";
 
@@ -40,7 +40,7 @@ export const SignIn = ({ navigation }) => {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#FFEDCB" }}>
+        <View style={style.content}>
             <View
                 style={{
                     paddingHorizontal: 15,
@@ -167,3 +167,10 @@ export const SignIn = ({ navigation }) => {
         </View>
     );
 };
+
+const style = StyleSheet.create({
+    content: {
+        flex: 1,
+        backgroundColor: '#FFEDCB'
+    }
+})
