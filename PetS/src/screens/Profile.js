@@ -1,5 +1,5 @@
 // imports dos componentes nativos
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 // imports dos componentes do paper
 import { Avatar } from "react-native-paper";
@@ -15,9 +15,7 @@ import { EditProfile } from "./EditProfile.js";
 
 export const Profile = ({ navigation }) => {
     return (
-        <View style={{ flex: 1, backgroundColor: '#FFEDCB' }}>
-
-
+        <View style={style.content}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
                 <Ionicons.Button
                     name="arrow-back-circle"
@@ -78,3 +76,10 @@ export const Profile = ({ navigation }) => {
         </View>
     );
 };
+
+const style = StyleSheet.create({
+    content: {
+        flex: 1,
+        backgroundColor: '#FFEDCB'
+    }
+})
