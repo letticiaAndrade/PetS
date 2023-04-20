@@ -30,9 +30,7 @@ Tornando o acesso fácil para os pets com os possíveis tutores.
 </ul>
 <h3>Instalação</h3>
 <p>Instalando dependências para poder testar o app:</p>
-```js
-    npm install
-```
+
 
 
 
