@@ -2,7 +2,7 @@
 <h1>Projeto Mobile - PetS</h1>
 
 
-<h3>Projeto para dispositivos móveis:</h3>
+<h3>Projeto para a matéria de dispositivos móveis do IFS:</h3>
 <h3>Contexto do problema</h3>
 <hr>
 <ul>
