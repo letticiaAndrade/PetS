@@ -1,9 +1,10 @@
 
 <h1>Projeto Mobile - PetS</h1>
 
+### Projeto para a matéria de dispositivos móveis do IFS:
 
-<h3>Projeto para a matéria de dispositivos móveis do IFS:</h3>
-<h3>Contexto do problema</h3>
+### Contexto do problema
+
 <hr>
 <ul>
 <li>O projeto foi pensado para resolver o problema de aumentar o número de pets adotados e diminuir o número  de pets na rua ou perdidos;</li>
@@ -12,7 +13,9 @@ Dentro do IFS, existem animais como gatos e cachorros sem dono. Eles não recebe
 </li>
 
 </ul>
-<h3>Solução</h3>
+
+### Solução
+
 <hr>
 <ul>
 
@@ -24,11 +27,16 @@ Tornando o acesso fácil para os pets com os possíveis tutores e consequentemen
 </li>
 </ul>
 <hr>
-<h3>Protótipo com o Figma</h3>
+
+### Protótipo com o Figma
+
 <ul>
 <li><a href="https://www.figma.com/file/uNbhdh7ef9KAJlbkYLA3Xq/Projeto-Mobile---PetS?node-id=0%3A1&t=InWp8DWJfsB3TUMW-1">PROTÓTIPO FIGMA - PetS</a></li>
 </ul>
-<h3>Instalação</h3>
+
+<hr>
+
+### Instalação
 <p>Instalando dependências para poder testar o app:</p>
 
 ```
