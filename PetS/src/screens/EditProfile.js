@@ -41,7 +41,7 @@ export const EditProfile = ({ navigation }) => {
                     label="NOME COMPLETO"
                     mode="outlined"
                     activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="email" />}
+                    left={<TextInput.Icon icon="user" />}
                 />
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
@@ -54,7 +54,7 @@ export const EditProfile = ({ navigation }) => {
                     label="TELEFONE"
                     mode="outlined"
                     activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="email" />}
+                    left={<TextInput.Icon icon="phone" />}
                 />
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
