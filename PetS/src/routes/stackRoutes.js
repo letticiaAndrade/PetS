@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { SignUp, SignIn, Welcome, Profile, Home, LostPets, MyPosts, MyLostPets, EditProfile } from "../screens";
+import { SignUp, SignIn, Welcome, Profile, Home, LostPets, MyPosts, MyLostPets, EditProfile, PostPet, PostLostPet } from "../screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +27,8 @@ export const Routes = () => {
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="LostPets" component={LostPets} />
+            <Stack.Screen name="PostPet" component={PostPet} />
+            <Stack.Screen name="PostLostPet" component={PostLostPet} />
             <Stack.Screen name="MyPosts" component={MyPosts} />
             <Stack.Screen name="MyLostPets" component={MyLostPets} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
