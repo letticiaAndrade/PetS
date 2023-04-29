@@ -1,3 +1,4 @@
+// imports dos componentes nativos
 import {
     View,
     Text,
@@ -6,15 +7,32 @@ import {
     StyleSheet,
     ScrollView,
     SafeAreaView,
+    Pressable,
 } from "react-native";
 
+// imports das imagens
 import Logo from "../../assets/Logo.png";
-import { Avatar } from "react-native-paper";
+// imports dos componentes personalizados
 import CardAnimal from "../components/CardAnimal";
-import { LostPets } from "./LostPets";
-import { Profile } from "./Profile";
+
+// imports dos componentes do react native paper
+import { Avatar, Modal } from "react-native-paper";
 import { ListNav } from "../components/ListNav";
 
+// imports das telas
+import { LostPets } from "./LostPets";
+import { Profile } from "./Profile";
+import { PostPet } from "./PostPet";
+import { PostLostPet } from "./PostLostPet";
+
+// imports dos icones
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
+
+// imports do react 
+import { useState } from "react";
+
+// export da tela
 export const Home = ({ navigation }) => {
     const pets = [
         {
@@ -57,9 +75,12 @@ export const Home = ({ navigation }) => {
             gender: "M",
         },
     ];
+
+    const [visible, setVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <SafeAreaView style={style.content}>
-
             <View
                 style={{
                     flexDirection: "row",
@@ -138,14 +159,85 @@ export const Home = ({ navigation }) => {
             </View>
 
             <ListNav />
-        </SafeAreaView>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onDismiss={() => setModalVisible(false)}
+                style={{ alignItems: 'flex-end' }}
+                dismissable={true}
+            >
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate(PostLostPet);
+                        setModalVisible(false);
+                    }}
+                    style={{
+                        alignSelf: 'flex-end',
+                        flexDirection: "row",
+                        backgroundColor: "#FFCB14",
+                        marginTop: 300,
+                        marginVertical: 10,
+                        borderWidth: 2,
+                        borderColor: "#B67830",
+                        borderRadius: 8,
+                        padding: 5,
+
+                    }}
+                >
+                    <Feather name="github" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
+                    <Text style={{ marginRight: 10, color: '#342E29' }}>PUBLICAR PET PERDIDO</Text>
+                </Pressable>
+
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate(PostPet);
+                        setModalVisible(false);
+                    }}
+                    style={{
+                        flexDirection: "row",
+                        backgroundColor: "#FFCB14",
+                        marginVertical: 10,
+                        borderWidth: 2,
+                        borderColor: "#B67830",
+                        borderRadius: 8,
+                        padding: 5,
+
+                    }}
+                >
+                    <Feather name="github" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
+                    <Text style={{ color: '#342E29' }}>PUBLICAR PET PARA ADOÇÃO</Text>
+                </Pressable>
+            </Modal>
+
+            <View style={{ position: 'absolute', top: 600, left: 300 }}>
+                <TouchableOpacity
+                    onPress={() => setModalVisible(true)}
+                    activeOpacity={1}
+
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#FFCB14",
+                        borderWidth: 2,
+                        borderColor: "#B67830",
+                        width: 90,
+                        height: 90,
+                        borderRadius: 70,
+                    }}
+                >
+                    <AntDesign name="plus" size={60} color={"#342E29"} />
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView >
     );
 };
 
 const style = StyleSheet.create({
     content: {
         flex: 1,
-        backgroundColor: '#FFEDCB'
+        backgroundColor: "#FFEDCB",
     },
 
     text: {
