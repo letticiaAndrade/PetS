@@ -95,7 +95,7 @@ export const SignUp = ({ navigation }) => {
                             label="NOME COMPLETO"
                             mode="outlined"
                             activeOutlineColor="#342E29"
-                            left={<TextInput.Icon icon="account" />}
+                            left={<TextInput.Icon icon="account-outline" />}
                         />
                     )}
                 />
@@ -122,7 +122,7 @@ export const SignUp = ({ navigation }) => {
                             label="TELEFONE"
                             mode="outlined"
                             activeOutlineColor="#342E29"
-                            left={<TextInput.Icon icon="phone" />}
+                            left={<TextInput.Icon icon="phone-outline" />}
                         />
                     )}
                 />
@@ -148,7 +148,7 @@ export const SignUp = ({ navigation }) => {
                             label="EMAIL"
                             mode="outlined"
                             activeOutlineColor="#342E29"
-                            left={<TextInput.Icon icon="email" />}
+                            left={<TextInput.Icon icon="email-outline" />}
                         />
                     )}
                 />
@@ -177,7 +177,7 @@ export const SignUp = ({ navigation }) => {
                             mode="outlined"
                             textColor="#342E29"
                             activeUnderlineColor="#FFEDCB"
-                            left={<TextInput.Icon icon="lock" />}
+                            left={<TextInput.Icon icon="lock-outline" />}
                         />
                     )}
                 />
