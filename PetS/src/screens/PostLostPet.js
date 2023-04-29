@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
-export const PostPet = ({ navigation }) => {
+import Ionicons from "@expo/vector-icons/Ionicons";
+export const PostLostPet = ({ navigation }) => {
     return (
         <SafeAreaView style={style.content}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
@@ -16,7 +16,7 @@ export const PostPet = ({ navigation }) => {
                     iconStyle={{ width: 54, height: 54 }}
                 ></Ionicons.Button>
 
-                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 75, textAlign: 'center' }}>POSTAR PET PARA ADOÇÃO</Text>
+                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 75, textAlign: 'center' }}>POSTAR PET PERDIDO</Text>
             </View>
         </SafeAreaView>
     )
