@@ -16,7 +16,7 @@ import Logo from "../../assets/Logo.png";
 import CardAnimal from "../components/CardAnimal";
 
 // imports dos componentes do react native paper
-import { Avatar, Modal } from "react-native-paper";
+import { Avatar, FAB, Modal, Portal } from "react-native-paper";
 import { ListNav } from "../components/ListNav";
 
 // imports das telas
@@ -75,12 +75,17 @@ export const Home = ({ navigation }) => {
             gender: "M",
         },
     ];
+    const [state, setState] = useState({ open: false });
 
+    const onStateChange = ({ open }) => setState({ open });
+
+    const { open } = state;
     const [visible, setVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <SafeAreaView style={style.content}>
+
             <View
                 style={{
                     flexDirection: "row",
@@ -160,7 +165,7 @@ export const Home = ({ navigation }) => {
 
             <ListNav />
 
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
@@ -209,9 +214,9 @@ export const Home = ({ navigation }) => {
                     <Feather name="github" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
                     <Text style={{ color: '#342E29' }}>PUBLICAR PET PARA ADOÇÃO</Text>
                 </Pressable>
-            </Modal>
+            </Modal> */}
 
-            <View style={{ position: 'absolute', top: 600, left: 300 }}>
+            {/* <View style={{ position: 'absolute', top: 600, left: 300 }}>
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
                     activeOpacity={1}
@@ -229,7 +234,42 @@ export const Home = ({ navigation }) => {
                 >
                     <AntDesign name="plus" size={60} color={"#342E29"} />
                 </TouchableOpacity>
-            </View>
+            </View> */}
+
+            <FAB.Group
+                open={open}
+                visible
+                variant='tertiary'
+                fabStyle={{ backgroundColor: '#FFCB14' }}
+                style={{}}
+                color="#342E29"
+
+                icon={open ? 'chevron-up' : 'plus'}
+                actions={[
+                    {
+                        icon: 'github',
+                        style: { borderWidth: 1, backgroundColor: '#FFCB14', borderColor: '#B67830' },
+                        labelStyle: { color: '#342E29' },
+                        containerStyle: { backgroundColor: '#FFCB14', borderWidth: 2, borderColor: "#B67830" },
+                        label: 'PUBLICAR PET PERDIDO',
+                        onPress: () => navigation.navigate("PostLostPet"),
+                    },
+                    {
+                        icon: 'github',
+                        style: { borderWidth: 1, backgroundColor: '#FFCB14', borderColor: '#B67830' },
+                        labelStyle: { color: '#342E29' },
+                        containerStyle: { backgroundColor: '#FFCB14', borderWidth: 2, borderColor: "#B67830" },
+                        label: 'PUBLICAR PET PARA ADOÇÃO',
+                        onPress: () => navigation.navigate("PostPet"),
+                    }
+                ]}
+                onStateChange={onStateChange}
+                onPress={() => {
+                    if (open) {
+                        // do something if the speed dial is open
+                    }
+                }}
+            />
         </SafeAreaView >
     );
 };
