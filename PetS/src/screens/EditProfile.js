@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
 
 import Button from "../components/Button.js"
@@ -6,7 +6,9 @@ import { Controller, useForm } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
 export const EditProfile = ({ navigation }) => {
     return (
-        <View style={style.content}>
+
+
+        <SafeAreaView style={style.content}>
 
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
                 <Ionicons.Button
@@ -74,7 +76,8 @@ export const EditProfile = ({ navigation }) => {
 
                 <Button text={"SALVAR ALTERAÇÕES"} onPress={""} />
             </View>
-        </View >
+
+        </SafeAreaView>
     )
 };
 

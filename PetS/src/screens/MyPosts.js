@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const MyPosts = ({ navigation }) => {
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
                 <Ionicons.Button
                     name="arrow-back-circle"
@@ -18,7 +18,7 @@ export const MyPosts = ({ navigation }) => {
 
                 <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 75, textAlign: 'center' }}>MINHAS PUBLICAÇÕES</Text>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

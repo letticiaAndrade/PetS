@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
+    SafeAreaView,
 } from "react-native";
 
 import Logo from "../../assets/Logo.png";
@@ -57,7 +58,8 @@ export const Home = ({ navigation }) => {
         },
     ];
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
+
             <View
                 style={{
                     flexDirection: "row",
@@ -136,7 +138,7 @@ export const Home = ({ navigation }) => {
             </View>
 
             <ListNav />
-        </View>
+        </SafeAreaView>
     );
 };
 

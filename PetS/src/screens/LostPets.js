@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
-
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 export const LostPets = () => {
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <Text>Animais perdidos</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 

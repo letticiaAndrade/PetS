@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 
 export const PostPet = () => {
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <Text></Text>
-        </View>
+        </SafeAreaView>
     )
 }
 

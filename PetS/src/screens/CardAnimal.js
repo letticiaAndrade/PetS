@@ -1,10 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 
 
 export const CardAnimal = () => {
     return (
-        <View>
-            <Text>Card animal visitante</Text>
-        </View>
+        <SafeAreaView>
+            <View>
+                <Text>Card animal visitante</Text>
+            </View>
+        </SafeAreaView>
     )
 }

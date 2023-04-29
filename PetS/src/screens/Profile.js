@@ -1,5 +1,5 @@
 // imports dos componentes nativos
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 
 // imports dos componentes do paper
 import { Avatar } from "react-native-paper";
@@ -15,7 +15,7 @@ import { EditProfile } from "./EditProfile.js";
 
 export const Profile = ({ navigation }) => {
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
                 <Ionicons.Button
                     name="arrow-back-circle"
@@ -70,10 +70,7 @@ export const Profile = ({ navigation }) => {
                 <Text style={{ marginLeft: 40, color: '#D45152', fontSize: 16 }}>Sair da conta</Text>
                 <Ionicons style={{ marginRight: 30 }} name='exit-outline' size={24} color='#D45152' />
             </TouchableOpacity>
-
-
-
-        </View>
+        </SafeAreaView>
     );
 };
 

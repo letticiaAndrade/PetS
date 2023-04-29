@@ -1,5 +1,5 @@
 // imports dos componentes nativos
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 
 import { useState } from "react";
 
@@ -40,7 +40,7 @@ export const SignIn = ({ navigation }) => {
     };
 
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <View
                 style={{
                     paddingHorizontal: 15,
@@ -164,7 +164,7 @@ export const SignIn = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

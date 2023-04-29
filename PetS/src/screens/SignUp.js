@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 
 import { Controller, useForm } from "react-hook-form";
 
@@ -30,7 +30,7 @@ export const SignUp = ({ navigation }) => {
     };
 
     return (
-        <View style={style.content}>
+        <SafeAreaView style={style.content}>
             <View
                 style={{
                     paddingHorizontal: 15,
@@ -206,7 +206,7 @@ export const SignUp = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
