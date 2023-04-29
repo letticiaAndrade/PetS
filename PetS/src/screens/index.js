@@ -6,10 +6,11 @@ import { LostPets } from './LostPets.js';
 import { MyLostPets } from './MyLostPets.js';
 import { MyPosts } from './MyPosts.js';
 import { PostPet } from './PostPet.js';
+import { PostLostPet } from './PostLostPet.js';
 import { EditProfile } from './EditProfile.js';
 import { Profile } from './Profile.js';
 import { SignIn } from './SignIn.js';
 import { SignUp } from './SignUp.js';
 import { Welcome } from './Welcome.js';
 
-export { CardAnimal, CardAnimalOwner, Home, LostPets, MyLostPets, MyPosts, PostPet, Profile, Welcome, SignIn, SignUp, EditProfile };
+export { CardAnimal, CardAnimalOwner, Home, LostPets, MyLostPets, MyPosts, PostPet, PostLostPet, Profile, Welcome, SignIn, SignUp, EditProfile };
