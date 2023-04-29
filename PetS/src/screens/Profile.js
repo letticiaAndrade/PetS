@@ -1,5 +1,5 @@
 // imports dos componentes nativos
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from "react-native";
 
 // imports dos componentes do paper
 import { Avatar } from "react-native-paper";
@@ -7,11 +7,14 @@ import { Avatar } from "react-native-paper";
 // imports dos icones 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-
+import { nativeApplicationVersion } from "expo-application";
 // imports das telas de navegação
 import { MyPosts } from "../screens/MyPosts.js";
 import { MyLostPets } from "./MyLostPets.js";
 import { EditProfile } from "./EditProfile.js";
+
+// import das imagens 
+import Logo from "../../assets/Logo.png";
 
 export const Profile = ({ navigation }) => {
     return (
@@ -70,6 +73,11 @@ export const Profile = ({ navigation }) => {
                 <Text style={{ marginLeft: 40, color: '#D45152', fontSize: 16 }}>Sair da conta</Text>
                 <Ionicons style={{ marginRight: 30 }} name='exit-outline' size={24} color='#D45152' />
             </TouchableOpacity>
+
+            <View style={{ justifyContent: "center", marginTop: 120, flexDirection: "row", alignItems: 'center', flex: 1 }}>
+                <Image source={Logo} style={{ width: 80, height: 78 }} resizeMode="contain" />
+                <Text style={{ fontSize: 12, marginTop: 5 }} > PetS - Versão {'1.0.0'}</Text>
+            </View>
         </SafeAreaView>
     );
 };
