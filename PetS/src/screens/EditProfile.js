@@ -3,6 +3,7 @@ import { Avatar, TextInput } from "react-native-paper";
 
 import Button from "../components/Button.js"
 import { Controller, useForm } from "react-hook-form";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
 export const EditProfile = ({ navigation }) => {
     return (
@@ -43,7 +44,7 @@ export const EditProfile = ({ navigation }) => {
                     label="NOME COMPLETO"
                     mode="outlined"
                     activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="user" />}
+                    left={<TextInput.Icon icon="account-outline" />}
                 />
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
@@ -56,7 +57,7 @@ export const EditProfile = ({ navigation }) => {
                     label="TELEFONE"
                     mode="outlined"
                     activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="phone" />}
+                    left={<TextInput.Icon icon="phone-outline" />}
                 />
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
@@ -68,7 +69,7 @@ export const EditProfile = ({ navigation }) => {
                     label="EMAIL"
                     mode="outlined"
                     activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="email" />}
+                    left={<TextInput.Icon icon="email-outline" />}
                 />
             </View>
 
