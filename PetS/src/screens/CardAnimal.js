@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export const CardAnimal = () => {
+export const CardAnimal = ({ navigation }) => {
     return (
         <SafeAreaView style={style.content}>
             <View>
