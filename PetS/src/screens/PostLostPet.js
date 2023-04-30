@@ -16,7 +16,7 @@ export const PostLostPet = ({ navigation }) => {
                     iconStyle={{ width: 54, height: 54 }}
                 ></Ionicons.Button>
 
-                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 75, textAlign: 'center' }}>POSTAR PET PERDIDO</Text>
+                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 110, textAlign: 'center' }}>PET PERDIDO</Text>
             </View>
         </SafeAreaView>
     )
