@@ -152,7 +152,7 @@ export const Home = ({ navigation }) => {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {pets.map((item) => (
                         <View>
-                            <CardAnimal item={item} />
+                            <CardAnimal onPress={() => navigation.navigate(CardAnimal)} item={item} />
                         </View>
                     ))}
                 </ScrollView>
