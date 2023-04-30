@@ -2,9 +2,9 @@ import { Card } from "react-native-paper";
 
 import { Text, TouchableOpacity, View } from "react-native";
 
-export default CardAnimal = ({ item }) => {
+export default CardAnimal = ({ item, onPress = null }) => {
     return (
-        <TouchableOpacity style={{ overflow: 'hidden', borderRadius: 14, marginHorizontal: 5 }} activeOpacity={0.8}>
+        <TouchableOpacity style={{ overflow: 'hidden', borderRadius: 14, marginHorizontal: 5 }} onPress={onPress} activeOpacity={0.8}>
 
             <View style={{ overflow: "hidden" }}>
                 <Card.Cover
