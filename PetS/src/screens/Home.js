@@ -82,9 +82,10 @@ export const Home = ({ navigation }) => {
     const { open } = state;
     const [visible, setVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-
+    const hideModal = () => setModalVisible(false)
+    const showModal = () => setModalVisible(true)
     return (
-        <SafeAreaView style={style.content}>
+        < SafeAreaView style={style.content} >
 
             <View
                 style={{
@@ -165,7 +166,7 @@ export const Home = ({ navigation }) => {
 
             <ListNav />
 
-            {/* <Modal
+            <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
@@ -182,12 +183,13 @@ export const Home = ({ navigation }) => {
                         alignSelf: 'flex-end',
                         flexDirection: "row",
                         backgroundColor: "#FFCB14",
-                        marginTop: 300,
+                        marginTop: 350,
                         marginVertical: 10,
                         borderWidth: 2,
                         borderColor: "#B67830",
                         borderRadius: 8,
                         padding: 5,
+                        marginRight: 10
 
                     }}
                 >
@@ -208,17 +210,19 @@ export const Home = ({ navigation }) => {
                         borderColor: "#B67830",
                         borderRadius: 8,
                         padding: 5,
+                        marginRight: 10
 
                     }}
                 >
                     <Feather name="github" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
                     <Text style={{ color: '#342E29' }}>PUBLICAR PET PARA ADOÇÃO</Text>
                 </Pressable>
-            </Modal> */}
+            </Modal>
 
-            {/* <View style={{ position: 'absolute', top: 600, left: 300 }}>
+            <View style={{ position: 'absolute', top: 650, left: 330 }}>
                 <TouchableOpacity
-                    onPress={() => setModalVisible(true)}
+                    // dependendo do valor atual do modalVisible, chama o hidemodal caso ele estiver visivel ou o showModal caso ele nao estiver visivel
+                    onPress={modalVisible ? hideModal : showModal}
                     activeOpacity={1}
 
                     style={{
@@ -227,16 +231,16 @@ export const Home = ({ navigation }) => {
                         backgroundColor: "#FFCB14",
                         borderWidth: 2,
                         borderColor: "#B67830",
-                        width: 90,
-                        height: 90,
+                        width: 65,
+                        height: 65,
                         borderRadius: 70,
                     }}
                 >
-                    <AntDesign name="plus" size={60} color={"#342E29"} />
+                    <AntDesign name="plus" size={30} color={"#342E29"} />
                 </TouchableOpacity>
-            </View> */}
+            </View>
 
-            <FAB.Group
+            {/* <FAB.Group
                 open={open}
                 visible
                 variant='tertiary'
@@ -269,8 +273,8 @@ export const Home = ({ navigation }) => {
                         // do something if the speed dial is open
                     }
                 }}
-            />
-        </SafeAreaView >
+            /> */}
+        </ SafeAreaView >
     );
 };
 
