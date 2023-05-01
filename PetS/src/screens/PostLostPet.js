@@ -60,7 +60,7 @@ export const PostLostPet = ({ navigation }) => {
                 </Text>
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
                 <Controller
                     name="name"
                     control={control}
@@ -77,6 +77,7 @@ export const PostLostPet = ({ navigation }) => {
                             activeUnderlineColor="#FFEDCB"
                             label={"NOME PET"}
                             mode="outlined"
+                            style={{ width: 354, height: 38 }}
                         />
                     )}
                 />
@@ -87,7 +88,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
                 <Controller
                     name="address"
                     control={control}
@@ -104,6 +105,7 @@ export const PostLostPet = ({ navigation }) => {
                             activeUnderlineColor="#FFEDCB"
                             label={"LOCALIDADE"}
                             mode="outlined"
+                            style={{ width: 354, height: 38 }}
                         />
                     )}
                 />
@@ -113,7 +115,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
                 <Controller
                     name="description"
                     control={control}
@@ -130,6 +132,7 @@ export const PostLostPet = ({ navigation }) => {
                             activeUnderlineColor="#FFEDCB"
                             label={"DESCRIÇÃO"}
                             mode="outlined"
+                            style={{ width: 354, height: 38 }}
                         />
                     )}
                 />
@@ -140,15 +143,19 @@ export const PostLostPet = ({ navigation }) => {
                 )}
             </View>
 
-            <View>
+            <View style={{ borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: "center" }}>
+                <Text>M</Text>
                 <Switch
                     value={isSwitchOn}
                     onValueChange={onToggleSwitch}
-                    trackColor={{ true: "#00D5B0", false: "#E4B283" }}
+                    trackColor={{ true: "#E4B283", false: "#00D5B0" }}
                     thumbColor={"#D9D9D9"}
+                    style={{}}
+
                 />
+                <Text>F</Text>
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
                 <Controller
                     name="phone"
                     control={control}
@@ -165,6 +172,7 @@ export const PostLostPet = ({ navigation }) => {
                             activeUnderlineColor="#FFEDCB"
                             label={"TELEFONE"}
                             mode="outlined"
+                            style={{ width: 354, height: 38 }}
                         />
                     )}
                 />
