@@ -80,7 +80,7 @@ export const PostLostPet = ({ navigation }) => {
             </View>
 
             <View style={{}}>
-                <TouchableOpacity style={{ marginBottom: 20 }} onPress={""} activeOpacity={1}>
+                <TouchableOpacity style={{ marginBottom: 20, borderWidth: 1 }} onPress={""} activeOpacity={1}>
                     <View style={{ alignItems: "center" }}>
                         <FontAwesome name="file-photo-o" size={109} />
                     </View>
@@ -104,7 +104,7 @@ export const PostLostPet = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
                 <Controller
                     name="name"
                     control={control}
@@ -122,6 +122,7 @@ export const PostLostPet = ({ navigation }) => {
                             label={"NOME PET"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
+                            left={<TextInput.Icon icon="pencil-outline" size={22} />}
                         />
                     )}
                 />
@@ -132,7 +133,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
                 <Controller
                     name="address"
                     control={control}
@@ -150,6 +151,7 @@ export const PostLostPet = ({ navigation }) => {
                             label={"LOCALIDADE"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
+                            left={<TextInput.Icon icon="map-marker-outline" size={22} />}
                         />
                     )}
                 />
@@ -159,7 +161,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
                 <Controller
                     name="description"
                     control={control}
@@ -177,6 +179,7 @@ export const PostLostPet = ({ navigation }) => {
                             label={"DESCRIÇÃO"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
+                            left={<TextInput.Icon icon="email-outline" />}
                         />
                     )}
                 />
@@ -204,7 +207,7 @@ export const PostLostPet = ({ navigation }) => {
                 />
                 <Text>F</Text>
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
+            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
                 <Controller
                     name="phone"
                     control={control}
@@ -222,6 +225,7 @@ export const PostLostPet = ({ navigation }) => {
                             label={"TELEFONE"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
+                            left={<TextInput.Icon icon="phone-outline" />}
                         />
                     )}
                 />
