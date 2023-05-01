@@ -1,4 +1,4 @@
-// imports dos componentes nativos 
+// imports dos componentes nativos
 import {
     View,
     Text,
@@ -79,23 +79,27 @@ export const PostLostPet = ({ navigation }) => {
                 </Text>
             </View>
 
-            <View>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'flex-end' }} onPress={""}>
-                    <FontAwesome name="file-photo-o" size={109} />
-                    <View style={{
-                        backgroundColor: "red",
-                        width: 65,
-                        height: 65,
-                        borderRadius: 70,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                        <AntDesign
-                            name="plus"
-                            size={30}
-                            color={"#342E29"}
-
-                        />
+            <View style={{}}>
+                <TouchableOpacity style={{ marginBottom: 20 }} onPress={""} activeOpacity={1}>
+                    <View style={{ alignItems: "center" }}>
+                        <FontAwesome name="file-photo-o" size={109} />
+                    </View>
+                    <View
+                        style={{
+                            backgroundColor: "#FFCB14",
+                            borderWidth: 2,
+                            borderColor: "#B67830",
+                            width: 65,
+                            height: 65,
+                            borderRadius: 70,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            position: "absolute",
+                            right: 130,
+                            top: 50,
+                        }}
+                    >
+                        <AntDesign name="plus" size={30} color={"#342E29"} style={{}} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -185,7 +189,6 @@ export const PostLostPet = ({ navigation }) => {
 
             <View
                 style={{
-                    borderWidth: 1,
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "center",
@@ -228,7 +231,10 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <Button onPress={handleSubmit(onSubmit)} text="POSTAR PET" />
+            <View style={{ marginTop: 20 }}>
+
+                <Button onPress={handleSubmit(onSubmit)} text="POSTAR PET" />
+            </View>
         </SafeAreaView>
     );
 };
