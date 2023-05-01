@@ -84,6 +84,10 @@ export const Home = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const hideModal = () => setModalVisible(false)
     const showModal = () => setModalVisible(true)
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    }
     return (
         < SafeAreaView style={style.content} >
 
@@ -170,14 +174,14 @@ export const Home = ({ navigation }) => {
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
-                onDismiss={() => setModalVisible(false)}
+                onDismiss={handleCloseModal}
                 style={{ alignItems: 'flex-end' }}
                 dismissable={true}
             >
                 <Pressable
                     onPress={() => {
                         navigation.navigate(PostLostPet);
-                        setModalVisible(false);
+                        handleCloseModal;
                     }}
                     style={{
                         alignSelf: 'flex-end',
@@ -200,7 +204,7 @@ export const Home = ({ navigation }) => {
                 <Pressable
                     onPress={() => {
                         navigation.navigate(PostPet);
-                        setModalVisible(false);
+                        handleCloseModal;
                     }}
                     style={{
                         flexDirection: "row",
