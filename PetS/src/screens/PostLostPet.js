@@ -104,7 +104,7 @@ export const PostLostPet = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
+            <View style={{ marginHorizontal: 35, marginVertical: 5, }}>
                 <Controller
                     name="name"
                     control={control}
@@ -133,7 +133,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
+            <View style={{ marginHorizontal: 35, marginVertical: 5, }}>
                 <Controller
                     name="address"
                     control={control}
@@ -161,7 +161,7 @@ export const PostLostPet = ({ navigation }) => {
                     </HelperText>
                 )}
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
+            <View style={{ marginHorizontal: 35, marginVertical: 5, }}>
                 <Controller
                     name="description"
                     control={control}
@@ -207,7 +207,7 @@ export const PostLostPet = ({ navigation }) => {
                 />
                 <Text>F</Text>
             </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 5, alignItems: 'center' }}>
+            <View style={{ marginHorizontal: 35, marginVertical: 5, }}>
                 <Controller
                     name="phone"
                     control={control}
