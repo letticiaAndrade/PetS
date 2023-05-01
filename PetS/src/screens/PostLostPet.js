@@ -1,3 +1,4 @@
+// imports dos componentes nativos 
 import {
     View,
     Text,
@@ -6,13 +7,23 @@ import {
     TouchableOpacity,
 } from "react-native";
 
+// imports do hook form
 import { useForm, Controller } from "react-hook-form";
+
+// imports dos icones
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+//imports dos componentes do paper
 import { HelperText, Switch, TextInput } from "react-native-paper";
+
+// imports dos componentes personalizados
 import Button from "../components/Button";
+
+// imports dos hooks
 import { useState } from "react";
+
 export const PostLostPet = ({ navigation }) => {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
 
