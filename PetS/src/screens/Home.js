@@ -181,7 +181,7 @@ export const Home = ({ navigation }) => {
                 <Pressable
                     onPress={() => {
                         navigation.navigate(PostLostPet);
-                        handleCloseModal;
+                        handleCloseModal();
                     }}
                     style={{
                         alignSelf: 'flex-end',
@@ -204,7 +204,7 @@ export const Home = ({ navigation }) => {
                 <Pressable
                     onPress={() => {
                         navigation.navigate(PostPet);
-                        handleCloseModal;
+                        handleCloseModal();
                     }}
                     style={{
                         flexDirection: "row",
