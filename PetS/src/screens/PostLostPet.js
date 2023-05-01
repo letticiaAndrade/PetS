@@ -1,7 +1,15 @@
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    TouchableOpacity,
+} from "react-native";
 
 import { useForm, Controller } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { HelperText, Switch, TextInput } from "react-native-paper";
 import Button from "../components/Button";
 import { useState } from "react";
@@ -58,6 +66,27 @@ export const PostLostPet = ({ navigation }) => {
                 >
                     PET PERDIDO
                 </Text>
+            </View>
+
+            <View>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'flex-end' }} onPress={""}>
+                    <FontAwesome name="file-photo-o" size={109} />
+                    <View style={{
+                        backgroundColor: "red",
+                        width: 65,
+                        height: 65,
+                        borderRadius: 70,
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <AntDesign
+                            name="plus"
+                            size={30}
+                            color={"#342E29"}
+
+                        />
+                    </View>
+                </TouchableOpacity>
             </View>
 
             <View style={{ marginHorizontal: 30, marginVertical: 5 }}>
@@ -143,7 +172,14 @@ export const PostLostPet = ({ navigation }) => {
                 )}
             </View>
 
-            <View style={{ borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: "center" }}>
+            <View
+                style={{
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
                 <Text>M</Text>
                 <Switch
                     value={isSwitchOn}
@@ -151,7 +187,6 @@ export const PostLostPet = ({ navigation }) => {
                     trackColor={{ true: "#E4B283", false: "#00D5B0" }}
                     thumbColor={"#D9D9D9"}
                     style={{}}
-
                 />
                 <Text>F</Text>
             </View>
