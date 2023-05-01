@@ -2,9 +2,14 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 import { useForm, Controller } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { HelperText, TextInput } from "react-native-paper";
+import { HelperText, Switch, TextInput } from "react-native-paper";
 import Button from "../components/Button";
+import { useState } from "react";
 export const PostLostPet = ({ navigation }) => {
+    const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+    const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
     const {
         control,
         handleSubmit,
@@ -133,6 +138,15 @@ export const PostLostPet = ({ navigation }) => {
                         {errors.description.message}
                     </HelperText>
                 )}
+            </View>
+
+            <View>
+                <Switch
+                    value={isSwitchOn}
+                    onValueChange={onToggleSwitch}
+                    trackColor={{ true: "#00D5B0", false: "#E4B283" }}
+                    thumbColor={"#D9D9D9"}
+                />
             </View>
             <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
                 <Controller
