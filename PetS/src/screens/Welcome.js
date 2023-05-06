@@ -18,7 +18,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 // imports das imagens do app
 import pet1 from "../../assets/petsImages/pet1.png";
 import pet2 from "../../assets/petsImages/pet2.png";
-import logo from "../../assets/petsImages/Logo.png";
+import logo from "../../assets/Logo.png";
 import pet3 from "../../assets/petsImages/pet3.png";
 import group from "../../assets/petsImages/petsGroup.png";
 
