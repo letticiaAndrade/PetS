@@ -36,10 +36,7 @@ import * as ImagePicker from "expo-image-picker";
 
 export const PostLostPet = ({ navigation }) => {
     const [isOpen, setIsOpen] = useState(false);
-
-    const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
-    const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
     const {
         control,
