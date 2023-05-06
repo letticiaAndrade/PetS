@@ -34,7 +34,6 @@ export const PostLostPet = ({ navigation }) => {
     const [selectedImage, setSelectedImage] = useState("");
     const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
-
     const {
         control,
         handleSubmit,
@@ -73,17 +72,15 @@ export const PostLostPet = ({ navigation }) => {
     };
 
     const handleTakePicture = async () => {
-        // Ask the user for the permission to access the media library 
 
         const result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            aspect: [4, 3],
             quality: 1,
         });
 
-        console.log(result)
         if (!result.canceled) {
             setSelectedImage(result?.assets[0]?.uri)
+            console.log(result)
         }
         handleCloseModal();
     }
