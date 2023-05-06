@@ -57,11 +57,11 @@ export const PostPet = ({ navigation }) => {
     };
     const onSubmit = (data) => {
         const pet = {
-            name: data.name,
-            address: data.address,
-            description: data.description,
-            phone: data.phone,
-            gender: data.gender ? "Feminino" : "Masculino",
+            name: data?.name,
+            address: data?.address,
+            description: data?.description,
+            phone: data?.phone,
+            gender: data?.gender ? "Feminino" : "Masculino",
         };
         console.log(pet);
     };
@@ -74,7 +74,7 @@ export const PostPet = ({ navigation }) => {
             aspect: [4, 3],
         });
         console.log(result);
-        if (!result.canceled) {
+        if (!result?.canceled) {
             setSelectedImage(result?.assets[0]?.uri);
         }
         handleCloseModal();
