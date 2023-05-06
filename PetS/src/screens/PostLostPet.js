@@ -28,7 +28,7 @@ import {
 } from "react-native-paper";
 
 // imports dos componentes personalizados
-import Button from "../components/Button";
+import Button from "../components/Button.js";
 
 // imports dos hooks
 import { useState } from "react";

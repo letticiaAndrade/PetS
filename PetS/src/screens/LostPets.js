@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { ListNav } from "../components/ListNav";
+import { ListNav } from "../components/ListNav.js";
 export const LostPets = ({ navigation }) => {
     return (
         <SafeAreaView style={style.content}>

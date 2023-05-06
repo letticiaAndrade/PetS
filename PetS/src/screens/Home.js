@@ -13,17 +13,17 @@ import {
 // imports das imagens
 import Logo from "../../assets/Logo.png";
 // imports dos componentes personalizados
-import CardAnimal from "../components/CardAnimal";
+import CardAnimal from "../components/CardAnimal.js";
 
 // imports dos componentes do react native paper
 import { Avatar, FAB, Modal, Portal } from "react-native-paper";
-import { ListNav } from "../components/ListNav";
+import { ListNav } from "../components/ListNav.js";
 
 // imports das telas
-import { LostPets } from "./LostPets";
-import { Profile } from "./Profile";
-import { PostPet } from "./PostPet";
-import { PostLostPet } from "./PostLostPet";
+import { LostPets } from "./LostPets.js";
+import { Profile } from "./Profile.js";
+import { PostPet } from "./PostPet.js";
+import { PostLostPet } from "./PostLostPet.js";
 
 // imports dos icones
 import AntDesign from "@expo/vector-icons/AntDesign";
