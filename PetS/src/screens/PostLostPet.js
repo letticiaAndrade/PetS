@@ -31,12 +31,9 @@ export const PostLostPet = ({ navigation }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const [isSwitchOn, setIsSwitchOn] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [permissionCamera, requestPermissionCamera] =
-        ImagePicker.useCameraPermissions();
-    const [permissionMediaLibrary, requestPermissionMediaLibrary] =
-        ImagePicker.useMediaLibraryPermissions();
+    const [selectedImage, setSelectedImage] = useState("");
     const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
 
     const {
         control,
@@ -52,6 +49,9 @@ export const PostLostPet = ({ navigation }) => {
         },
     });
 
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    };
     const onSubmit = () => {
         console.log("TESTE AQUI !");
     };
@@ -59,42 +59,34 @@ export const PostLostPet = ({ navigation }) => {
     const handleSearchPicture = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [1, 1],
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 1,
+            aspect: [4, 3],
         });
-
-        console.log(result);
-
+        console.log(result)
         if (!result.canceled) {
-            setSelectedImage(result.assets[0].uri);
+            setSelectedImage(result?.assets[0]?.uri)
+
         }
+        handleCloseModal();
     };
 
     const handleTakePicture = async () => {
-        // Ask the user for the permission to access the camera
-        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        // Ask the user for the permission to access the media library 
 
-        if (permissionResult.granted === false) {
-            alert("You've refused to allow this appp to access your camera!");
-            return;
-        }
+        const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
-        const result = await ImagePicker.launchCameraAsync();
-
-        // Explore the result
-        console.log(result);
-
+        console.log(result)
         if (!result.canceled) {
-            setPickedImagePath(result.uri);
-            console.log(result.uri);
+            setSelectedImage(result?.assets[0]?.uri)
         }
+        handleCloseModal();
     }
-
-    const handleCloseModal = () => {
-        setIsOpen(false);
-    };
 
     return (
         <SafeAreaView style={style.content}>
@@ -130,11 +122,10 @@ export const PostLostPet = ({ navigation }) => {
             </View>
 
             <Portal>
-                <Modal visible={isOpen} onDismiss={handleCloseModal}>
+                <Modal visible={isOpen} onDismiss={handleCloseModal} >
                     <Pressable
                         onPress={() => {
-                            handleSearchPicture;
-                            handleCloseModal;
+                            handleSearchPicture();
                         }}
                         style={{
                             flexDirection: "row",
@@ -153,8 +144,8 @@ export const PostLostPet = ({ navigation }) => {
 
                     <Pressable
                         onPress={() => {
-                            handleSearchPicture;
-                            handleCloseModal;
+                            handleTakePicture();
+                            handleCloseModal();
                         }}
                         style={{
                             flexDirection: "row",
@@ -325,7 +316,7 @@ export const PostLostPet = ({ navigation }) => {
                 <Button onPress={handleSubmit(onSubmit)} text="POSTAR PET" />
             </View>
 
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 
