@@ -18,6 +18,10 @@ export const CardAnimal = ({ navigation }) => {
 
                 <Text>Card animal visitante</Text>
             </View>
+
+            <View>
+
+            </View>
         </SafeAreaView>
     )
 }
