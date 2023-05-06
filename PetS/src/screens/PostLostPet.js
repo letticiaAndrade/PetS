@@ -18,7 +18,14 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 //imports dos componentes do paper
-import { Divider, HelperText, Modal, Portal, Switch, TextInput } from "react-native-paper";
+import {
+    Divider,
+    HelperText,
+    Modal,
+    Portal,
+    Switch,
+    TextInput,
+} from "react-native-paper";
 
 // imports dos componentes personalizados
 import Button from "../components/Button";
@@ -31,7 +38,7 @@ export const PostLostPet = ({ navigation }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const [isSwitchOn, setIsSwitchOn] = useState(false);
-    const [selectedImage, setSelectedImage] = useState("");
+    const [selectedImage, setSelectedImage] = useState('');
     const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
     const {
@@ -51,39 +58,43 @@ export const PostLostPet = ({ navigation }) => {
     const handleCloseModal = () => {
         setIsOpen(false);
     };
-    const onSubmit = () => {
-        console.log("TESTE AQUI !");
+    const onSubmit = (data) => {
+        const pet = {
+            name: data.name,
+            address: data.address,
+            description: data.description,
+            phone: data.phone,
+            gender: data.gender ? "Feminino" : "Masculino",
+        };
+        console.log(pet);
     };
 
     const handleSearchPicture = async () => {
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 1,
             aspect: [4, 3],
         });
-        console.log(result)
+        console.log(result);
         if (!result.canceled) {
-            setSelectedImage(result?.assets[0]?.uri)
-
+            setSelectedImage(result?.assets[0]?.uri);
         }
         handleCloseModal();
     };
 
     const handleTakePicture = async () => {
-
         const result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 1,
         });
 
         if (!result.canceled) {
-            setSelectedImage(result?.assets[0]?.uri)
-            console.log(result)
+            setSelectedImage(result?.assets[0]?.uri);
+            console.log(result);
         }
         handleCloseModal();
-    }
+    };
 
     return (
         <SafeAreaView style={style.content}>
@@ -119,7 +130,7 @@ export const PostLostPet = ({ navigation }) => {
             </View>
 
             <Portal>
-                <Modal visible={isOpen} onDismiss={handleCloseModal} >
+                <Modal visible={isOpen} onDismiss={handleCloseModal}>
                     <Pressable
                         onPress={() => {
                             handleSearchPicture();
@@ -131,18 +142,22 @@ export const PostLostPet = ({ navigation }) => {
                             borderColor: "#B67830",
                             borderRadius: 8,
                             padding: 5,
-                            marginRight: 10
+                            marginRight: 10,
                         }}
                     >
-                        <Ionicons name="images-outline" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
-                        <Text style={{ color: '#342E29' }}>BUSCAR FOTO</Text>
+                        <Ionicons
+                            name="images-outline"
+                            size={21}
+                            color={"#342E29"}
+                            style={{ marginRight: 30, marginLeft: 10 }}
+                        />
+                        <Text style={{ color: "#342E29" }}>BUSCAR FOTO</Text>
                     </Pressable>
                     <Divider />
 
                     <Pressable
                         onPress={() => {
                             handleTakePicture();
-                            handleCloseModal();
                         }}
                         style={{
                             flexDirection: "row",
@@ -151,11 +166,16 @@ export const PostLostPet = ({ navigation }) => {
                             borderColor: "#B67830",
                             borderRadius: 8,
                             padding: 5,
-                            marginRight: 10
+                            marginRight: 10,
                         }}
                     >
-                        <Ionicons name="camera-outline" size={21} color={"#342E29"} style={{ marginRight: 30, marginLeft: 10 }} />
-                        <Text style={{ color: '#342E29' }}>TIRAR FOTO</Text>
+                        <Ionicons
+                            name="camera-outline"
+                            size={21}
+                            color={"#342E29"}
+                            style={{ marginRight: 30, marginLeft: 10 }}
+                        />
+                        <Text style={{ color: "#342E29" }}>TIRAR FOTO</Text>
                     </Pressable>
                 </Modal>
             </Portal>
@@ -170,7 +190,8 @@ export const PostLostPet = ({ navigation }) => {
                             <Image
                                 source={{ uri: selectedImage }}
                                 resizeMode="contain"
-                                style={{ width: 142, height: 109 }} />
+                                style={{ width: 142, height: 109 }}
+                            />
                         ) : (
                             <FontAwesome name="file-photo-o" size={120} />
                         )}
@@ -193,7 +214,8 @@ export const PostLostPet = ({ navigation }) => {
                         <AntDesign name="plus" size={30} color={"#342E29"} style={{}} />
                     </View>
                 </TouchableOpacity>
-            </View><View style={{ marginHorizontal: 35, marginVertical: 5 }}>
+            </View>
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
                 <Controller
                     name="name"
                     control={control}
@@ -211,15 +233,18 @@ export const PostLostPet = ({ navigation }) => {
                             label={"NOME PET"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
-                            left={<TextInput.Icon icon="pencil-outline" size={22} />} />
-                    )} />
+                            left={<TextInput.Icon icon="pencil-outline" size={22} />}
+                        />
+                    )}
+                />
 
                 {Boolean(errors.name) && (
                     <HelperText type="error" visible={Boolean(errors.name)}>
                         {errors.name.message}
                     </HelperText>
                 )}
-            </View><View style={{ marginHorizontal: 35, marginVertical: 5 }}>
+            </View>
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
                 <Controller
                     name="address"
                     control={control}
@@ -237,14 +262,17 @@ export const PostLostPet = ({ navigation }) => {
                             label={"LOCALIDADE"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
-                            left={<TextInput.Icon icon="map-marker-outline" size={22} />} />
-                    )} />
+                            left={<TextInput.Icon icon="map-marker-outline" size={22} />}
+                        />
+                    )}
+                />
                 {Boolean(errors.address) && (
                     <HelperText type="error" visible={Boolean(errors.address)}>
                         {errors.address.message}
                     </HelperText>
                 )}
-            </View><View style={{ marginHorizontal: 35, marginVertical: 5 }}>
+            </View>
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
                 <Controller
                     name="description"
                     control={control}
@@ -262,14 +290,17 @@ export const PostLostPet = ({ navigation }) => {
                             label={"DESCRIÇÃO"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
-                            left={<TextInput.Icon icon="email-outline" />} />
-                    )} />
+                            left={<TextInput.Icon icon="email-outline" />}
+                        />
+                    )}
+                />
                 {Boolean(errors.description) && (
                     <HelperText type="error" visible={Boolean(errors.description)}>
                         {errors.description.message}
                     </HelperText>
                 )}
-            </View><View
+            </View>
+            {/*  <View
                 style={{
                     flexDirection: "row",
                     alignItems: "center",
@@ -282,9 +313,36 @@ export const PostLostPet = ({ navigation }) => {
                     onValueChange={onToggleSwitch}
                     trackColor={{ true: "#E4B283", false: "#00D5B0" }}
                     thumbColor={"#D9D9D9"}
-                    style={{}} />
+                />
                 <Text>F</Text>
-            </View><View style={{ marginHorizontal: 35, marginVertical: 5 }}>
+            </View> */}
+
+            <View
+                style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <Controller
+                    control={control}
+                    name="gender"
+                    defaultValue={false}
+                    render={({ field: { onChange, value } }) => (
+                        <>
+                            <Text>M</Text>
+                            <Switch
+                                value={value}
+                                onValueChange={(value) => onChange(value)}
+                                trackColor={{ true: "#E4B283", false: "#00D5B0" }}
+                                thumbColor={"#D9D9D9"}
+                            />
+                            <Text>F</Text>
+                        </>
+                    )}
+                />
+            </View>
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
                 <Controller
                     name="phone"
                     control={control}
@@ -302,18 +360,20 @@ export const PostLostPet = ({ navigation }) => {
                             label={"TELEFONE"}
                             mode="outlined"
                             style={{ width: 354, height: 38 }}
-                            left={<TextInput.Icon icon="phone-outline" />} />
-                    )} />
+                            left={<TextInput.Icon icon="phone-outline" />}
+                        />
+                    )}
+                />
                 {Boolean(errors.phone) && (
                     <HelperText type="error" visible={Boolean(errors.phone)}>
                         {errors.phone.message}
                     </HelperText>
                 )}
-            </View><View style={{ marginTop: 20 }}>
+            </View>
+            <View style={{ marginTop: 20 }}>
                 <Button onPress={handleSubmit(onSubmit)} text="POSTAR PET" />
             </View>
-
-        </SafeAreaView >
+        </SafeAreaView>
     );
 };
 
