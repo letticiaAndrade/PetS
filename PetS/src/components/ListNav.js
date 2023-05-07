@@ -1,4 +1,4 @@
-import { Card } from "react-native-paper";
+import React, { useState } from "react";
 import {
     ScrollView,
     StyleSheet,
@@ -6,44 +6,85 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-// exportando a lista de categorias
+
 export const ListNav = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
     const listCategory = [
         {
             _id: "1",
-            image: "",
             title: "Cães",
         },
         {
             _id: "2",
-            image: "",
             title: "Gatos",
         },
         {
             _id: "3",
-            image: "",
             title: "Coelhos",
         },
         {
             _id: "4",
-            image: "",
             title: "Aves",
         },
         {
             _id: "5",
-            image: "",
             title: "Répteis",
         },
         {
             _id: "6",
-            image: "",
             title: "Peixes",
         },
     ];
+
     return (
+        <View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {listCategory.map((category) => (
+                    <View style={style.viewspaceCards} key={category._id}>
+                        <TouchableOpacity
+                            onPress={() => setSelectedCategory(category._id)}
+                            style={{ alignItems: "center" }}
+                        >
+                            <View
+                                style={[
+                                    style.contentCard,
+                                    selectedCategory === category._id && { backgroundColor: "#E4B283" },
+                                ]}
+                            >
+                                {category._id === "1" && (
+                                    <FontAwesome5 name="dog" color={Boolean(selectedCategory === category._id ? "#fff" : "#E4B283")} size={40} />
+                                )}
+                                {category._id === "2" && (
+                                    <FontAwesome5 name="cat" color="#E4B283" size={40} />
+                                )}
+                                {category._id === "3" && (
+                                    <Icon name="rabbit" color="#E4B283" size={40} />
+                                )}
+                                {category._id === "4" && (
+                                    <Icon name="bird" color="#E4B283" size={40} />
+                                )}
+                                {category._id === "5" && (
+                                    <Icon name="snake" color="#E4B283" size={40} />
+                                )}
+                                {category._id === "6" && (
+                                    <FontAwesome5 name="fish" color="#E4B283" size={40} />
+                                )}
+                            </View>
+                            <Text style={[style.textNav, selectedCategory === category._id && { color: "#fff" }]}>
+                                {category.title}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ))}
+            </ScrollView>
+        </View>
+    );
+};
+
+/*   return (
         <View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={style.viewspaceCards}>
@@ -110,6 +151,7 @@ export const ListNav = () => {
         </View>
     );
 };
+ */
 
 const style = StyleSheet.create({
     textNav: {
