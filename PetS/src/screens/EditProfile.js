@@ -2,30 +2,14 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
 
 import Button from "../components/Button.js"
+import { Header } from "../components/Header.js";
 import { Controller, useForm } from "react-hook-form";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 export const EditProfile = ({ navigation }) => {
     return (
-
-
         <SafeAreaView style={style.content}>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
-                <Ionicons.Button
-                    name="arrow-back-circle"
-                    backgroundColor={"#FFEDCB"}
-                    color={"#B67830"}
-                    size={54}
-                    activeOpacity={1}
-                    style={{ width: 60, height: 54 }}
-                    onPress={() => navigation.goBack()}
-                    iconStyle={{ width: 54, height: 54 }}
-                ></Ionicons.Button>
-
-                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 110 }}>EDITAR PERFIL</Text>
-            </View>
-
+            <Header title={"EDITAR PERFIL"} navigation={()=>navigation.goBack()}/>
             <View style={{ alignItems: 'center', marginBottom: 20 }}>
                 <Avatar.Text
                     size={109}
