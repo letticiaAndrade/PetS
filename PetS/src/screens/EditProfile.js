@@ -59,7 +59,7 @@ export const EditProfile = ({ navigation }) => {
 
             <View style={{ marginTop: 50 }}>
 
-                <Button text={"SALVAR ALTERAÇÕES"} onPress={""} />
+                <Button text={"SALVAR ALTERAÇÕES"} onPress={()=> console.warn("Salvando alterações")} />
             </View>
 
         </SafeAreaView>
