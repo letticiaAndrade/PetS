@@ -34,13 +34,14 @@ import { useState } from "react";
 
 // export da tela
 export const Home = ({ navigation }) => {
+  
     const pets = [
         {
             _id: 1,
             image:
                 "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            name: "Lucca",
-            gender: "M",
+            name: "DOG",
+            gender: "F",
         },
 
         {
@@ -78,7 +79,7 @@ export const Home = ({ navigation }) => {
     const [state, setState] = useState({ open: false });
 
     const onStateChange = ({ open }) => setState({ open });
-
+    const [selectedCategory, setSelectedCategory] = useState(1);
     const { open } = state;
     const [visible, setVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -155,9 +156,7 @@ export const Home = ({ navigation }) => {
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {pets.map((item) => (
-                        <View>
-                            <CardAnimal onPress={() => navigation.navigate(CardAnimal)} item={item} />
-                        </View>
+                            <CardAnimal sizes={130} onPress={() => navigation.navigate(CardAnimal)} item={item} />
                     ))}
                 </ScrollView>
             </View>
@@ -168,7 +167,7 @@ export const Home = ({ navigation }) => {
                 </Text>
             </View>
 
-            <ListNav />
+            <ListNav selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
             <Modal
                 animationType="slide"
