@@ -8,6 +8,8 @@ import {
     ScrollView,
     SafeAreaView,
     Pressable,
+    FlatList,
+    Dimensions,
 } from "react-native";
 
 // imports das imagens
@@ -32,6 +34,7 @@ import Feather from "@expo/vector-icons/Feather";
 // imports do react 
 import { useState } from "react";
 
+const imageSize = Dimensions.get("window").width/ 2.2;
 // export da tela
 export const Home = ({ navigation }) => {
   
@@ -92,7 +95,15 @@ export const Home = ({ navigation }) => {
     return (
         < SafeAreaView style={style.content} >
 
-            <View
+           
+            <FlatList 
+            data={pets} 
+            numColumns={2}
+            ListHeaderComponentStyle={{marginBottom: 30}}
+            columnWrapperStyle={{alignItems:'center', justifyContent: 'center'}}
+            ListHeaderComponent={
+                <>
+                 <View
                 style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -168,6 +179,11 @@ export const Home = ({ navigation }) => {
             </View>
 
             <ListNav selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+
+                </>
+            }
+            renderItem={({item, index})=> <CardAnimal style={{alignSelf: 'center' ,marginBottom: 15}} item={item} sizes={imageSize} onPress={()=>null}/>}
+            />
 
             <Modal
                 animationType="slide"
