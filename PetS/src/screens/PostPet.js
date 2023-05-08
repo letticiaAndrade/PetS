@@ -29,6 +29,7 @@ import {
 
 // imports dos componentes personalizados
 import Button from "../components/Button.js";
+import { Header } from "../components/Header.js";
 
 // imports dos hooks
 import { useState } from "react";
@@ -95,36 +96,7 @@ export const PostPet = ({ navigation }) => {
 
     return (
         <SafeAreaView style={style.content}>
-            <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginVertical: 20,
-                    marginHorizontal: 5,
-                }}
-            >
-                <Ionicons.Button
-                    name="arrow-back-circle"
-                    backgroundColor={"#FFEDCB"}
-                    color={"#B67830"}
-                    size={54}
-                    activeOpacity={1}
-                    style={{ width: 60, height: 54 }}
-                    onPress={() => navigation.goBack()}
-                    iconStyle={{ width: 54, height: 54 }}
-                ></Ionicons.Button>
-
-                <Text
-                    style={{
-                        fontWeight: "500",
-                        fontSize: 16,
-                        paddingHorizontal: 110,
-                        textAlign: "center",
-                    }}
-                >
-                    PET PARA ADOÇÃO
-                </Text>
-            </View>
+         <Header title={"PET PARA ADOÇÃO"} navigation={()=> navigation.goBack()}/>
 
             <Portal>
                 <Modal visible={isOpen} onDismiss={handleCloseModal}>

@@ -7,7 +7,6 @@ import { Avatar } from "react-native-paper";
 // imports dos icones 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { nativeApplicationVersion } from "expo-application";
 // imports das telas de navegação
 import { MyPosts } from "../screens/MyPosts.js";
 import { MyLostPets } from "./MyLostPets.js";
@@ -15,24 +14,12 @@ import { EditProfile } from "./EditProfile.js";
 
 // import das imagens 
 import Logo from "../../assets/Logo.png";
+import { Header } from "../components/Header.js";
 
 export const Profile = ({ navigation }) => {
     return (
         <SafeAreaView style={style.content}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
-                <Ionicons.Button
-                    name="arrow-back-circle"
-                    backgroundColor={"#FFEDCB"}
-                    color={"#B67830"}
-                    size={54}
-                    activeOpacity={1}
-                    style={{ width: 60, height: 54 }}
-                    onPress={() => navigation.goBack()}
-                    iconStyle={{ width: 54, height: 54 }}
-                ></Ionicons.Button>
-
-                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 110 }}>MEU PERFIL</Text>
-            </View>
+          <Header title={"MEU PERFIL"} navigation={()=>navigation.goBack()}/>
 
             <View style={{}}>
                 <TouchableOpacity

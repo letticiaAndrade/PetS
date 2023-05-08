@@ -1,30 +1,19 @@
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, SafeAreaView } from "react-native";
+import { Header } from "../components/Header.js";
 export const MyLostPets = ({ navigation }) => {
-    return (
-        <SafeAreaView style={style.content}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20, marginHorizontal: 5 }}>
-                <Ionicons.Button
-                    name="arrow-back-circle"
-                    backgroundColor={"#FFEDCB"}
-                    color={"#B67830"}
-                    size={54}
-                    activeOpacity={1}
-                    style={{ width: 60, height: 54 }}
-                    onPress={() => navigation.goBack()}
-                    iconStyle={{ width: 54, height: 54 }}
-                ></Ionicons.Button>
-
-                <Text style={{ fontWeight: "500", fontSize: 16, paddingHorizontal: 75, textAlign: 'center' }}>MEUS PETS PERDIDOS</Text>
-            </View>
-        </SafeAreaView>
-    )
-}
+  return (
+    <SafeAreaView style={style.content}>
+      <Header
+        title={"MEUS PETS PERDIDOS"}
+        navigation={() => navigation.goBack()}
+      />
+    </SafeAreaView>
+  );
+};
 
 const style = StyleSheet.create({
-    content: {
-        flex: 1,
-        backgroundColor: '#FFEDCB'
-    }
-})
+  content: {
+    flex: 1,
+    backgroundColor: "#FFEDCB",
+  },
+});
