@@ -3,10 +3,10 @@ import { Card } from "react-native-paper";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default CardAnimal = ({ item, onPress = null, sizes = 142 }) => {
+export default CardAnimal = ({ item, onPress = null, sizes = 142, style }) => {
   return (
     <TouchableOpacity
-      style={{ overflow: "hidden", borderRadius: 14, marginHorizontal: 5, width: sizes, height:sizes }}
+      style={{ overflow: "hidden", borderRadius: 14, marginHorizontal: 5, width: sizes, height:sizes, ...style }}
       onPress={onPress}
       activeOpacity={0.8}
     >
