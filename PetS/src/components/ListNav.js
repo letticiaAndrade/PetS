@@ -7,34 +7,40 @@ import {
   View,
 } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const ListNav = ({selectedCategory, setSelectedCategory}) => {
  
 
   const listCategory = [
+
     {
-      _id: "1",
+      _id: 0,
+      title: "Todos",
+    },
+    {
+      _id: 1,
       title: "Cães",
     },
     {
-      _id: "2",
+      _id: 2,
       title: "Gatos",
     },
     {
-      _id: "3",
+      _id: 3,
       title: "Coelhos",
     },
     {
-      _id: "4",
+      _id: 4,
       title: "Aves",
     },
     {
-      _id: "5",
+      _id: 5,
       title: "Répteis",
     },
     {
-      _id: "6",
+      _id: 6,
       title: "Peixes",
     },
   ];
@@ -59,7 +65,18 @@ export const ListNav = ({selectedCategory, setSelectedCategory}) => {
                   },
                 ]}
               >
-                {category._id === "1" && (
+                 {category._id === 0 && (
+                  <Ionicons
+                    name="paw"
+                    color={
+                      Boolean(selectedCategory === category._id)
+                        ? "#FFEDCB"
+                        : "#E4B283"
+                    }
+                    size={40}
+                  />
+                )}
+                {category._id === 1 && (
                   <FontAwesome5
                     name="dog"
                     color={
@@ -70,35 +87,35 @@ export const ListNav = ({selectedCategory, setSelectedCategory}) => {
                     size={40}
                   />
                 )}
-                {category._id === "2" && (
+                {category._id === 2 && (
                   <FontAwesome5 name="cat"  color={
                     Boolean(selectedCategory === category._id)
                       ? "#FFEDCB"
                       : "#E4B283"
                   } size={40} />
                 )}
-                {category._id === "3" && (
+                {category._id === 3 && (
                   <Icon name="rabbit"  color={
                     Boolean(selectedCategory === category._id)
                       ? "#FFEDCB"
                       : "#E4B283"
                   } size={40} />
                 )}
-                {category._id === "4" && (
+                {category._id === 4 && (
                   <Icon name="bird"  color={
                     Boolean(selectedCategory === category._id)
                       ? "#FFEDCB"
                       : "#E4B283"
                   } size={40} />
                 )}
-                {category._id === "5" && (
+                {category._id === 5 && (
                   <Icon name="snake"  color={
                       Boolean(selectedCategory === category._id)
                         ? "#FFEDCB"
                         : "#E4B283"
                     } size={40} />
                 )}
-                {category._id === "6" && (
+                {category._id === 6 && (
                   <FontAwesome5 name="fish"  color={
                       Boolean(selectedCategory === category._id)
                         ? "#FFEDCB"
