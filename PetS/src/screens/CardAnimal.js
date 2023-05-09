@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { pets } from "../../exampleApi.js";
 import { Avatar } from "react-native-paper";
 const imageSize = Dimensions.get("window").width;
 
-export const CardAnimal = ({ navigation }) => {
+export const CardAnimal = ({ navigation, route }) => {
+  const pet = route?.params?.pet;
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -31,7 +31,7 @@ export const CardAnimal = ({ navigation }) => {
         >
           <Image
             style={{ width: "100%", height: "100%" }}
-            source={{ uri: pets[0].image }}
+            source={{ uri: pet?.image }}
           />
 
           <Pressable
@@ -72,19 +72,19 @@ export const CardAnimal = ({ navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "500" }}>
-              {pets[0].name}
+              {pet?.name}
             </Text>
-            <Ionicons name={Boolean(pets[0].gender==="F")? "female-outline": "male-outline"} color= {Boolean(pets[0].gender==="F")? "red": "blue"} size={30} />
+            <Ionicons name={Boolean(pet?.gender==="F")? "female-outline": "male-outline"} color= {Boolean(pet?.gender==="F")? "red": "blue"} size={30} />
           </View>
 
           <View style={{ flexDirection: "row" }}>
             <Feather name="map-pin" size={20} />
-            <Text style={{ marginLeft: 5 }}>{pets[0].address}</Text>
+            <Text style={{ marginLeft: 5 }}>{pet?.address}</Text>
           </View>
         </View>
 
         <Text style={{ marginLeft: 20, fontSize: 16, textAlign: "left" }}>
-          {pets[0].description}
+          {pet?.description}
         </Text>
 
         <View
@@ -99,11 +99,11 @@ export const CardAnimal = ({ navigation }) => {
           <Avatar.Text
           
             style={{ marginRight: 10, backgroundColor: '#FFCB14'}}
-            label={pets[0].ownerName[0]}
+            label={pet?.ownerName[0]}
           />
           <View>
             <Text style={{ fontWeight: 500, fontSize: 17 }}>
-              {pets[0].ownerName}
+              {pet?.ownerName}
             </Text>
             <Text style={{ opacity: 0.7 }}>03/08/2002</Text>
           </View>
