@@ -19,7 +19,6 @@ Dentro do IFS, existem animais como gatos e cachorros sem dono. Eles não recebe
 
 <hr>
 <ul>
-
 <li>
 Para solucionar esses problemas, surge o aplicativo móvel PetS. Dentro dele é possível cadastrar um pet para a categoria adoção ou perdidos;
 </li>
