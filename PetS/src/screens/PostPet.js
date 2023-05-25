@@ -35,7 +35,7 @@ import { Header } from "../components/Header.js";
 // imports dos hooks
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
 
 export const PostPet = ({ navigation }) => {
@@ -59,18 +59,23 @@ export const PostPet = ({ navigation }) => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
   const onSubmit = (data) => {
     setIsLoading(true);
     const pet = {
-        _id: data?.id,
+      
+
+      // FALTA A CATEGORIA!!!!!!
+
+
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
+      phone: data?.phone,
       address: data?.address,
       description: data?.description,
-      phone: data?.phone,
       gender: data?.gender ? "Feminino" : "Masculino",
     };
-    console.log(pet);
-    // usando a função de adicionar documento
+
     addDoc(collection(database, "adoção"), pet)
       .then(() => {
         navigation.navigate("Home");
@@ -78,6 +83,8 @@ export const PostPet = ({ navigation }) => {
       })
       .catch(() => console.warn("Ocorreu um erro"))
       .finally(() => setIsLoading(false));
+
+    setIsLoading(false);
   };
 
   /*  const onSubmit = async (data) => {
