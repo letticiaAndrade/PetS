@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 
 import { useState } from "react";
@@ -66,6 +67,7 @@ export const SignIn = ({ navigation }) => {
 
   return (
     <SafeAreaView style={style.content}>
+      <ScrollView>
       <View
         style={{
           paddingHorizontal: 15,
@@ -87,7 +89,7 @@ export const SignIn = ({ navigation }) => {
             iconStyle={{ width: 54, height: 54 }}
           ></Ionicons.Button>
         </View>
-        <View style={{}}>
+        <View>
           <Image
             source={Logo}
             resizeMode="contain"
@@ -192,6 +194,7 @@ export const SignIn = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
+    </ScrollView>
     </SafeAreaView>
   );
 };

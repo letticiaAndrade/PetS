@@ -27,14 +27,16 @@ import { Profile } from "./Profile.js";
 // imports dos icones
 
 // imports do react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { pets } from "../../exampleApi";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { database } from "../../config/firebaseConfig";
 
 const imageSize = Dimensions.get("window").width / 2.2;
 // export da tela
 export const Home = ({ navigation }) => {
   const [state, setState] = useState({ open: false });
-
+  const [pets, setPets] = useState([]);
   const onStateChange = ({ open }) => setState({ open });
   const [selectedCategory, setSelectedCategory] = useState(0);
   const { open } = state;
@@ -42,7 +44,30 @@ export const Home = ({ navigation }) => {
   const hideModal = () => setModalVisible(false);
   const showModal = () => setModalVisible(true);
 
-  const filteredPets = {
+  const getPets = async () => {
+    const q = query(collection(database, "adoção"), orderBy("gender", "asc"));
+    const querySnapshot = await getDocs(q).then((list)=> {
+      console.error(list.docs.map(pet=> pet.data())[0])
+      setPets(list.docs.map(pet=> pet.data()));
+    })
+    
+    const list = querySnapshot.map((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.data());
+      return doc.data()
+    });
+    setPets(list)
+   /*  .then((list)=> list.map((doc) => {
+      console.error("Aqui error")
+      console.error(doc.data)
+     return doc.data()
+    })); */
+  };
+  useEffect(() => {
+    getPets();
+  }, []);
+
+  /* const filteredPets = {
     0: pets,
     1: pets.filter((p) => p.category === 1),
     2: pets.filter((p) => p.category === 2),
@@ -50,24 +75,26 @@ export const Home = ({ navigation }) => {
     4: pets.filter((p) => p.category === 4),
     5: pets.filter((p) => p.category === 5),
     6: pets.filter((p) => p.category === 6),
-  };
-
+  }; */
+  console.log(pets)
   return (
     <SafeAreaView style={style.content}>
       <FlatList
-        data={filteredPets[selectedCategory]}
+        data={pets}
         numColumns={2}
         ListHeaderComponentStyle={{ marginBottom: 30 }}
         columnWrapperStyle={{ alignItems: "center", justifyContent: "center" }}
         ListEmptyComponent={
           <>
-            <View style={{alignItems: 'center', marginBottom:40}}>
+            <View style={{ alignItems: "center", marginBottom: 40 }}>
               <Image
                 source={Image1}
                 resizeMode="contain"
                 style={{ width: 306, height: 183 }}
               />
-              <Text style={{margin: 50, fontWeight: '500'}}>NENHUM PET ENCONTRADO</Text>
+              <Text style={{ margin: 50, fontWeight: "500" }}>
+                NENHUM PET ENCONTRADO
+              </Text>
             </View>
           </>
         }
@@ -138,10 +165,7 @@ export const Home = ({ navigation }) => {
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {pets.map((item) => (
                   <CardAnimal
-                    sizes={130}
-                    onPress={() =>
-                      navigation.navigate("CardAnimal", { pet: item })
-                    }
+                    sizes={130} 
                     item={item}
                   />
                 ))}
@@ -169,7 +193,6 @@ export const Home = ({ navigation }) => {
           />
         )}
       />
-
       <FAB.Group
         open={open}
         //visible

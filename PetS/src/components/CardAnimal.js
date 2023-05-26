@@ -2,12 +2,15 @@ import { Card } from "react-native-paper";
 
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default CardAnimal = ({ item, onPress = null, sizes = 142, style }) => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={{ overflow: "hidden", borderRadius: 14, marginHorizontal: 5, width: sizes, height:sizes, ...style }}
-      onPress={onPress}
+      onPress={()=> navigation.navigate("CardAnimal", {pet: item})}
       activeOpacity={0.8}
     >
       <ImageBackground style={{width: "100%", height: "100%"}} source={{uri: item.image}}>
@@ -33,9 +36,9 @@ export default CardAnimal = ({ item, onPress = null, sizes = 142, style }) => {
                 right: 5,
               }}
               name={
-                Boolean(item.gender === "F") ? "female-outline" : "male-outline"
+                Boolean(item.gender === "Feminino") ? "female-outline" : "male-outline"
               }
-              color={Boolean(item.gender === "F") ? "red" : "blue"}
+              color={Boolean(item.gender === "Feminino") ? "red" : "blue"}
               size={25}
             />
       </ImageBackground>

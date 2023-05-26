@@ -63,19 +63,16 @@ export const PostPet = ({ navigation }) => {
   const onSubmit = (data) => {
     setIsLoading(true);
     const pet = {
-      
-
       // FALTA A CATEGORIA!!!!!!
-
-
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
       phone: data?.phone,
       address: data?.address,
       description: data?.description,
       gender: data?.gender ? "Feminino" : "Masculino",
     };
-
+    // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
     addDoc(collection(database, "adoção"), pet)
       .then(() => {
         navigation.navigate("Home");
@@ -84,7 +81,7 @@ export const PostPet = ({ navigation }) => {
       .catch(() => console.warn("Ocorreu um erro"))
       .finally(() => setIsLoading(false));
 
-    setIsLoading(false);
+    /* setIsLoading(false); */
   };
 
   /*  const onSubmit = async (data) => {
@@ -287,6 +284,17 @@ export const PostPet = ({ navigation }) => {
             </HelperText>
           )}
         </View>
+        {/*   <View>
+          <Controller
+          name="category"
+          control= {control}
+          rules={{required: "Campo obrigatório."}}
+          render={({field: {onBlur, onChange, value}}) => (
+            // A NAV COMPONENTE DA CATEGORIA PARA ESCOLHER AQUI //
+            // cada category tem um id especifico definido no componente de navegação
+          )
+          />
+        </View> */}
         <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
           <Controller
             name="description"

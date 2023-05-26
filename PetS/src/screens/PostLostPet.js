@@ -35,10 +35,13 @@ import { Header } from "../components/Header.js";
 // imports dos hooks
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { addDoc, collection } from "firebase/firestore";
+import { database } from "../../config/firebaseConfig.js";
 
 export const PostLostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
@@ -66,6 +69,12 @@ export const PostLostPet = ({ navigation }) => {
       gender: data?.gender ? "Feminino" : "Masculino",
     };
     console.log(pet);
+    addDoc(collection(database,"perdidos"), pet)
+    .then(()=>{
+        navigation.navigate("Home")
+        console.log("Adicionado pet perdido!!!")
+    })
+    .catch(()=> console.warn("Ocorreu erro ao postar seu pet perdido"))
   };
 
   const handleSearchPicture = async () => {
@@ -300,7 +309,7 @@ export const PostLostPet = ({ navigation }) => {
             control={control}
             name="gender"
             defaultValue={false}
-            
+
             render={({ field: { onChange, value } }) => (
               <>
                 <Text>M</Text>

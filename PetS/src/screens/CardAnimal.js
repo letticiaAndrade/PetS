@@ -74,7 +74,7 @@ export const CardAnimal = ({ navigation, route }) => {
             <Text style={{ fontSize: 20, fontWeight: "500" }}>
               {pet?.name}
             </Text>
-            <Ionicons name={Boolean(pet?.gender==="F")? "female-outline": "male-outline"} color= {Boolean(pet?.gender==="F")? "red": "blue"} size={30} />
+            <Ionicons name={Boolean(pet?.gender==="Feminino")? "female-outline": "male-outline"} color= {Boolean(pet?.gender==="Feminino")? "red": "blue"} size={30} />
           </View>
 
           <View style={{ flexDirection: "row" }}>
@@ -96,17 +96,18 @@ export const CardAnimal = ({ navigation, route }) => {
             marginBottom: 10,
           }}
         >
-          <Avatar.Text
+         {/*  <Avatar.Text
           
             style={{ marginRight: 10, backgroundColor: '#FFCB14'}}
             label={pet?.ownerName[0]}
           />
           <View>
+
             <Text style={{ fontWeight: 500, fontSize: 17 }}>
               {pet?.ownerName}
             </Text>
             <Text style={{ opacity: 0.7 }}>03/08/2002</Text>
-          </View>
+          </View> */}
         </View>
 
         <View
