@@ -35,7 +35,7 @@ import { Header } from "../components/Header.js";
 // imports dos hooks
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { addDoc, collection, setDoc } from "firebase/firestore";
+import { Timestamp, addDoc, collection, setDoc } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
 
 export const PostPet = ({ navigation }) => {
@@ -71,6 +71,7 @@ export const PostPet = ({ navigation }) => {
       address: data?.address,
       description: data?.description,
       gender: data?.gender ? "Feminino" : "Masculino",
+      createdAt: Timestamp.now()
     };
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
     addDoc(collection(database, "adoção"), pet)
