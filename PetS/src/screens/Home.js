@@ -45,14 +45,13 @@ export const Home = ({ navigation }) => {
   const showModal = () => setModalVisible(true);
 
   const getPets = async () => {
-    const q = query(collection(database, "adoção"), orderBy("gender", "asc"));
+    const q = query(collection(database, "adoção"), orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q).then((list)=> {
       console.error(list.docs.map(pet=> pet.data())[0])
       setPets(list.docs.map(pet=> pet.data()));
     })
     
     const list = querySnapshot.map((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       console.log(doc.data());
       return doc.data()
     });
