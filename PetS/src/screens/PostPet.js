@@ -30,6 +30,7 @@ import {
 
 // imports dos componentes personalizados
 import Button from "../components/Button.js";
+import {ListNav} from "../components/ListNav.js"
 import { Header } from "../components/Header.js";
 
 // imports dos hooks
@@ -51,8 +52,9 @@ export const PostPet = ({ navigation }) => {
       name: "",
       address: "",
       description: "",
-      phone: "",
+      phone: null,
       gender: "",
+      category: null,
     },
   });
 
@@ -64,6 +66,7 @@ export const PostPet = ({ navigation }) => {
     setIsLoading(true);
     const pet = {
       // FALTA A CATEGORIA!!!!!!
+      category: data?.category,
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
@@ -79,34 +82,12 @@ export const PostPet = ({ navigation }) => {
         navigation.navigate("Home");
         console.log("Conseguiu");
       })
+      // uma mensagem de erro de que não foi possivel postar o pet 
       .catch(() => console.warn("Ocorreu um erro"))
       .finally(() => setIsLoading(false));
-
-    /* setIsLoading(false); */
   };
 
-  /*  const onSubmit = async (data) => {
-        setIsLoading(true);
-      
-        const pet = {
-          name: data?.name,
-          address: data?.address,
-          description: data?.description,
-          phone: data?.phone,
-          gender: data?.gender ? "Feminino" : "Masculino",
-        };
-      
-        try {
-          await addDoc(collection(database, "pets"), pet);
-          console.log("Cadastro do pet salvo com sucesso!");
-          navigation.navigate("Home");
-        } catch (error) {
-          console.error("Erro ao salvar o cadastro do pet:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      }; */
-
+  // função de buscar foto
   const handleSearchPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -121,6 +102,7 @@ export const PostPet = ({ navigation }) => {
     handleCloseModal();
   };
 
+  // função de tirar foto
   const handleTakePicture = async () => {
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -285,17 +267,23 @@ export const PostPet = ({ navigation }) => {
             </HelperText>
           )}
         </View>
-        {/*   <View>
+          <View>
           <Controller
           name="category"
           control= {control}
           rules={{required: "Campo obrigatório."}}
           render={({field: {onBlur, onChange, value}}) => (
-            // A NAV COMPONENTE DA CATEGORIA PARA ESCOLHER AQUI //
+            <ListNav />
             // cada category tem um id especifico definido no componente de navegação
-          )
+          )}
           />
-        </View> */}
+         {/*  {Boolean(errors.description) && (
+            <HelperText type="error" visible={Boolean(errors.description)}>
+              {errors.description.message}
+            </HelperText>
+          )} */}
+
+        </View> 
         <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
           <Controller
             name="description"
