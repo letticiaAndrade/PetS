@@ -35,7 +35,7 @@ import { Header } from "../components/Header.js";
 // imports dos hooks
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { addDoc, collection } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
 
 export const PostLostPet = ({ navigation }) => {
@@ -67,14 +67,15 @@ export const PostLostPet = ({ navigation }) => {
       description: data?.description,
       phone: data?.phone,
       gender: data?.gender ? "Feminino" : "Masculino",
+      createAt: Timestamp.now()
     };
-    console.log(pet);
     addDoc(collection(database,"perdidos"), pet)
     .then(()=>{
         navigation.navigate("Home")
         console.log("Adicionado pet perdido!!!")
     })
     .catch(()=> console.warn("Ocorreu erro ao postar seu pet perdido"))
+    .finally(()=> setIsLoading(false))
   };
 
   const handleSearchPicture = async () => {
