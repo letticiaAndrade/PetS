@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,11 +10,8 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const ListNav = ({selectedCategory, setSelectedCategory}) => {
- 
-
+export const ListNav = ({ selectedCategory, setSelectedCategory }) => {
   const listCategory = [
-
     {
       _id: 0,
       title: "Todos",
@@ -48,12 +45,11 @@ export const ListNav = ({selectedCategory, setSelectedCategory}) => {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{width: 20}}/>
+        <View style={{ width: 20 }} />
         {listCategory.map((category) => (
-            
           <View style={style.viewspaceCards} key={category._id}>
-            <TouchableOpacity 
-                activeOpacity={0.5}
+            <TouchableOpacity
+              activeOpacity={0.5}
               onPress={() => setSelectedCategory(category._id)}
               style={{ alignItems: "center" }}
             >
@@ -65,7 +61,7 @@ export const ListNav = ({selectedCategory, setSelectedCategory}) => {
                   },
                 ]}
               >
-                 {category._id === 0 && (
+                {category._id === 0 && (
                   <Ionicons
                     name="paw"
                     color={
@@ -88,46 +84,66 @@ export const ListNav = ({selectedCategory, setSelectedCategory}) => {
                   />
                 )}
                 {category._id === 2 && (
-                  <FontAwesome5 name="cat"  color={
-                    Boolean(selectedCategory === category._id)
-                      ? "#FFEDCB"
-                      : "#E4B283"
-                  } size={40} />
+                  <FontAwesome5
+                    name="cat"
+                    color={
+                      Boolean(selectedCategory === category._id)
+                        ? "#FFEDCB"
+                        : "#E4B283"
+                    }
+                    size={40}
+                  />
                 )}
                 {category._id === 3 && (
-                  <Icon name="rabbit"  color={
-                    Boolean(selectedCategory === category._id)
-                      ? "#FFEDCB"
-                      : "#E4B283"
-                  } size={40} />
+                  <Icon
+                    name="rabbit"
+                    color={
+                      Boolean(selectedCategory === category._id)
+                        ? "#FFEDCB"
+                        : "#E4B283"
+                    }
+                    size={40}
+                  />
                 )}
                 {category._id === 4 && (
-                  <Icon name="bird"  color={
-                    Boolean(selectedCategory === category._id)
-                      ? "#FFEDCB"
-                      : "#E4B283"
-                  } size={40} />
+                  <Icon
+                    name="bird"
+                    color={
+                      Boolean(selectedCategory === category._id)
+                        ? "#FFEDCB"
+                        : "#E4B283"
+                    }
+                    size={40}
+                  />
                 )}
                 {category._id === 5 && (
-                  <Icon name="snake"  color={
+                  <Icon
+                    name="snake"
+                    color={
                       Boolean(selectedCategory === category._id)
                         ? "#FFEDCB"
                         : "#E4B283"
-                    } size={40} />
+                    }
+                    size={40}
+                  />
                 )}
                 {category._id === 6 && (
-                  <FontAwesome5 name="fish"  color={
+                  <FontAwesome5
+                    name="fish"
+                    color={
                       Boolean(selectedCategory === category._id)
                         ? "#FFEDCB"
                         : "#E4B283"
-                    } size={40} />
+                    }
+                    size={40}
+                  />
                 )}
               </View>
               <Text style={style.textNav}>{category.title}</Text>
             </TouchableOpacity>
           </View>
         ))}
-           <View style={{width: 20}}/>
+        <View style={{ width: 20 }} />
       </ScrollView>
     </View>
   );
@@ -143,12 +159,12 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
   },
   contentCard: {
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
     borderColor: "#E4B283",
     borderRadius: 8,
-    width:70,
-    height:70
+    width: 70,
+    height: 70,
   },
 });
