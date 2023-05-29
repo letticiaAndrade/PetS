@@ -30,7 +30,7 @@ import {
 
 // imports dos componentes personalizados
 import Button from "../components/Button.js";
-import {ListNav} from "../components/ListNav.js"
+import { ListNav } from "../components/ListNav.js";
 import { Header } from "../components/Header.js";
 
 // imports dos hooks
@@ -43,6 +43,7 @@ export const PostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -50,11 +51,11 @@ export const PostPet = ({ navigation }) => {
   } = useForm({
     defaultValues: {
       name: "",
+      gender: "",
+      category: 1,
+      phone: null,
       address: "",
       description: "",
-      phone: null,
-      gender: "",
-      category: null,
     },
   });
 
@@ -66,23 +67,30 @@ export const PostPet = ({ navigation }) => {
     setIsLoading(true);
     const pet = {
       // FALTA A CATEGORIA!!!!!!
-      category: data?.category,
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
       phone: data?.phone,
       address: data?.address,
+      category: data?.category,
+      createdAt: Timestamp.now(),
       description: data?.description,
       gender: data?.gender ? "Feminino" : "Masculino",
-      createdAt: Timestamp.now()
+      // Pegar os campos abaixo do cache!!
+      owner: {
+        uid: "",
+        name: "",
+        phone: "",
+      }
     };
+
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
     addDoc(collection(database, "adoção"), pet)
       .then(() => {
         navigation.navigate("Home");
         console.log("Conseguiu");
       })
-      // uma mensagem de erro de que não foi possivel postar o pet 
+      // uma mensagem de erro de que não foi possivel postar o pet
       .catch(() => console.warn("Ocorreu um erro"))
       .finally(() => setIsLoading(false));
   };
@@ -210,12 +218,38 @@ export const PostPet = ({ navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onChange, onBlur, value } }) => (
+
+        <Controller
+          name="category"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginBottom: 15 }}>
+              <Text
+                style={{
+                  marginVertical: 15,
+                  paddingHorizontal: 35,
+                  fontSize: 18,
+                }}
+              >
+                Selecione uma categoria:
+              </Text>
+              <ListNav
+                hideAll={true}
+                selectedCategory={value}
+                setSelectedCategory={onChange}
+              />
+            </View>
+            // cada category tem um id especifico definido no componente de navegação
+          )}
+        />
+
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -230,21 +264,22 @@ export const PostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="pencil-outline" size={22} />}
               />
-            )}
-          />
 
-          {Boolean(errors.name) && (
-            <HelperText type="error" visible={Boolean(errors.name)}>
-              {errors.name.message}
-            </HelperText>
+              {Boolean(errors.name) && (
+                <HelperText type="error" visible={Boolean(errors.name)}>
+                  {errors.name.message}
+                </HelperText>
+              )}
+            </View>
           )}
-        </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="address"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onChange, onBlur, value } }) => (
+        />
+
+        <Controller
+          name="address"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -259,37 +294,22 @@ export const PostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="map-marker-outline" size={22} />}
               />
-            )}
-          />
-          {Boolean(errors.address) && (
-            <HelperText type="error" visible={Boolean(errors.address)}>
-              {errors.address.message}
-            </HelperText>
-          )}
-        </View>
-          <View>
-          <Controller
-          name="category"
-          control= {control}
-          rules={{required: "Campo obrigatório."}}
-          render={({field: {onBlur, onChange, value}}) => (
-            <ListNav />
-            // cada category tem um id especifico definido no componente de navegação
-          )}
-          />
-         {/*  {Boolean(errors.description) && (
-            <HelperText type="error" visible={Boolean(errors.description)}>
-              {errors.description.message}
-            </HelperText>
-          )} */}
 
-        </View> 
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="description"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onBlur, onChange, value } }) => (
+              {Boolean(errors.address) && (
+                <HelperText type="error" visible={Boolean(errors.address)}>
+                  {errors.address.message}
+                </HelperText>
+              )}
+            </View>
+          )}
+        />
+
+        <Controller
+          name="description"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 error={Boolean(errors.description)}
@@ -304,62 +324,21 @@ export const PostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="email-outline" />}
               />
-            )}
-          />
-          {Boolean(errors.description) && (
-            <HelperText type="error" visible={Boolean(errors.description)}>
-              {errors.description.message}
-            </HelperText>
+              {Boolean(errors.description) && (
+                <HelperText type="error" visible={Boolean(errors.description)}>
+                  {errors.description.message}
+                </HelperText>
+              )}
+            </View>
           )}
-        </View>
-        {/*  <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                <Text>M</Text>
-                <Switch
-                    value={isSwitchOn}
-                    onValueChange={onToggleSwitch}
-                    trackColor={{ true: "#E4B283", false: "#00D5B0" }}
-                    thumbColor={"#D9D9D9"}
-                />
-                <Text>F</Text>
-            </View> */}
+        />
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Controller
-            control={control}
-            name="gender"
-            defaultValue={false}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Text>M</Text>
-                <Switch
-                  value={value}
-                  onValueChange={(value) => onChange(value)}
-                  trackColor={{ true: "#E4B283", false: "#00D5B0" }}
-                  thumbColor={"#D9D9D9"}
-                />
-                <Text>F</Text>
-              </>
-            )}
-          />
-        </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="phone"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onBlur, onChange, value } }) => (
+        <Controller
+          name="phone"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -374,15 +353,90 @@ export const PostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="phone-outline" />}
               />
+
+              {Boolean(errors.phone) && (
+                <HelperText type="error" visible={Boolean(errors.phone)}>
+                  {errors.phone.message}
+                </HelperText>
+              )}
+            </View>
+          )}
+        />
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Controller
+            control={control}
+            name="gender"
+            defaultValue={false}
+            render={({ field: { onChange, value } }) => (
+              <View
+                style={{
+                  marginTop: 10,
+                  paddingHorizontal: 35,
+                  width: "100%",
+                }}
+              >
+                <Text style={{ fontSize: 18 }}>Selecione o genero:</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Pressable
+                    onPress={() => onChange(false)}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text>Macho</Text>
+                    <Ionicons
+                      style={{ paddingHorizontal: 6 }}
+                      name="male-outline"
+                      color="blue"
+                      size={25}
+                    />
+                  </Pressable>
+
+                  <Switch
+                    value={value}
+                    onValueChange={(value) => onChange(value)}
+                    trackColor={{ true: "red", false: "blue" }}
+                    thumbColor={"#D9D9D9"}
+                  />
+
+                  <Pressable
+                    onPress={() => onChange(true)}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Ionicons
+                      style={{ paddingHorizontal: 6 }}
+                      name="female-outline"
+                      color="red"
+                      size={25}
+                    />
+                    <Text>Fêmea</Text>
+                  </Pressable>
+                </View>
+              </View>
             )}
           />
-          {Boolean(errors.phone) && (
-            <HelperText type="error" visible={Boolean(errors.phone)}>
-              {errors.phone.message}
-            </HelperText>
-          )}
         </View>
-        <View style={{ marginTop: 20 }}>
+
+        <View style={{ marginTop: 20, marginBottom: 60 }}>
           <Button
             animating={isLoading ? true : false}
             disabled={isLoading}
