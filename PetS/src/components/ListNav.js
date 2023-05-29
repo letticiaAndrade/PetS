@@ -10,7 +10,11 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const ListNav = ({ selectedCategory, setSelectedCategory }) => {
+export const ListNav = ({
+  selectedCategory,
+  setSelectedCategory,
+  hideAll = false,
+}) => {
   const listCategory = [
     {
       _id: 0,
@@ -46,103 +50,105 @@ export const ListNav = ({ selectedCategory, setSelectedCategory }) => {
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ width: 20 }} />
-        {listCategory.map((category) => (
-          <View style={style.viewspaceCards} key={category._id}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => setSelectedCategory(category._id)}
-              style={{ alignItems: "center" }}
-            >
-              <View
-                style={[
-                  style.contentCard,
-                  selectedCategory === category._id && {
-                    backgroundColor: "#E4B283",
-                  },
-                ]}
+        {listCategory.map((category) =>
+          category?._id === 0 && hideAll ? null : (
+            <View style={style.viewspaceCards} key={category._id}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => setSelectedCategory(category._id)}
+                style={{ alignItems: "center" }}
               >
-                {category._id === 0 && (
-                  <Ionicons
-                    name="paw"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 1 && (
-                  <FontAwesome5
-                    name="dog"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 2 && (
-                  <FontAwesome5
-                    name="cat"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 3 && (
-                  <Icon
-                    name="rabbit"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 4 && (
-                  <Icon
-                    name="bird"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 5 && (
-                  <Icon
-                    name="snake"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-                {category._id === 6 && (
-                  <FontAwesome5
-                    name="fish"
-                    color={
-                      Boolean(selectedCategory === category._id)
-                        ? "#FFEDCB"
-                        : "#E4B283"
-                    }
-                    size={40}
-                  />
-                )}
-              </View>
-              <Text style={style.textNav}>{category.title}</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+                <View
+                  style={[
+                    style.contentCard,
+                    selectedCategory === category._id && {
+                      backgroundColor: "#E4B283",
+                    },
+                  ]}
+                >
+                  {category._id === 0 && (
+                    <Ionicons
+                      name="paw"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 1 && (
+                    <FontAwesome5
+                      name="dog"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 2 && (
+                    <FontAwesome5
+                      name="cat"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 3 && (
+                    <Icon
+                      name="rabbit"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 4 && (
+                    <Icon
+                      name="bird"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 5 && (
+                    <Icon
+                      name="snake"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                  {category._id === 6 && (
+                    <FontAwesome5
+                      name="fish"
+                      color={
+                        Boolean(selectedCategory === category._id)
+                          ? "#FFEDCB"
+                          : "#E4B283"
+                      }
+                      size={40}
+                    />
+                  )}
+                </View>
+                <Text style={style.textNav}>{category.title}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        )}
         <View style={{ width: 20 }} />
       </ScrollView>
     </View>
