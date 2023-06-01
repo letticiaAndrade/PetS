@@ -182,7 +182,7 @@ export const PostPet = ({ navigation }) => {
             </Pressable>
           </Modal>
         </Portal>
-        <View style={{}}>
+        <View>
           <TouchableOpacity
             style={{ marginBottom: 20, borderWidth: 1 }}
             onPress={() => setIsOpen(true)}
