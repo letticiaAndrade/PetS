@@ -10,8 +10,9 @@ import {
   ScrollView,
   Linking
 } from "react-native";
-import Feather from "@expo/vector-i/*  */cons/Feather";
+import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Avatar } from "react-native-paper";
 const imageSize = Dimensions.get("window").width;
 
 export const CardAnimal = ({ navigation, route }) => {
@@ -20,7 +21,7 @@ export const CardAnimal = ({ navigation, route }) => {
   const handleLinking =()=> {
     // ternario para decisão de artigo 
     const article = pet?.gender === "Masculino"? "o": "a"
-    Linking.openURL(`https://wa.me/55${pet?.phone}?text=Olá, achei ${artigo} ${pet?.name} lind${artigo}! Gostaria de saber sobre a adoção.`)
+    Linking.openURL(`https://wa.me/55${pet?.phone}?text=Olá, achei ${article} ${pet?.name} lind${article}! Gostaria de saber sobre a adoção.`)
   }
   return (
     <SafeAreaView style={style.content}>
@@ -102,18 +103,17 @@ export const CardAnimal = ({ navigation, route }) => {
             marginBottom: 10,
           }}
         >
-         {/*  <Avatar.Text
+          <Avatar.Text
           
             style={{ marginRight: 10, backgroundColor: '#FFCB14'}}
-            label={pet?.ownerName[0]}
+            label={pet?.owner?.name[0]|| ""}
           />
           <View>
-
             <Text style={{ fontWeight: 500, fontSize: 17 }}>
-              {pet?.ownerName}
+              {pet?.owner?.name}
             </Text>
-            <Text style={{ opacity: 0.7 }}>03/08/2002</Text>
-          </View> */}
+            <Text style={{ opacity: 0.7 }}>{new Date(String(pet?.createdAt)).toLocaleDateString("br")}</Text>
+          </View>
         </View>
 
         <View
