@@ -68,7 +68,7 @@ export const PostPet = ({ navigation }) => {
     const pet = {
       // FALTA A CATEGORIA!!!!!!
       image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
       phone: data?.phone,
       address: data?.address,
@@ -81,7 +81,7 @@ export const PostPet = ({ navigation }) => {
         uid: "",
         name: "",
         phone: "",
-      }
+      },
     };
 
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
