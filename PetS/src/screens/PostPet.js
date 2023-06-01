@@ -218,7 +218,7 @@ export const PostPet = ({ navigation }) => {
                 top: 50,
               }}
             >
-              <AntDesign name="plus" size={30} color={"#342E29"} style={{}} />
+              <AntDesign name="plus" size={30} color={"#342E29"} />
             </View>
           </TouchableOpacity>
         </View>
