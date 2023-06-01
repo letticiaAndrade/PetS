@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Linking
+  Linking,
 } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -18,11 +18,13 @@ const imageSize = Dimensions.get("window").width;
 export const CardAnimal = ({ navigation, route }) => {
   const pet = route?.params?.pet;
   // função de linking para o whatsapp
-  const handleLinking =()=> {
-    // ternario para decisão de artigo 
-    const article = pet?.gender === "Masculino"? "o": "a"
-    Linking.openURL(`https://wa.me/55${pet?.phone}?text=Olá, achei ${article} ${pet?.name} lind${article}! Gostaria de saber sobre a adoção.`)
-  }
+  const handleLinking = () => {
+    // ternario para decisão de artigo
+    const article = pet?.gender === "Masculino" ? "o" : "a";
+    Linking.openURL(
+      `https://wa.me/55${pet?.phone}?text=Olá, achei ${article} ${pet?.name} lind${article}! Gostaria de saber sobre a adoção.`
+    );
+  };
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -78,10 +80,16 @@ export const CardAnimal = ({ navigation, route }) => {
               marginBottom: 10,
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "500" }}>
-              {pet?.name}
-            </Text>
-            <Ionicons name={Boolean(pet?.gender==="Feminino")? "female-outline": "male-outline"} color= {Boolean(pet?.gender==="Feminino")? "red": "blue"} size={30} />
+            <Text style={{ fontSize: 20, fontWeight: "500" }}>{pet?.name}</Text>
+            <Ionicons
+              name={
+                Boolean(pet?.gender === "Feminino")
+                  ? "female-outline"
+                  : "male-outline"
+              }
+              color={Boolean(pet?.gender === "Feminino") ? "red" : "blue"}
+              size={30}
+            />
           </View>
 
           <View style={{ flexDirection: "row" }}>
@@ -104,15 +112,16 @@ export const CardAnimal = ({ navigation, route }) => {
           }}
         >
           <Avatar.Text
-          
-            style={{ marginRight: 10, backgroundColor: '#FFCB14'}}
-            label={pet?.owner?.name[0]|| ""}
+            style={{ marginRight: 10, backgroundColor: "#FFCB14" }}
+            label={pet?.owner?.name[0] || ""}
           />
           <View>
             <Text style={{ fontWeight: 500, fontSize: 17 }}>
               {pet?.owner?.name}
             </Text>
-            <Text style={{ opacity: 0.7 }}>{new Date(String(pet?.createdAt)).toLocaleDateString("br")}</Text>
+            <Text style={{ opacity: 0.7 }}>
+              {new Date(String(pet?.createdAt)).toLocaleDateString("br")}
+            </Text>
           </View>
         </View>
 
@@ -123,13 +132,9 @@ export const CardAnimal = ({ navigation, route }) => {
         >
           <TouchableOpacity
             style={{ ...style.buttonWpp, marginHorizontal: 15 }}
-            onPress={()=> handleLinking()}
+            onPress={() => handleLinking()}
           >
-            <Ionicons
-              name="logo-whatsapp"
-              size={24}
-              color={"green"}
-            />
+            <Ionicons name="logo-whatsapp" size={24} color={"green"} />
             <Text style={{ color: "green", paddingHorizontal: 40 }}>
               ENTRAR EM CONTATO
             </Text>
