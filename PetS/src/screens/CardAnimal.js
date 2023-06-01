@@ -8,14 +8,20 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Linking
 } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
+import Feather from "@expo/vector-i/*  */cons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Avatar } from "react-native-paper";
 const imageSize = Dimensions.get("window").width;
 
 export const CardAnimal = ({ navigation, route }) => {
   const pet = route?.params?.pet;
+  // função de linking para o whatsapp
+  const handleLinking =()=> {
+    // ternario para decisão de artigo 
+    const article = pet?.gender === "Masculino"? "o": "a"
+    Linking.openURL(`https://wa.me/55${pet?.phone}?text=Olá, achei ${artigo} ${pet?.name} lind${artigo}! Gostaria de saber sobre a adoção.`)
+  }
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -117,9 +123,7 @@ export const CardAnimal = ({ navigation, route }) => {
         >
           <TouchableOpacity
             style={{ ...style.buttonWpp, marginHorizontal: 15 }}
-            onPress={() =>
-              console.log("aqui é o botao de deep linking do whatsapp")
-            }
+            onPress={()=> handleLinking()}
           >
             <Ionicons
               name="logo-whatsapp"
