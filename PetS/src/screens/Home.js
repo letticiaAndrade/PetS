@@ -31,24 +31,25 @@ import { useEffect, useState } from "react";
 import { pets } from "../../exampleApi";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const imageSize = Dimensions.get("window").width / 2.2;
 // export da tela
 export const Home = ({ navigation }) => {
   const [state, setState] = useState({ open: false });
   const [pets, setPets] = useState([]);
-  const onStateChange = ({ open }) => setState({ open });
+  const [user,setUser] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState(0);
   const { open } = state;
   const [modalVisible, setModalVisible] = useState(false);
+  const onStateChange = ({ open }) => setState({ open });
   const hideModal = () => setModalVisible(false);
   const showModal = () => setModalVisible(true);
 
   const getPets = async () => {
     const q = query(collection(database, "adoção"), orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q).then((list)=> {
-      console.error(list.docs.map(pet=> pet.data())[0])
-      setPets(list.docs.map(pet=> pet.data()));
+      setPets(list?.docs?.map(pet=> pet?.data()));
     })
     
     const list = querySnapshot.map((doc) => {
@@ -65,7 +66,15 @@ export const Home = ({ navigation }) => {
   useEffect(() => {
     getPets();
   }, []);
-
+/* pegando a session do usuario, cache */
+  useEffect(() => {
+    const getSession = async()=> {
+      const session = await AsyncStorage.getItem('@session')
+      console.error(session)
+      setUser(JSON.parse(session))
+    } 
+    getSession()
+  }, []);
   /* const filteredPets = {
     0: pets,
     1: pets.filter((p) => p.category === 1),
@@ -75,7 +84,6 @@ export const Home = ({ navigation }) => {
     5: pets.filter((p) => p.category === 5),
     6: pets.filter((p) => p.category === 6),
   }; */
-  console.log(pets)
   return (
     <SafeAreaView style={style.content}>
       <FlatList
@@ -121,7 +129,7 @@ export const Home = ({ navigation }) => {
                 >
                   <Avatar.Text
                     size={54}
-                    label="LM"
+                    label={user?.name?.[0] || ""}
                     labelStyle={{ color: "#342E29" }}
                     style={{ backgroundColor: "#FFCB14" }}
                   />
