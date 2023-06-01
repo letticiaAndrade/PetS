@@ -44,7 +44,7 @@ export const PostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const {
     control,
@@ -65,11 +65,9 @@ export const PostPet = ({ navigation }) => {
     setIsOpen(false);
   };
 
-
   const onSubmit = (data) => {
     setIsLoading(true);
     const pet = {
-      // FALTA A CATEGORIA!!!!!!
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
       name: data?.name,
@@ -79,7 +77,7 @@ export const PostPet = ({ navigation }) => {
       createdAt: Timestamp.now(),
       description: data?.description,
       gender: data?.gender ? "Feminino" : "Masculino",
-      // Pegar os campos abaixo do cache!!
+      // Aqui são dados que pega no cache do usuario!!
       owner: {
         uid: user?.uid,
         name: user?.name,
@@ -125,12 +123,12 @@ export const PostPet = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const getSession = async()=> {
-      const session = await AsyncStorage.getItem('@session')
-      console.error(session)
-      setUser(JSON.parse(session))
-    } 
-    getSession()
+    const getSession = async () => {
+      const session = await AsyncStorage.getItem("@session");
+      console.error(session);
+      setUser(JSON.parse(session));
+    };
+    getSession();
   }, []);
   return (
     <SafeAreaView style={style.content}>
@@ -341,37 +339,6 @@ export const PostPet = ({ navigation }) => {
           )}
         />
 
-        <Controller
-          name="phone"
-          control={control}
-          rules={{ required: "Campo obrigatório." }}
-          render={({ field: { onBlur, onChange, value } }) => (
-            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-              <TextInput
-                value={value}
-
-                onChangeText={onChange}
-                onBlur={onBlur}
-                error={Boolean(errors.phone)}
-                selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
-                textColor="#342E29"
-                activeUnderlineColor="#FFEDCB"
-                label={"TELEFONE"}
-                mode="outlined"
-                style={{ width: 354, height: 38 }}
-                left={<TextInput.Icon icon="phone-outline" />}
-              />
-
-              {Boolean(errors.phone) && (
-                <HelperText type="error" visible={Boolean(errors.phone)}>
-                  {errors.phone.message}
-                </HelperText>
-              )}
-            </View>
-          )}
-        />
-
         <View
           style={{
             flexDirection: "row",
@@ -444,6 +411,36 @@ export const PostPet = ({ navigation }) => {
             )}
           />
         </View>
+
+        <Controller
+          name="phone"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                error={Boolean(errors.phone)}
+                selectionColor="#FFEDCB"
+                activeOutlineColor="#342E29"
+                textColor="#342E29"
+                activeUnderlineColor="#FFEDCB"
+                label={"TELEFONE"}
+                mode="outlined"
+                style={{ width: 354, height: 38 }}
+                left={<TextInput.Icon icon="phone-outline" />}
+              />
+
+              {Boolean(errors.phone) && (
+                <HelperText type="error" visible={Boolean(errors.phone)}>
+                  {errors.phone.message}
+                </HelperText>
+              )}
+            </View>
+          )}
+        />
 
         <View style={{ marginTop: 20, marginBottom: 60 }}>
           <Button
