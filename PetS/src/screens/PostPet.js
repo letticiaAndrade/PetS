@@ -34,15 +34,17 @@ import { ListNav } from "../components/ListNav.js";
 import { Header } from "../components/Header.js";
 
 // imports dos hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Timestamp, addDoc, collection, setDoc } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const PostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null)
 
   const {
     control,
@@ -63,6 +65,7 @@ export const PostPet = ({ navigation }) => {
     setIsOpen(false);
   };
 
+
   const onSubmit = (data) => {
     setIsLoading(true);
     const pet = {
@@ -78,9 +81,9 @@ export const PostPet = ({ navigation }) => {
       gender: data?.gender ? "Feminino" : "Masculino",
       // Pegar os campos abaixo do cache!!
       owner: {
-        uid: "",
-        name: "",
-        phone: "",
+        uid: user?.uid,
+        name: user?.name,
+        phone: user?.phone,
       },
     };
 
@@ -88,7 +91,6 @@ export const PostPet = ({ navigation }) => {
     addDoc(collection(database, "adoção"), pet)
       .then(() => {
         navigation.navigate("Home");
-        console.log("Conseguiu");
       })
       // uma mensagem de erro de que não foi possivel postar o pet
       .catch(() => console.warn("Ocorreu um erro"))
@@ -103,7 +105,6 @@ export const PostPet = ({ navigation }) => {
       quality: 1,
       aspect: [4, 3],
     });
-    console.log(result);
     if (!result?.canceled) {
       setSelectedImage(result?.assets[0]?.uri);
     }
@@ -119,11 +120,18 @@ export const PostPet = ({ navigation }) => {
 
     if (!result.canceled) {
       setSelectedImage(result?.assets[0]?.uri);
-      console.log(result);
     }
     handleCloseModal();
   };
 
+  useEffect(() => {
+    const getSession = async()=> {
+      const session = await AsyncStorage.getItem('@session')
+      console.error(session)
+      setUser(JSON.parse(session))
+    } 
+    getSession()
+  }, []);
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -341,6 +349,7 @@ export const PostPet = ({ navigation }) => {
             <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
+
                 onChangeText={onChange}
                 onBlur={onBlur}
                 error={Boolean(errors.phone)}
