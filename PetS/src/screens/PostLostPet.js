@@ -37,6 +37,7 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
+import { ListNav } from "../components/ListNav.js";
 
 export const PostLostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,20 +63,30 @@ export const PostLostPet = ({ navigation }) => {
   };
   const onSubmit = (data) => {
     const pet = {
+      image:
+        "https://www.patasdacasa.com.br/sites/patasdacasa/files/styles/webp/public/noticias/2020/01/gato-amarelo-ou-laranja-descubra-algumas-curiosidades-sobre-esse-felino.jpg.webp?itok=UX_dVNTF",
       name: data?.name,
-      address: data?.address,
-      description: data?.description,
       phone: data?.phone,
+      address: data?.address,
+      category: data?.category,
+      createdAt: Timestamp.now(),
+      description: data?.description,
       gender: data?.gender ? "Feminino" : "Masculino",
-      createAt: Timestamp.now()
+      // Aqui são dados que pega no cache do usuario!!
+      owner: {
+        uid: user?.uid,
+        name: user?.name,
+        phone: user?.phone,
+      },
     };
-    addDoc(collection(database,"perdidos"), pet)
-    .then(()=>{
-        navigation.navigate("Home")
-        console.log("Adicionado pet perdido!!!")
-    })
-    .catch(()=> console.warn("Ocorreu erro ao postar seu pet perdido"))
-    .finally(()=> setIsLoading(false))
+
+    addDoc(collection(database, "perdidos"), pet)
+      .then(() => {
+        navigation.navigate("Home");
+        console.log("Adicionado pet perdido!!!");
+      })
+      .catch(() => console.warn("Ocorreu erro ao postar seu pet perdido"))
+      .finally(() => setIsLoading(false));
   };
 
   const handleSearchPicture = async () => {
@@ -197,12 +208,38 @@ export const PostLostPet = ({ navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onChange, onBlur, value } }) => (
+
+        <Controller
+          name="category"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, value } }) => (
+            <View style={{ marginBottom: 15 }}>
+              <Text
+                style={{
+                  marginVertical: 15,
+                  paddingHorizontal: 35,
+                  fontSize: 18,
+                }}
+              >
+                Selecione uma categoria:
+              </Text>
+              <ListNav
+                hideAll={true}
+                selectedCategory={value}
+                setSelectedCategory={onChange}
+              />
+            </View>
+            // cada category tem um id especifico definido no componente de navegação
+          )}
+        />
+
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -217,21 +254,21 @@ export const PostLostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="pencil-outline" size={22} />}
               />
-            )}
-          />
-
-          {Boolean(errors.name) && (
-            <HelperText type="error" visible={Boolean(errors.name)}>
-              {errors.name.message}
-            </HelperText>
+            </View>
           )}
-        </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="address"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onChange, onBlur, value } }) => (
+        />
+
+        {Boolean(errors.name) && (
+          <HelperText type="error" visible={Boolean(errors.name)}>
+            {errors.name.message}
+          </HelperText>
+        )}
+        <Controller
+          name="address"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -246,20 +283,20 @@ export const PostLostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="map-marker-outline" size={22} />}
               />
-            )}
-          />
-          {Boolean(errors.address) && (
-            <HelperText type="error" visible={Boolean(errors.address)}>
-              {errors.address.message}
-            </HelperText>
+            </View>
           )}
-        </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="description"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onBlur, onChange, value } }) => (
+        />
+        {Boolean(errors.address) && (
+          <HelperText type="error" visible={Boolean(errors.address)}>
+            {errors.address.message}
+          </HelperText>
+        )}
+        <Controller
+          name="description"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 error={Boolean(errors.description)}
@@ -274,14 +311,14 @@ export const PostLostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="email-outline" />}
               />
-            )}
-          />
-          {Boolean(errors.description) && (
-            <HelperText type="error" visible={Boolean(errors.description)}>
-              {errors.description.message}
-            </HelperText>
+            </View>
           )}
-        </View>
+        />
+        {Boolean(errors.description) && (
+          <HelperText type="error" visible={Boolean(errors.description)}>
+            {errors.description.message}
+          </HelperText>
+        )}
         {/*  <View
                 style={{
                     flexDirection: "row",
@@ -310,27 +347,74 @@ export const PostLostPet = ({ navigation }) => {
             control={control}
             name="gender"
             defaultValue={false}
-
             render={({ field: { onChange, value } }) => (
-              <>
-                <Text>M</Text>
-                <Switch
-                  value={value}
-                  onValueChange={(value) => onChange(value)}
-                  trackColor={{ true: "#E4B283", false: "#00D5B0" }}
-                  thumbColor={"#D9D9D9"}
-                />
-                <Text>F</Text>
-              </>
+              <View
+                style={{
+                  marginTop: 10,
+                  paddingHorizontal: 35,
+                  width: "100%",
+                }}
+              >
+                <Text style={{ fontSize: 18 }}>Selecione o genero:</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Pressable
+                    onPress={() => onChange(false)}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text>Macho</Text>
+                    <Ionicons
+                      style={{ paddingHorizontal: 6 }}
+                      name="male-outline"
+                      color="blue"
+                      size={25}
+                    />
+                  </Pressable>
+
+                  <Switch
+                    value={value}
+                    onValueChange={(value) => onChange(value)}
+                    trackColor={{ true: "red", false: "blue" }}
+                    thumbColor={"#D9D9D9"}
+                  />
+
+                  <Pressable
+                    onPress={() => onChange(true)}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Ionicons
+                      style={{ paddingHorizontal: 6 }}
+                      name="female-outline"
+                      color="red"
+                      size={25}
+                    />
+                    <Text>Fêmea</Text>
+                  </Pressable>
+                </View>
+              </View>
             )}
           />
         </View>
-        <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
-          <Controller
-            name="phone"
-            control={control}
-            rules={{ required: "Campo obrigatório." }}
-            render={({ field: { onBlur, onChange, value } }) => (
+
+        <Controller
+          name="phone"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <View style={{ marginHorizontal: 35, marginVertical: 5 }}>
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -345,16 +429,22 @@ export const PostLostPet = ({ navigation }) => {
                 style={{ width: 354, height: 38 }}
                 left={<TextInput.Icon icon="phone-outline" />}
               />
-            )}
-          />
-          {Boolean(errors.phone) && (
-            <HelperText type="error" visible={Boolean(errors.phone)}>
-              {errors.phone.message}
-            </HelperText>
+            </View>
           )}
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Button onPress={handleSubmit(onSubmit)} text="POSTAR PET" />
+        />
+        {Boolean(errors.phone) && (
+          <HelperText type="error" visible={Boolean(errors.phone)}>
+            {errors.phone.message}
+          </HelperText>
+        )}
+        <View style={{ marginTop: 20, marginBottom: 60 }}>
+          <Button
+            animating={isLoading ? true : false}
+            isLoading={isLoading}
+            disabled={isLoading}
+            onPress={handleSubmit(onSubmit)}
+            text="POSTAR PET"
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
