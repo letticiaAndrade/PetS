@@ -147,7 +147,6 @@ export const PostPet = ({ navigation }) => {
               style={{
                 flexDirection: "row",
                 backgroundColor: "#FFCB14",
-                borderWidth: 2,
                 borderColor: "#B67830",
                 borderRadius: 8,
                 padding: 5,
@@ -171,7 +170,6 @@ export const PostPet = ({ navigation }) => {
               style={{
                 flexDirection: "row",
                 backgroundColor: "#FFCB14",
-                borderWidth: 2,
                 borderColor: "#B67830",
                 borderRadius: 8,
                 padding: 5,
@@ -190,7 +188,7 @@ export const PostPet = ({ navigation }) => {
         </Portal>
         <View>
           <TouchableOpacity
-            style={{ marginBottom: 20, borderWidth: 1 }}
+            style={{ marginBottom: 20 }}
             onPress={() => setIsOpen(true)}
             activeOpacity={1}
           >

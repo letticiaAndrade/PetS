@@ -131,7 +131,6 @@ export const PostLostPet = ({ navigation }) => {
               style={{
                 flexDirection: "row",
                 backgroundColor: "#FFCB14",
-                borderWidth: 2,
                 borderColor: "#B67830",
                 borderRadius: 8,
                 padding: 5,
@@ -155,7 +154,6 @@ export const PostLostPet = ({ navigation }) => {
               style={{
                 flexDirection: "row",
                 backgroundColor: "#FFCB14",
-                borderWidth: 2,
                 borderColor: "#B67830",
                 borderRadius: 8,
                 padding: 5,
@@ -172,9 +170,9 @@ export const PostLostPet = ({ navigation }) => {
             </Pressable>
           </Modal>
         </Portal>
-        <View style={{}}>
+        <View>
           <TouchableOpacity
-            style={{ marginBottom: 20, borderWidth: 1 }}
+            style={{ marginBottom: 20}}
             onPress={() => setIsOpen(true)}
             activeOpacity={1}
           >
@@ -319,23 +317,6 @@ export const PostLostPet = ({ navigation }) => {
             {errors.description.message}
           </HelperText>
         )}
-        {/*  <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                <Text>M</Text>
-                <Switch
-                    value={isSwitchOn}
-                    onValueChange={onToggleSwitch}
-                    trackColor={{ true: "#E4B283", false: "#00D5B0" }}
-                    thumbColor={"#D9D9D9"}
-                />
-                <Text>F</Text>
-            </View> */}
-
         <View
           style={{
             flexDirection: "row",
