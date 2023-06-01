@@ -33,16 +33,18 @@ import Button from "../components/Button.js";
 import { Header } from "../components/Header.js";
 
 // imports dos hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig.js";
 import { ListNav } from "../components/ListNav.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const PostLostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null)
 
   const {
     control,
@@ -55,6 +57,7 @@ export const PostLostPet = ({ navigation }) => {
       description: "",
       phone: "",
       gender: "",
+      category: 1,
     },
   });
 
@@ -116,6 +119,15 @@ export const PostLostPet = ({ navigation }) => {
     }
     handleCloseModal();
   };
+
+  useEffect(() => {
+    const getSession = async () => {
+      const session = await AsyncStorage.getItem("@session");
+      console.error(session);
+      setUser(JSON.parse(session));
+    };
+    getSession();
+  }, []);
 
   return (
     <SafeAreaView style={style.content}>
@@ -223,6 +235,7 @@ export const PostLostPet = ({ navigation }) => {
                 Selecione uma categoria:
               </Text>
               <ListNav
+
                 hideAll={true}
                 selectedCategory={value}
                 setSelectedCategory={onChange}
@@ -249,7 +262,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"NOME PET"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={{ width: 354 }}
                 left={<TextInput.Icon icon="pencil-outline" size={22} />}
               />
             </View>
@@ -278,7 +291,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"LOCALIDADE"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={{ width: 354}}
                 left={<TextInput.Icon icon="map-marker-outline" size={22} />}
               />
             </View>
@@ -306,7 +319,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"DESCRIÇÃO"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={{ width: 354 }}
                 left={<TextInput.Icon icon="email-outline" />}
               />
             </View>
@@ -401,13 +414,13 @@ export const PostLostPet = ({ navigation }) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 error={Boolean(errors.phone)}
-                selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
+                // activeOutlineColor="#00D5B0"
+                outlineColor="#342E29"
                 textColor="#342E29"
-                activeUnderlineColor="#FFEDCB"
                 label={"TELEFONE"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={{ width: 354, backgroundColor: '#FFEDCB' }}
                 left={<TextInput.Icon icon="phone-outline" />}
               />
             </View>
