@@ -6,7 +6,6 @@
 ### Contexto do problema
 
 <hr>
-
 <ul>
 <li>O projeto foi pensado para resolver o problema de aumentar o número de pets adotados e diminuir o número  de pets na rua ou perdidos;</li>
 <li>
