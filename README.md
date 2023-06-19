@@ -3,6 +3,8 @@
 
 ### Projeto para a matéria de dispositivos móveis do IFS:
 
+tecnologias utilizadas aqui, em forma de badge ou texto
+
 ### Contexto do problema
 
 <hr>
@@ -15,7 +17,6 @@ Dentro do IFS, existem animais como gatos e cachorros sem dono. Eles não recebe
 </ul>
 
 ### Solução
-
 
 <hr>
 <ul>
