@@ -18,7 +18,7 @@ import Image1 from "../../assets/petsImages/petNotFound.png";
 import CardAnimal from "../components/CardAnimal.js";
 
 // imports dos componentes do react native paper
-import { Avatar, FAB, Modal, Portal } from "react-native-paper";
+import { Avatar, FAB } from "react-native-paper";
 import { ListNav } from "../components/ListNav.js";
 
 // imports das telas
@@ -28,8 +28,7 @@ import { Profile } from "./Profile.js";
 
 // imports do react
 import { useEffect, useState } from "react";
-import { pets } from "../../exampleApi";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -41,53 +40,57 @@ export const Home = ({ navigation }) => {
   const [user,setUser] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState(0);
   const { open } = state;
-  const [modalVisible, setModalVisible] = useState(false);
   const onStateChange = ({ open }) => setState({ open });
-  const hideModal = () => setModalVisible(false);
-  const showModal = () => setModalVisible(true);
+  const [LostPets, setLostPets] = useState([])
 
   const getPets = async () => {
     const q = query(collection(database, "adoção"), orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q).then((list)=> {
       setPets(list?.docs?.map(pet=> pet?.data()));
     })
-    
     const list = querySnapshot.map((doc) => {
-      console.log(doc.data());
       return doc.data()
     });
     setPets(list)
-   /*  .then((list)=> list.map((doc) => {
-      console.error("Aqui error")
-      console.error(doc.data)
-     return doc.data()
-    })); */
   };
+
+  const getLostPets = async () => {
+    const q = query(collection(database, "perdidos"), orderBy("createdAt", "desc"), limit(10));
+    const querySnapshot = await getDocs(q).then((list)=> {
+      setLostPets(list?.docs?.map(pet=> pet?.data()));
+    })
+    const list = querySnapshot.map((doc) => {
+      return doc.data()
+    });
+    setLostPets(list)
+  };
+
   useEffect(() => {
     getPets();
+    getLostPets();
   }, []);
 /* pegando a session do usuario, cache */
   useEffect(() => {
     const getSession = async()=> {
       const session = await AsyncStorage.getItem('@session')
-      console.error(session)
       setUser(JSON.parse(session))
     } 
     getSession()
   }, []);
-  /* const filteredPets = {
+
+  const filteredPets = {
     0: pets,
-    1: pets.filter((p) => p.category === 1),
-    2: pets.filter((p) => p.category === 2),
-    3: pets.filter((p) => p.category === 3),
-    4: pets.filter((p) => p.category === 4),
-    5: pets.filter((p) => p.category === 5),
-    6: pets.filter((p) => p.category === 6),
-  }; */
+    1: pets.filter((p) => p?.category === 1),
+    2: pets.filter((p) => p?.category === 2),
+    3: pets.filter((p) => p?.category === 3),
+    4: pets.filter((p) => p?.category === 4),
+    5: pets.filter((p) => p?.category === 5),
+    6: pets.filter((p) => p?.category === 6),
+  };
   return (
     <SafeAreaView style={style.content}>
       <FlatList
-        data={pets}
+        data={filteredPets}
         numColumns={2}
         ListHeaderComponentStyle={{ marginBottom: 30 }}
         columnWrapperStyle={{ alignItems: "center", justifyContent: "center" }}
@@ -170,12 +173,15 @@ export const Home = ({ navigation }) => {
 
             <View>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {pets.map((item) => (
+                <View style={{width: 20}}/>
+
+                {LostPets.map((item) => (
                   <CardAnimal
                     sizes={130} 
                     item={item}
                   />
                 ))}
+                <View style={{width: 20}}/>
               </ScrollView>
             </View>
 
