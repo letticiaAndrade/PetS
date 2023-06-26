@@ -1,22 +1,49 @@
-import { StyleSheet, SafeAreaView, FlatList, Dimensions, View, Image } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Dimensions,
+  View,
+  Image,
+} from "react-native";
 import { ListNav } from "../components/ListNav.js";
 import { Header } from "../components/Header.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { pets } from "../../exampleApi.js";
 import { Text } from "react-native-paper";
 
-import Image1 from "../../assets/petsImages/petNotFound.png"
+import Image1 from "../../assets/petsImages/petNotFound.png";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { database } from "../../config/firebaseConfig.js";
 const imageSize = Dimensions.get("window").width / 2.2;
 export const LostPets = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const [lostPets, setLostPets] = useState([]);
+ 
+  const getLostPets = async () => {
+    const q = query(
+      collection(database, "perdidos"),
+      orderBy("createdAt", "desc"),
+    );
+    const querySnapshot = await getDocs(q).then((list) => {
+      setLostPets(list?.docs?.map((pet) => pet?.data()));
+    });
+    const list = querySnapshot.map((doc) => {
+      return doc.data();
+    });
+    setLostPets(list);
+  };
+
+  useEffect(() => getLostPets(), []);
+
   const filteredPets = {
-    0: pets,
-    1: pets.filter((p) => p.category === 1),
-    2: pets.filter((p) => p.category === 2),
-    3: pets.filter((p) => p.category === 3),
-    4: pets.filter((p) => p.category === 4),
-    5: pets.filter((p) => p.category === 5),
-    6: pets.filter((p) => p.category === 6),
+    0: lostPets,
+    1: lostPets.filter((p) => p?.category === 1),
+    2: lostPets.filter((p) => p?.category === 2),
+    3: lostPets.filter((p) => p?.category === 3),
+    4: lostPets.filter((p) => p?.category === 4),
+    5: lostPets.filter((p) => p?.category === 5),
+    6: lostPets.filter((p) => p?.category === 6),
   };
 
   return (
@@ -50,7 +77,7 @@ export const LostPets = ({ navigation }) => {
             />
           </>
         }
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <CardAnimal
             style={{ alignSelf: "center", marginBottom: 15 }}
             item={item}
@@ -68,5 +95,4 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFEDCB",
   },
-  
 });
