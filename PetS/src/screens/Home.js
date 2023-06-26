@@ -28,7 +28,14 @@ import { Profile } from "./Profile.js";
 
 // imports do react
 import { useEffect, useState } from "react";
-import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { database } from "../../config/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -37,49 +44,56 @@ const imageSize = Dimensions.get("window").width / 2.2;
 export const Home = ({ navigation }) => {
   const [state, setState] = useState({ open: false });
   const [pets, setPets] = useState([]);
-  const [user,setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const { open } = state;
   const onStateChange = ({ open }) => setState({ open });
-  const [LostPets, setLostPets] = useState([])
+  const [LostPets, setLostPets] = useState([]);
 
   const getPets = async () => {
-    const q = query(collection(database, "adoção"), orderBy("createdAt", "desc"));
-    const querySnapshot = await getDocs(q).then((list)=> {
-      setPets(list?.docs?.map(pet=> pet?.data()));
+    const q = query(
+      collection(database, "adoção"),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q).then((list) => {
+      setPets(list?.docs?.map((pet) => pet?.data()));
     });
 
     const list = querySnapshot.map((doc) => {
-      return doc.data()
+      return doc.data();
     });
 
-    setPets(list)
+    setPets(list);
   };
 
   const getLostPets = async () => {
-    const q = query(collection(database, "perdidos"), orderBy("createdAt", "desc"), limit(10));
-    const querySnapshot = await getDocs(q).then((list)=> {
-      setLostPets(list?.docs?.map(pet=> pet?.data()));
+    const q = query(
+      collection(database, "perdidos"),
+      orderBy("createdAt", "desc"),
+      limit(10)
+    );
+    const querySnapshot = await getDocs(q).then((list) => {
+      setLostPets(list?.docs?.map((pet) => pet?.data()));
     });
 
     const list = querySnapshot.map((doc) => {
-      return doc.data()
+      return doc.data();
     });
 
-    setLostPets(list)
+    setLostPets(list);
   };
 
   useEffect(() => {
     getPets();
     getLostPets();
   }, []);
-/* pegando a session do usuario, cache */
+  /* pegando a session do usuario, cache */
   useEffect(() => {
-    const getSession = async()=> {
-      const session = await AsyncStorage.getItem('@session')
-      setUser(JSON.parse(session))
-    } 
-    getSession()
+    const getSession = async () => {
+      const session = await AsyncStorage.getItem("@session");
+      setUser(JSON.parse(session));
+    };
+    getSession();
   }, []);
 
   const filteredPets = {
@@ -178,15 +192,12 @@ export const Home = ({ navigation }) => {
 
             <View>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View style={{width: 20}}/>
+                <View style={{ width: 20 }} />
 
                 {LostPets.map((item) => (
-                  <CardAnimal
-                    sizes={130} 
-                    item={item}
-                  />
+                  <CardAnimal isLost={true} sizes={130} item={item} />
                 ))}
-                <View style={{width: 20}}/>
+                <View style={{ width: 20 }} />
               </ScrollView>
             </View>
 
