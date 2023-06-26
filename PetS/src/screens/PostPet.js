@@ -41,9 +41,10 @@ import { database, storage, storageRef } from "../../config/firebaseConfig.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { uploadString, ref } from "firebase/storage";
 
-export const PostPet = ({ navigation }) => {
+export const PostPet = ({ navigation, route }) => {
+  const pet = route?.params?.pet;
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(pet ? pet?.image : "");
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -53,12 +54,12 @@ export const PostPet = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "teste",
-      gender: "feminino",
-      category: 1,
-      phone: "7599999",
-      address: "teste",
-      description: "teste",
+      name: pet ? pet?.name : "teste",
+      gender: pet ? pet?.gender : "feminino",
+      category: pet ? pet?.category : 1,
+      phone: pet ? pet?.phone : "7599999",
+      address: pet ? pet?.address : "teste",
+      description: pet ? pet?.description : "teste",
     },
   });
 
@@ -68,7 +69,7 @@ export const PostPet = ({ navigation }) => {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    const pet = {
+    const dataPet = {
       image: selectedImage,
       name: data?.name,
       phone: data?.phone,
@@ -84,6 +85,7 @@ export const PostPet = ({ navigation }) => {
         phone: user?.phone,
       },
     };
+
     console.warn(selectedImage.replace("data:image/jpeg;base64,", ""));
     const storageRef = ref(storage, "pets/pet.jpg");
     uploadString(
@@ -99,13 +101,18 @@ export const PostPet = ({ navigation }) => {
 
     return setIsLoading(false);
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
-    addDoc(collection(database, "adoção"), pet)
-      .then(() => {
-        navigation.navigate("Home");
-      })
-      // uma mensagem de erro de que não foi possivel postar o pet
-      .catch(() => console.warn("Ocorreu um erro"))
-      .finally(() => setIsLoading(false));
+
+    if (pet) {
+      //  ATUALIZAR PET
+    } else {
+      addDoc(collection(database, "adoção"), dataPet)
+        .then(() => {
+          navigation.navigate("Home");
+        })
+        // uma mensagem de erro de que não foi possivel postar o pet
+        .catch(() => console.warn("Ocorreu um erro"))
+        .finally(() => setIsLoading(false));
+    }
   };
 
   // função de buscar foto
@@ -146,7 +153,7 @@ export const PostPet = ({ navigation }) => {
     <SafeAreaView style={style.content}>
       <ScrollView>
         <Header
-          title={"PET PARA ADOÇÃO"}
+          title={pet ? "ATUALIZAR PET" : "POSTAR PARA ADOÇÃO"}
           navigation={() => navigation.goBack()}
         />
 
