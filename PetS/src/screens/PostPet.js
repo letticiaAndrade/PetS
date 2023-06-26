@@ -37,8 +37,9 @@ import { Header } from "../components/Header.js";
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { database } from "../../config/firebaseConfig.js";
+import { database, storage, storageRef } from "../../config/firebaseConfig.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { uploadString, ref } from "firebase/storage";
 
 export const PostPet = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,12 +53,12 @@ export const PostPet = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "",
-      gender: "",
+      name: "teste",
+      gender: "feminino",
       category: 1,
-      phone: null,
-      address: "",
-      description: "",
+      phone: "7599999",
+      address: "teste",
+      description: "teste",
     },
   });
 
@@ -68,8 +69,7 @@ export const PostPet = ({ navigation }) => {
   const onSubmit = (data) => {
     setIsLoading(true);
     const pet = {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAdLtFbNkkKU1gPnRNvRXqAunb3tQy-7TpTg&usqp=CAU",
+      image: selectedImage,
       name: data?.name,
       phone: data?.phone,
       address: data?.address,
@@ -84,7 +84,20 @@ export const PostPet = ({ navigation }) => {
         phone: user?.phone,
       },
     };
+    console.warn(selectedImage.replace("data:image/jpeg;base64,", ""));
+    const storageRef = ref(storage, "pets/pet.jpg");
+    uploadString(
+      storageRef,
+      selectedImage.replace("data:image/jpeg;base64,", ""),
+      "base64"
+    )
+      .then((snapshot) => {
+        console.log("Uploaded a base64 string!");
+        console.warn(snapshot);
+      })
+      .finally(() => setIsLoading(false));
 
+    return setIsLoading(false);
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
     addDoc(collection(database, "adoção"), pet)
       .then(() => {
@@ -98,14 +111,14 @@ export const PostPet = ({ navigation }) => {
   // função de buscar foto
   const handleSearchPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+      // quality: 1,
+      base64: true,
+
       aspect: [4, 3],
     });
-    if (!result?.canceled) {
-      setSelectedImage(result?.assets[0]?.uri);
-    }
+
+    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
     handleCloseModal();
   };
 
@@ -113,19 +126,18 @@ export const PostPet = ({ navigation }) => {
   const handleTakePicture = async () => {
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+      // quality: 1,
+      base64: true,
+      aspect: [4, 3],
     });
 
-    if (!result.canceled) {
-      setSelectedImage(result?.assets[0]?.uri);
-    }
+    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
     handleCloseModal();
   };
 
   useEffect(() => {
     const getSession = async () => {
       const session = await AsyncStorage.getItem("@session");
-      console.error(session);
       setUser(JSON.parse(session));
     };
     getSession();
