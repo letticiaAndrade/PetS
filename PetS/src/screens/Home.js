@@ -47,10 +47,12 @@ export const Home = ({ navigation }) => {
     const q = query(collection(database, "adoção"), orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q).then((list)=> {
       setPets(list?.docs?.map(pet=> pet?.data()));
-    })
+    });
+
     const list = querySnapshot.map((doc) => {
       return doc.data()
     });
+
     setPets(list)
   };
 
@@ -58,10 +60,12 @@ export const Home = ({ navigation }) => {
     const q = query(collection(database, "perdidos"), orderBy("createdAt", "desc"), limit(10));
     const querySnapshot = await getDocs(q).then((list)=> {
       setLostPets(list?.docs?.map(pet=> pet?.data()));
-    })
+    });
+
     const list = querySnapshot.map((doc) => {
       return doc.data()
     });
+
     setLostPets(list)
   };
 
@@ -87,10 +91,11 @@ export const Home = ({ navigation }) => {
     5: pets.filter((p) => p?.category === 5),
     6: pets.filter((p) => p?.category === 6),
   };
+
   return (
     <SafeAreaView style={style.content}>
       <FlatList
-        data={filteredPets}
+        data={filteredPets[selectedCategory]}
         numColumns={2}
         ListHeaderComponentStyle={{ marginBottom: 30 }}
         columnWrapperStyle={{ alignItems: "center", justifyContent: "center" }}
