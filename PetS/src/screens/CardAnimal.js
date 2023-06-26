@@ -13,10 +13,14 @@ import {
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Avatar } from "react-native-paper";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const imageSize = Dimensions.get("window").width;
 
 export const CardAnimal = ({ navigation, route }) => {
+  const [user, setUser] = useState(null);
   const pet = route?.params?.pet;
+  const isLost = route?.params?.isLost || false;
   // função de linking para o whatsapp
   const handleLinking = () => {
     // ternario para decisão de artigo
@@ -25,6 +29,16 @@ export const CardAnimal = ({ navigation, route }) => {
       `https://wa.me/55${pet?.phone}?text=Olá, achei ${article} ${pet?.name} lind${article}! Gostaria de saber sobre a adoção.`
     );
   };
+
+  /* pegando a session do usuario, cache */
+  useEffect(() => {
+    const getSession = async () => {
+      const session = await AsyncStorage.getItem("@session");
+      setUser(JSON.parse(session));
+    };
+    getSession();
+  }, []);
+
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -43,25 +57,48 @@ export const CardAnimal = ({ navigation, route }) => {
             source={{ uri: pet?.image }}
           />
 
-          <Pressable
+          <View
             style={{
-              position: "absolute",
               top: 15,
-              left: 15,
-              borderRadius: 60,
-              padding: 5,
+              // left: 15,
               alignItems: "center",
-              backgroundColor: "#B67830",
+              position: "absolute",
+              flexDirection: "row",
+              paddingHorizontal: 15,
+              justifyContent: "space-between",
+              width: "100%",
             }}
-            onPress={() => navigation.goBack()}
           >
-            <Feather
-              style={{ margin: 0, padding: 0 }}
-              name="arrow-left"
-              color={"#FFEDCB"}
-              size={45}
-            />
-          </Pressable>
+            <Pressable
+              style={{
+                padding: 5,
+                borderRadius: 60,
+                alignItems: "center",
+                backgroundColor: "#B67830",
+              }}
+              onPress={() => navigation.goBack()}
+            >
+              <Feather
+                style={{ margin: 0, padding: 0 }}
+                name="arrow-left"
+                color={"#FFEDCB"}
+                size={45}
+              />
+            </Pressable>
+
+            {pet?.owner?.uid === user?.uid && (
+              <Pressable
+                onPress={() => isLost ? navigation.navigate("PostLostPet", { pet: pet }) : navigation.navigate("PostPet", { pet: pet })}
+              >
+                <Feather
+                  size={35}
+                  name="edit"
+                  color="#B67830"
+                  style={{ margin: 0, padding: 0 }}
+                />
+              </Pressable>
+            )}
+          </View>
         </View>
 
         <View
@@ -98,7 +135,13 @@ export const CardAnimal = ({ navigation, route }) => {
           </View>
         </View>
 
-        <Text style={{ marginLeft: 20, fontSize: 16, textAlign: "left" }}>
+        <Text
+          style={{
+            fontSize: 16,
+            marginLeft: 20,
+            textAlign: "left",
+          }}
+        >
           {pet?.description}
         </Text>
 
@@ -107,7 +150,7 @@ export const CardAnimal = ({ navigation, route }) => {
             flexDirection: "row",
             marginLeft: 30,
             alignItems: "center",
-            marginTop: 80,
+            marginTop: 30,
             marginBottom: 10,
           }}
         >
