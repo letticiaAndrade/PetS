@@ -84,10 +84,8 @@ export const PostLostPet = ({ navigation }) => {
     };
 
     addDoc(collection(database, "perdidos"), pet)
-      .then(() => {
-        navigation.navigate("Home");
-        console.log("Adicionado pet perdido!!!");
-      })
+      .then(() => navigation.navigate("Home"))
+      // toast aqui
       .catch(() => console.warn("Ocorreu erro ao postar seu pet perdido"))
       .finally(() => setIsLoading(false));
   };
@@ -101,8 +99,7 @@ export const PostLostPet = ({ navigation }) => {
     });
 
     if (!result?.canceled) {
-      setSelectedImage(result?.assets[0]?.uri);
-      console.log(result);
+      setSelectedImage(result?.assets[0]?.uri)
     }
     handleCloseModal();
   };
@@ -114,8 +111,7 @@ export const PostLostPet = ({ navigation }) => {
     });
 
     if (!result?.canceled) {
-      setSelectedImage(result?.assets[0]?.uri);
-      console.log(result);
+      setSelectedImage(result?.assets[0]?.uri)
     }
     handleCloseModal();
   };
@@ -123,7 +119,6 @@ export const PostLostPet = ({ navigation }) => {
   useEffect(() => {
     const getSession = async () => {
       const session = await AsyncStorage.getItem("@session");
-      console.error(session);
       setUser(JSON.parse(session));
     };
     getSession();
@@ -262,7 +257,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"NOME PET"}
                 mode="outlined"
-                style={{ width: 354 }}
+                style={style.input}
                 left={<TextInput.Icon icon="pencil-outline" size={22} />}
               />
             </View>
@@ -291,7 +286,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"LOCALIDADE"}
                 mode="outlined"
-                style={{ width: 354}}
+                style={style.input}
                 left={<TextInput.Icon icon="map-marker-outline" size={22} />}
               />
             </View>
@@ -319,7 +314,7 @@ export const PostLostPet = ({ navigation }) => {
                 activeUnderlineColor="#FFEDCB"
                 label={"DESCRIÇÃO"}
                 mode="outlined"
-                style={{ width: 354 }}
+                style={style.input}
                 left={<TextInput.Icon icon="email-outline" />}
               />
             </View>
@@ -420,7 +415,7 @@ export const PostLostPet = ({ navigation }) => {
                 textColor="#342E29"
                 label={"TELEFONE"}
                 mode="outlined"
-                style={{ width: 354, backgroundColor: '#FFEDCB' }}
+                style={style.input}
                 left={<TextInput.Icon icon="phone-outline" />}
               />
             </View>
@@ -450,4 +445,8 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFEDCB",
   },
+  input: {
+    width: 354,
+    backgroundColor: '#FFEDCB' 
+  }
 });
