@@ -234,7 +234,7 @@ export const PostLostPet = ({ navigation, route }) => {
                 error={Boolean(errors.name)}
                 onBlur={onBlur}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"NOME PET"}
@@ -263,7 +263,7 @@ export const PostLostPet = ({ navigation, route }) => {
                 onBlur={onBlur}
                 error={Boolean(errors.address)}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"LOCALIDADE"}
@@ -291,7 +291,7 @@ export const PostLostPet = ({ navigation, route }) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"DESCRIÇÃO"}
@@ -326,7 +326,7 @@ export const PostLostPet = ({ navigation, route }) => {
                   width: "100%",
                 }}
               >
-                <Text style={{ fontSize: 18 }}>Selecione o genero:</Text>
+                <Text style={{ fontSize: 18 }}>Selecione o gênero:</Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -438,5 +438,5 @@ const style = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     marginRight: 10,
-  }
+  },
 });
