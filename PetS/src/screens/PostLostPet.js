@@ -40,7 +40,9 @@ import { database } from "../../config/firebaseConfig.js";
 import { ListNav } from "../components/ListNav.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const PostLostPet = ({ navigation }) => {
+export const PostLostPet = ({ navigation, route }) => {
+  // atribuindo a uma variavel o pet por meio do params
+  const pet = route?.params?.pet;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -52,12 +54,12 @@ export const PostLostPet = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "",
-      address: "",
-      description: "",
-      phone: "",
-      gender: "",
-      category: 1,
+      name: pet? pet?.name : "testando o nome",
+      address: pet? pet?.address: "testando o endereço",
+      description: pet? pet?.description: "testando a descrição",
+      phone: pet? pet?.phone: "7555555",
+      gender: pet? pet?.gender: "masculino",
+      category: pet? pet?.category: 1,
     },
   });
 
@@ -65,9 +67,8 @@ export const PostLostPet = ({ navigation }) => {
     setIsOpen(false);
   };
   const onSubmit = (data) => {
-    const pet = {
-      image:
-        "https://www.patasdacasa.com.br/sites/patasdacasa/files/styles/webp/public/noticias/2020/01/gato-amarelo-ou-laranja-descubra-algumas-curiosidades-sobre-esse-felino.jpg.webp?itok=UX_dVNTF",
+    const dataPet = {
+      image: selectedImage,
       name: data?.name,
       phone: data?.phone,
       address: data?.address,
@@ -92,15 +93,13 @@ export const PostLostPet = ({ navigation }) => {
 
   const handleSearchPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
+      // allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+      // quality: 1,
       aspect: [4, 3],
     });
 
-    if (!result?.canceled) {
-      setSelectedImage(result?.assets[0]?.uri)
-    }
+    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
     handleCloseModal();
   };
 
@@ -108,11 +107,10 @@ export const PostLostPet = ({ navigation }) => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
+      aspect: [4,3],
     });
 
-    if (!result?.canceled) {
-      setSelectedImage(result?.assets[0]?.uri)
-    }
+    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
     handleCloseModal();
   };
 
@@ -127,7 +125,7 @@ export const PostLostPet = ({ navigation }) => {
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
-        <Header title={"PET PERDIDO"} navigation={() => navigation.goBack()} />
+        <Header title={pet? "ATUALIZAR PET" :"POSTAR PERDIDO"} navigation={() => navigation.goBack()} />
 
         <Portal>
           <Modal visible={isOpen} onDismiss={handleCloseModal}>
@@ -135,15 +133,7 @@ export const PostLostPet = ({ navigation }) => {
               onPress={() => {
                 handleSearchPicture();
               }}
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#FFCB14",
-                borderColor: "#B67830",
-                borderRadius: 8,
-                padding: 5,
-                marginRight: 10,
-              }}
-            >
+              style={style.buttonModal}>
               <Ionicons
                 name="images-outline"
                 size={21}
@@ -158,15 +148,7 @@ export const PostLostPet = ({ navigation }) => {
               onPress={() => {
                 handleTakePicture();
               }}
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#FFCB14",
-                borderColor: "#B67830",
-                borderRadius: 8,
-                padding: 5,
-                marginRight: 10,
-              }}
-            >
+              style={style.buttonModal}>
               <Ionicons
                 name="camera-outline"
                 size={21}
@@ -448,5 +430,13 @@ const style = StyleSheet.create({
   input: {
     width: 354,
     backgroundColor: '#FFEDCB' 
+  },
+  buttonModal: {
+    flexDirection: "row",
+    backgroundColor: "#FFCB14",
+    borderColor: "#B67830",
+    borderRadius: 8,
+    padding: 5,
+    marginRight: 10,
   }
 });
