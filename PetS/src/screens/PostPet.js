@@ -121,7 +121,6 @@ export const PostPet = ({ navigation, route }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       // quality: 1,
       base64: true,
-
       aspect: [4, 3],
     });
 
@@ -163,14 +162,7 @@ export const PostPet = ({ navigation, route }) => {
               onPress={() => {
                 handleSearchPicture();
               }}
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#FFCB14",
-                borderColor: "#B67830",
-                borderRadius: 8,
-                padding: 5,
-                marginRight: 10,
-              }}
+              style={style.buttonModal}
             >
               <Ionicons
                 name="images-outline"
@@ -186,14 +178,7 @@ export const PostPet = ({ navigation, route }) => {
               onPress={() => {
                 handleTakePicture();
               }}
-              style={{
-                flexDirection: "row",
-                backgroundColor: "#FFCB14",
-                borderColor: "#B67830",
-                borderRadius: 8,
-                padding: 5,
-                marginRight: 10,
-              }}
+              style={style.buttonModal}
             >
               <Ionicons
                 name="camera-outline"
@@ -279,12 +264,12 @@ export const PostPet = ({ navigation, route }) => {
                 error={Boolean(errors.name)}
                 onBlur={onBlur}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"NOME PET"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={style.input}
                 left={<TextInput.Icon icon="pencil-outline" size={22} />}
               />
 
@@ -309,12 +294,12 @@ export const PostPet = ({ navigation, route }) => {
                 onBlur={onBlur}
                 error={Boolean(errors.address)}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"LOCALIDADE"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={style.input}
                 left={<TextInput.Icon icon="map-marker-outline" size={22} />}
               />
 
@@ -339,12 +324,12 @@ export const PostPet = ({ navigation, route }) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"DESCRIÇÃO"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={style.input}
                 left={<TextInput.Icon icon="email-outline" />}
               />
               {Boolean(errors.description) && (
@@ -375,7 +360,7 @@ export const PostPet = ({ navigation, route }) => {
                   width: "100%",
                 }}
               >
-                <Text style={{ fontSize: 18 }}>Selecione o genero:</Text>
+                <Text style={{ fontSize: 18 }}>Selecione o gênero:</Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -441,12 +426,12 @@ export const PostPet = ({ navigation, route }) => {
                 onBlur={onBlur}
                 error={Boolean(errors.phone)}
                 selectionColor="#FFEDCB"
-                activeOutlineColor="#342E29"
+                activeOutlineColor="#B67830"
                 textColor="#342E29"
                 activeUnderlineColor="#FFEDCB"
                 label={"TELEFONE"}
                 mode="outlined"
-                style={{ width: 354, height: 38 }}
+                style={style.input}
                 left={<TextInput.Icon icon="phone-outline" />}
               />
 
@@ -477,5 +462,17 @@ const style = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: "#FFEDCB",
+  },
+  input : {
+    width: 354,
+    backgroundColor: "#FFEDCB"
+  },
+  buttonModal: {
+    flexDirection: "row",
+    backgroundColor: "#FFCB14",
+    borderColor: "#B67830",
+    borderRadius: 8,
+    padding: 5,
+    marginRight: 10,
   },
 });
