@@ -1,4 +1,3 @@
-
 <h1>Projeto Mobile - PetS</h1>
 
 ### Projeto para a matéria de dispositivos móveis do IFS:
