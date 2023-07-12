@@ -1,4 +1,3 @@
-
 <h1>Projeto Mobile - PetS</h1>
 
 ### Projeto para a matéria de dispositivos móveis do IFS:
@@ -34,7 +33,7 @@ Tornando o acesso fácil para os pets com os possíveis tutores e consequentemen
 <ul>
 <li><a href="https://www.figma.com/file/uNbhdh7ef9KAJlbkYLA3Xq/Projeto-Mobile---PetS?node-id=0%3A1&t=InWp8DWJfsB3TUMW-1">PROTÓTIPO FIGMA - PetS</a></li>
 
-colocar imagem do figma? 
+<image src="PetS - Figma.png" />
 </ul>
 
 <hr>
