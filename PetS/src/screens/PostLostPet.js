@@ -85,11 +85,15 @@ export const PostLostPet = ({ navigation, route }) => {
       },
     };
 
-    addDoc(collection(database, "perdidos"), pet)
+    if (pet) {
+      // atualizar
+     } else {
+      addDoc(collection(database, "perdidos"), pet)
       .then(() => navigation.navigate("Home"))
       // toast aqui
       .catch(() => console.warn("Ocorreu erro ao postar seu pet perdido"))
       .finally(() => setIsLoading(false));
+      }
   };
 
   const handleSearchPicture = async () => {
