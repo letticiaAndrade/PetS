@@ -46,7 +46,7 @@ export const PostLostPet = ({ navigation, route }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const {
     control,
@@ -54,12 +54,12 @@ export const PostLostPet = ({ navigation, route }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: pet? pet?.name : "testando o nome",
-      address: pet? pet?.address: "testando o endereço",
-      description: pet? pet?.description: "testando a descrição",
-      phone: pet? pet?.phone: "7555555",
-      gender: pet? pet?.gender: "masculino",
-      category: pet? pet?.category: 1,
+      name: pet ? pet?.name : "testando o nome",
+      address: pet ? pet?.address : "testando o endereço",
+      description: pet ? pet?.description : "testando a descrição",
+      phone: pet ? pet?.phone : "7555555",
+      gender: pet ? pet?.gender : "masculino",
+      category: pet ? pet?.category : 1,
     },
   });
 
@@ -67,6 +67,7 @@ export const PostLostPet = ({ navigation, route }) => {
     setIsOpen(false);
   };
   const onSubmit = (data) => {
+    setIsLoading(true);
     const dataPet = {
       image: selectedImage,
       name: data?.name,
@@ -107,7 +108,7 @@ export const PostLostPet = ({ navigation, route }) => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
-      aspect: [4,3],
+      aspect: [4, 3],
     });
 
     setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
@@ -125,7 +126,10 @@ export const PostLostPet = ({ navigation, route }) => {
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
-        <Header title={pet? "ATUALIZAR PET" :"POSTAR PERDIDO"} navigation={() => navigation.goBack()} />
+        <Header
+          title={pet ? "ATUALIZAR PET" : "POSTAR PERDIDO"}
+          navigation={() => navigation.goBack()}
+        />
 
         <Portal>
           <Modal visible={isOpen} onDismiss={handleCloseModal}>
@@ -133,7 +137,8 @@ export const PostLostPet = ({ navigation, route }) => {
               onPress={() => {
                 handleSearchPicture();
               }}
-              style={style.buttonModal}>
+              style={style.buttonModal}
+            >
               <Ionicons
                 name="images-outline"
                 size={21}
@@ -142,13 +147,14 @@ export const PostLostPet = ({ navigation, route }) => {
               />
               <Text style={{ color: "#342E29" }}>BUSCAR FOTO</Text>
             </Pressable>
-            <Divider />
+            <Divider/>
 
             <Pressable
               onPress={() => {
                 handleTakePicture();
               }}
-              style={style.buttonModal}>
+              style={style.buttonModal}
+            >
               <Ionicons
                 name="camera-outline"
                 size={21}
@@ -161,7 +167,7 @@ export const PostLostPet = ({ navigation, route }) => {
         </Portal>
         <View>
           <TouchableOpacity
-            style={{ marginBottom: 20}}
+            style={{ marginBottom: 20 }}
             onPress={() => setIsOpen(true)}
             activeOpacity={1}
           >
@@ -191,7 +197,7 @@ export const PostLostPet = ({ navigation, route }) => {
                 top: 50,
               }}
             >
-              <AntDesign name="plus" size={30} color={"#342E29"} style={{}} />
+              <AntDesign name="plus" size={30} color={"#342E29"} />
             </View>
           </TouchableOpacity>
         </View>
@@ -212,7 +218,6 @@ export const PostLostPet = ({ navigation, route }) => {
                 Selecione uma categoria:
               </Text>
               <ListNav
-
                 hideAll={true}
                 selectedCategory={value}
                 setSelectedCategory={onChange}
@@ -429,7 +434,7 @@ const style = StyleSheet.create({
   },
   input: {
     width: 354,
-    backgroundColor: '#FFEDCB' 
+    backgroundColor: "#FFEDCB",
   },
   buttonModal: {
     flexDirection: "row",
@@ -438,5 +443,7 @@ const style = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     marginRight: 10,
+    top: 340,
+    justifyContent: "center",
   },
 });
