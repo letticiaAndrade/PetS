@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 
+import uuid from "react-native-uuid";
 // imports do hook form
 import { useForm, Controller } from "react-hook-form";
 
@@ -39,9 +40,11 @@ import * as ImagePicker from "expo-image-picker";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { database, storage, storageRef } from "../../config/firebaseConfig.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { uploadString, ref } from "firebase/storage";
+import { uploadString, ref, uploadBytes } from "firebase/storage";
 
 export const PostPet = ({ navigation, route }) => {
+  const [imageRoot, setImageRoot] = useState(null);
+
   const pet = route?.params?.pet;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(pet ? pet?.image : "");
@@ -67,8 +70,8 @@ export const PostPet = ({ navigation, route }) => {
     setIsOpen(false);
   };
 
-  const onSubmit = (data) => {
-    setIsLoading(true);
+  const onSubmit = async (data) => {
+    // setIsLoading(true);
     const dataPet = {
       image: selectedImage,
       name: data?.name,
@@ -86,18 +89,26 @@ export const PostPet = ({ navigation, route }) => {
       },
     };
 
-    console.warn(selectedImage.replace("data:image/jpeg;base64,", ""));
-    const storageRef = ref(storage, "pets/pet.jpg");
-    uploadString(
-      storageRef,
-      selectedImage.replace("data:image/jpeg;base64,", ""),
-      "base64"
-    )
+    // console.error(imageRoot);
+    
+    const storageRef = ref(storage, `pets/${uuid.v4()}`);
+
+
+    const response = await fetch(selectedImage);
+    const blob = await response.blob();
+
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      console.log(snapshot.metadata);
+
+      snapshot.metadata.fullPath
+    }).finally(() => setIsLoading(false)); 
+    
+ /*    uploadString(storageRef, imageRoot?.base64, "base64", { contentType: "" })
       .then((snapshot) => {
         console.log("Uploaded a base64 string!");
-        console.warn(snapshot);
+        // console.warn(snapshot);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoading(false)); */
 
     return setIsLoading(false);
     // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
@@ -124,7 +135,9 @@ export const PostPet = ({ navigation, route }) => {
       aspect: [4, 3],
     });
 
-    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
+    setImageRoot(result.assets[0]);
+
+    setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
   };
 
@@ -136,8 +149,9 @@ export const PostPet = ({ navigation, route }) => {
       base64: true,
       aspect: [4, 3],
     });
+    setImageRoot(result);
 
-    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
+    setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
   };
 
@@ -148,6 +162,7 @@ export const PostPet = ({ navigation, route }) => {
     };
     getSession();
   }, []);
+
   return (
     <SafeAreaView style={style.content}>
       <ScrollView>
@@ -463,9 +478,9 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFEDCB",
   },
-  input : {
+  input: {
     width: 354,
-    backgroundColor: "#FFEDCB"
+    backgroundColor: "#FFEDCB",
   },
   buttonModal: {
     flexDirection: "row",
@@ -473,6 +488,7 @@ const style = StyleSheet.create({
     borderColor: "#B67830",
     borderRadius: 8,
     padding: 5,
-    marginRight: 10,
+    justifyContent: "center",
+    top: 340,
   },
 });
