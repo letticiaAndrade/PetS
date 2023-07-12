@@ -28,26 +28,29 @@ import { Profile } from "./Profile.js";
 
 // imports do react
 import { useEffect, useState } from "react";
+
+// imports do firebase
 import {
   collection,
   getDocs,
   limit,
   orderBy,
-  query,
-  where,
+  query
 } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig";
+
+// imports do AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const imageSize = Dimensions.get("window").width / 2.2;
 // export da tela
 export const Home = ({ navigation }) => {
   const [state, setState] = useState({ open: false });
+  const { open } = state;
+  const onStateChange = ({ open }) => setState({ open });
   const [pets, setPets] = useState([]);
   const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const { open } = state;
-  const onStateChange = ({ open }) => setState({ open });
   const [LostPets, setLostPets] = useState([]);
 
   const getPets = async () => {
