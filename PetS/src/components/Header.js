@@ -8,7 +8,7 @@ export const Header = ({ navigation, title }) => {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginVertical: 20,
+        marginVertical: 10,
         marginHorizontal: 5,
       }}
     >
