@@ -25,6 +25,7 @@ import group from "../../assets/petsImages/petsGroup.png";
 // imports dos arquivos para direcionar as rotas
 import { SignIn } from "./SignIn.js";
 import { SignUp } from "./SignUp.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Welcome = ({ navigation }) => {
     // criando a constante para pegar a tela inteira do celular e ocupar na screen da visao
@@ -46,6 +47,14 @@ export const Welcome = ({ navigation }) => {
     useEffect(() => {
         nextStep();
     }, [step]);
+
+    useEffect(() => {
+        const getSession = async () => {
+          const session = await AsyncStorage.getItem("@session");
+          if (JSON.parse(session)) return navigation.navigate("Routes");
+        };
+        getSession();
+      }, []);
 
     return (
         <>
