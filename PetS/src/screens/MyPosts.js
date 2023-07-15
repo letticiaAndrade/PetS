@@ -1,47 +1,69 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { Header } from "../components/Header";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { database } from "../../config/firebaseConfig";
-import { getDocs, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import CardAnimal from "../components/CardAnimal";
 
 export const MyPosts = ({ navigation }) => {
-  const [user, setUSer] = useState();
-  const [pets, setPets] = useState();
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [myPets, setMypets] = useState([]);
+  const [myPets, setMyPets] = useState([]);
+  const imageSize = Dimensions.get("window").width / 2.2;
 
-  const getMyPets = async ()=> {
+  const getMyPets = async () => {
+    const session = await AsyncStorage.getItem("@session");
+    const user = JSON.parse(session);
+
     const q = query(
       collection(database, "adoção"),
-      orderBy("createdAt", "desc"), 
-      where()
+      where("owner.uid", "==", user?.uid)
     );
+
     const querySnapshot = await getDocs(q).then((list) => {
-      setPets(list?.docs?.map((pet) => pet?.data()));
+      setMyPets(list?.docs?.map((pet) => pet?.data()));
     });
 
     const list = querySnapshot.map((doc) => {
       return doc.data();
     });
 
-    setPets(list);
-  }
+    setMyPets(list);
+  };
 
-   /* pegando a session do usuario, cache */
-   useEffect(() => {
-    const getSession = async () => {
-      const session = await AsyncStorage.getItem("@session");
-      setUser(JSON.parse(session));
-    };
-    getSession();
+  useEffect(() => {
+    getMyPets();
   }, []);
 
   return (
     <SafeAreaView style={style.content}>
-      <Header
-        title={"MINHAS PUBLICAÇÕES"}
-        navigation={() => navigation.goBack()}
+      <FlatList
+        ListHeaderComponent={
+          <>
+            <Header
+              title={"MINHAS PUBLICAÇÕES"}
+              navigation={() => navigation.goBack()}
+            />
+          </>
+        }
+        numColumns={2}
+        ListHeaderComponentStyle={{ marginBottom: 30 }}
+        columnWrapperStyle={{ alignItems: "center", justifyContent: "center" }}
+        data={myPets}
+        renderItem={({ item }) => (
+          <CardAnimal
+            item={item}
+            isLost={false}
+            sizes={imageSize}
+            style={{ alignSelf: "center", marginBottom: 15 }}
+            onPress={() => navigation.navigate("CardAnimal", { pet: item })}
+          />
+        )}
       />
     </SafeAreaView>
   );
