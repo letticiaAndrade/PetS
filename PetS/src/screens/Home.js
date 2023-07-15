@@ -34,6 +34,7 @@ import {
   collection,
   getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query
 } from "firebase/firestore";
@@ -58,17 +59,24 @@ export const Home = ({ navigation }) => {
       collection(database, "adoção"),
       orderBy("createdAt", "desc")
     );
-    const querySnapshot = await getDocs(q).then((list) => {
-      setPets(list?.docs?.map((pet) => pet?.data()));
-    });
 
-    const list = querySnapshot.map((doc) => {
-      return doc.data();
+    onSnapshot(q, (querySnapshot) => {
+      const petsList = [];
+      querySnapshot.forEach((doc) => {
+        petsList.push(doc.data());
+        setPets(petsList);
+      });
     });
+    // const querySnapshot = await getDocs(q).then((list) => {
+    //   setPets(list?.docs?.map((pet) => pet?.data()));
+    // });
 
-    setPets(list);
+    // const list = querySnapshot.map((doc) => {
+    //   return doc.data();
+    // });
+
+    // setPets(list);
   };
-
   const getLostPets = async () => {
     const q = query(
       collection(database, "perdidos"),
@@ -90,6 +98,7 @@ export const Home = ({ navigation }) => {
     getPets();
     getLostPets();
   }, []);
+
   /* pegando a session do usuario, cache */
   useEffect(() => {
     const getSession = async () => {
@@ -130,6 +139,7 @@ export const Home = ({ navigation }) => {
             </View>
           </>
         }
+
         ListHeaderComponent={
           <>
             <View
@@ -140,7 +150,7 @@ export const Home = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <View style={{}}>
+              <View>
                 <Image
                   source={Logo}
                   resizeMode="contain"
@@ -176,7 +186,7 @@ export const Home = ({ navigation }) => {
                   Animais Perdidos:
                 </Text>
               </View>
-              <View style={{}}>
+              <View>
                 <TouchableOpacity
                   style={{
                     borderWidth: 1,
