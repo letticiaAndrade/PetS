@@ -1,74 +1,135 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Avatar, TextInput } from "react-native-paper";
 
-import Button from "../components/Button.js"
+import Button from "../components/Button.js";
 import { Header } from "../components/Header.js";
 import { Controller, useForm } from "react-hook-form";
+import { collection, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { database } from "../../config/firebaseConfig.js";
 
-import Ionicons from "@expo/vector-icons/Ionicons";
-export const EditProfile = ({ navigation }) => {
-    return (
-        <SafeAreaView style={style.content}>
-            <Header title={"EDITAR PERFIL"} navigation={()=>navigation.goBack()}/>
-            <View style={{ alignItems: 'center', marginBottom: 20 }}>
-                <Avatar.Text
-                    size={109}
-                    label="LM"
-                    labelStyle={{ color: "#342E29" }}
-                    style={{ backgroundColor: "#FFCB14" }}
-                />
-            </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+export const EditProfile = ({ route, navigation }) => {
+  const { user } = route.params;
+  const [isLoading, setIsLoading] = useState(false);
 
-                <TextInput
-                    // value={value}
-                    //  onBlur={onBlur}
-                    // onChangeText={onChange}
-                    //  error={Boolean(errors.email)}
-                    label="NOME COMPLETO"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="account-outline" />}
-                />
-            </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { name: user?.name, phone: user?.phone, email: user?.email },
+  });
 
-                <TextInput
-                    // value={value}
-                    // onBlur={onBlur}
-                    //  onChangeText={onChange}
-                    //  error={Boolean(errors.email)}
-                    label="TELEFONE"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="phone-outline" />}
-                />
-            </View>
-            <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-                <TextInput
-                    //value={value}
-                    //  onBlur={onBlur}
-                    //  onChangeText={onChange}
-                    //error={Boolean(errors.email)}
-                    label="EMAIL"
-                    mode="outlined"
-                    activeOutlineColor="#342E29"
-                    left={<TextInput.Icon icon="email-outline" />}
-                />
-            </View>
+  const onSubmit = (data) => {
+    setIsLoading(true);
+    const userRef = collection(database, "users");
+    updateDoc(doc(userRef, user.uid), { ...data })
+      .then(() => alert("Deu certo!!"))
+      .catch(() => alert("Ocorreu um erro!"))
+      .finally(() => setIsLoading(false));
 
-            <View style={{ marginTop: 50 }}>
+    // batch.update(sfRef, { population: 1000000 });
 
-                <Button text={"SALVAR ALTERAÇÕES"} onPress={()=> console.warn("Salvando alterações")} />
-            </View>
+    console.warn(data);
+  };
 
-        </SafeAreaView>
-    )
+  return (
+    <SafeAreaView style={style.content}>
+      <Header title={"EDITAR PERFIL"} navigation={() => navigation.goBack()} />
+      <View style={{ alignItems: "center", marginBottom: 20 }}>
+        <Avatar.Text
+          size={109}
+          label={user?.name[0]}
+          labelStyle={{ color: "#342E29" }}
+          style={{ backgroundColor: "#FFCB14" }}
+        />
+      </View>
+
+      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              value={value}
+              onBlur={onBlur}
+              mode="outlined"
+              label="NOME COMPLETO"
+              onChangeText={onChange}
+              error={Boolean(errors.name)}
+              activeOutlineColor="#342E29"
+              left={<TextInput.Icon icon="account-outline" />}
+            />
+          )}
+        />
+        {Boolean(errors.name) && (
+          <HelperText type="error" visible={Boolean(errors.name)}>
+            {errors.name.message}
+          </HelperText>
+        )}
+      </View>
+
+      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+        <Controller
+          name="phone"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              value={value}
+              onBlur={onBlur}
+              mode="outlined"
+              label="NOME COMPLETO"
+              onChangeText={onChange}
+              error={Boolean(errors.phone)}
+              activeOutlineColor="#342E29"
+              left={<TextInput.Icon icon="account-outline" />}
+            />
+          )}
+        />
+        {Boolean(errors.phone) && (
+          <HelperText type="error" visible={Boolean(errors.phone)}>
+            {errors.phone.message}
+          </HelperText>
+        )}
+      </View>
+
+      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+        <Controller
+          name="email"
+          control={control}
+          rules={{ required: "Campo obrigatório." }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              value={value}
+              onBlur={onBlur}
+              mode="outlined"
+              label="NOME COMPLETO"
+              onChangeText={onChange}
+              error={Boolean(errors.email)}
+              activeOutlineColor="#342E29"
+              left={<TextInput.Icon icon="account-outline" />}
+            />
+          )}
+        />
+        {Boolean(errors.email) && (
+          <HelperText type="error" visible={Boolean(errors.email)}>
+            {errors.email.message}
+          </HelperText>
+        )}
+      </View>
+
+      <View style={{ marginTop: 50 }}>
+        <Button disabled={isLoading} isLoading={isLoading} text={"SALVAR ALTERAÇÕES"} onPress={handleSubmit(onSubmit)} />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 const style = StyleSheet.create({
-    content: {
-        flex: 1,
-        backgroundColor: '#FFEDCB'
-    }
-})
+  content: {
+    flex: 1,
+    backgroundColor: "#FFEDCB",
+  },
+});
