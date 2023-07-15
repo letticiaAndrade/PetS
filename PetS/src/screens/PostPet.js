@@ -37,10 +37,19 @@ import { Header } from "../components/Header.js";
 // imports dos hooks
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  Timestamp,
+  addDoc,
+  collection,
+  updateDoc,
+  query,
+  getDoc,
+  where,
+} from "firebase/firestore";
 import { database, storage, storageRef } from "../../config/firebaseConfig.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { uploadString, ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const PostPet = ({ navigation, route }) => {
   const [imageRoot, setImageRoot] = useState(null);
@@ -49,6 +58,7 @@ export const PostPet = ({ navigation, route }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(pet ? pet?.image : "");
   const [isLoading, setIsLoading] = useState(false);
+  const [imageChanged, setImageChanged] = useState(false);
   const [user, setUser] = useState(null);
 
   const {
@@ -57,12 +67,12 @@ export const PostPet = ({ navigation, route }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: pet ? pet?.name : "teste",
-      gender: pet ? pet?.gender : "feminino",
+      name: pet ? pet?.name : "",
+      gender: pet ? pet?.gender : "",
       category: pet ? pet?.category : 1,
-      phone: pet ? pet?.phone : "7599999",
-      address: pet ? pet?.address : "teste",
-      description: pet ? pet?.description : "teste",
+      phone: pet ? pet?.phone : "",
+      address: pet ? pet?.address : "",
+      description: pet ? pet?.description : "",
     },
   });
 
@@ -73,9 +83,9 @@ export const PostPet = ({ navigation, route }) => {
   const onSubmit = async (data) => {
     // setIsLoading(true);
     const dataPet = {
-      image: selectedImage,
       name: data?.name,
       phone: data?.phone,
+      image: selectedImage,
       address: data?.address,
       category: data?.category,
       createdAt: Timestamp.now(),
@@ -89,42 +99,56 @@ export const PostPet = ({ navigation, route }) => {
       },
     };
 
-    // console.error(imageRoot);
-    
-    const storageRef = ref(storage, `pets/${uuid.v4()}`);
-
-
-    const response = await fetch(selectedImage);
-    const blob = await response.blob();
-
-    uploadBytes(storageRef, blob).then((snapshot) => {
-      console.log(snapshot.metadata);
-
-      snapshot.metadata.fullPath
-    }).finally(() => setIsLoading(false)); 
-    
- /*    uploadString(storageRef, imageRoot?.base64, "base64", { contentType: "" })
-      .then((snapshot) => {
-        console.log("Uploaded a base64 string!");
-        // console.warn(snapshot);
-      })
-      .finally(() => setIsLoading(false)); */
-
-    return setIsLoading(false);
-    // adicionando um DOCUMENTO na colletion (pode já estar criada ou não, vai adicionar nesse caso o objeto pet (que criamos acima))
-
-    if (pet) {
+    /* if (pet) {
       //  ATUALIZAR PET
-    } else {
-      addDoc(collection(database, "adoção"), dataPet)
-        .then(() => {
-          navigation.navigate("Home");
+      if (imageChanged) {
+        const storageRef = ref(storage, `pets/${uuid.v4()}`);
+        const response = await fetch(selectedImage);
+        const blob = await response.blob();
+
+        uploadBytes(storageRef, blob)
+          .then((snapshot) => {
+            getDownloadURL(storageRef).then((url) => {
+              const postRef = collection(database, "doação");
+              updateDoc(doc(postRef, pet?.name), {
+                ...dataPet,
+                image: url,
+              })
+                .then(() => navigation.goBack())
+                .catch(() => alert("Ocorreu um erro!"));
+            });
+          })
+          .finally(() => setIsLoading(false));
+      } else {
+        // console.error("CHEGOU AQUI");
+
+        const q = query(
+          collection(database, "doação"),
+          where("name", "==", pet?.name)
+        );
+
+        await getDoc(q).then((result) => {
+          const postRef = collection(database, "doação");
+          updateDoc(doc(postRef, result.id), { ...dataPet })
+            .then(() => alert("DEU CERTO!!"))
+            .catch((e) => console.error(e));
+        });
+      }
+    } else { */
+      const storageRef = ref(storage, `pets/${uuid.v4()}`);
+      const response = await fetch(selectedImage);
+      const blob = await response.blob();
+
+      uploadBytes(storageRef, blob)
+        .then((snapshot) => {
+          getDownloadURL(storageRef).then((url) => {
+            addDoc(collection(database, "adoção"), { ...dataPet, image: url })
+              .then((e) => navigation.navigate("Home"))
+              .catch(() => console.warn("Ocorreu um problema ao cadastrar um pet perdido!")); // uma mensagem de erro de que não foi possivel postar o pet
+          });
         })
-        // uma mensagem de erro de que não foi possivel postar o pet
-        .catch(() => console.warn("Ocorreu um erro"))
-        .finally(() => setIsLoading(false));
-    }
-  };
+        .finally(() => setIsLoading(true));
+    };
 
   // função de buscar foto
   const handleSearchPicture = async () => {
@@ -139,6 +163,7 @@ export const PostPet = ({ navigation, route }) => {
 
     setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
+    setImageChanged(true);
   };
 
   // função de tirar foto
@@ -149,10 +174,11 @@ export const PostPet = ({ navigation, route }) => {
       base64: true,
       aspect: [4, 3],
     });
-    setImageRoot(result);
+    setImageRoot(result.assets[0]);
 
     setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
+    setImageChanged(true);
   };
 
   useEffect(() => {

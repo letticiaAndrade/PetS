@@ -10,6 +10,8 @@ import {
   ScrollView,
 } from "react-native";
 
+import uuid from "react-native-uuid"; 
+
 // imports do hook form
 import { useForm, Controller } from "react-hook-form";
 
@@ -36,14 +38,16 @@ import { Header } from "../components/Header.js";
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { database } from "../../config/firebaseConfig.js";
+import { database, storage } from "../../config/firebaseConfig.js";
 import { ListNav } from "../components/ListNav.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const PostLostPet = ({ navigation, route }) => {
   // atribuindo a uma variavel o pet por meio do params
   const pet = route?.params?.pet;
   const [isOpen, setIsOpen] = useState(false);
+  const [imageRoot, setImageRoot] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -54,11 +58,11 @@ export const PostLostPet = ({ navigation, route }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: pet ? pet?.name : "testando o nome",
-      address: pet ? pet?.address : "testando o endereço",
-      description: pet ? pet?.description : "testando a descrição",
-      phone: pet ? pet?.phone : "7555555",
-      gender: pet ? pet?.gender : "masculino",
+      name: pet ? pet?.name : "",
+      address: pet ? pet?.address : "",
+      description: pet ? pet?.description : "",
+      phone: pet ? pet?.phone : "",
+      gender: pet ? pet?.gender : "",
       category: pet ? pet?.category : 1,
     },
   });
@@ -66,8 +70,8 @@ export const PostLostPet = ({ navigation, route }) => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
-  const onSubmit = (data) => {
-    setIsLoading(true);
+  const onSubmit = async(data) => {
+    // setIsLoading(true);
     const dataPet = {
       image: selectedImage,
       name: data?.name,
@@ -87,35 +91,50 @@ export const PostLostPet = ({ navigation, route }) => {
 
     if (pet) {
       // atualizar
+      console.warn(pet);
      } else {
-      addDoc(collection(database, "perdidos"), pet)
-      .then(() => navigation.navigate("Home"))
-      // toast aqui
-      .catch(() => console.warn("Ocorreu erro ao postar seu pet perdido"))
-      .finally(() => setIsLoading(false));
-      }
-  };
+      const storageRef = ref(storage, `pets/${uuid.v4()}`);
+      const response = await fetch(selectedImage);
+      const blob = await response.blob();
+
+      uploadBytes(storageRef, blob)
+      .then((snapshot) => {
+        getDownloadURL(storageRef).then((url) => {
+          addDoc(collection(database, "perdidos"), {...dataPet, image: url})
+          .then(()=> navigation.navigate("Home"))
+          .catch(()=> console.warn("Ocorreu um problema ao cadastrar um pet perdido!"))
+          .finally(()=> setIsLoading(false));
+        });
+      })
+      .finally(() => setIsLoading(true));
+  }
+};
 
   const handleSearchPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       // allowsEditing: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       // quality: 1,
+      base64: true,
       aspect: [4, 3],
     });
 
-    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
+    setImageRoot(result.assets[0]);
+
+    setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
   };
 
   const handleTakePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
+      // quality: 1,
+      base64: true,
       aspect: [4, 3],
     });
 
-    setSelectedImage("data:image/jpeg;base64," + result?.assets[0]?.base64);
+    setImageRoot(result.assets[0]);
+    setSelectedImage(result?.assets[0]?.uri);
     handleCloseModal();
   };
 
