@@ -27,8 +27,8 @@ import { auth, database } from "../../config/firebaseConfig.js";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export const SignUp = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false) ;
-  const [text, setText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -38,8 +38,7 @@ export const SignUp = ({ navigation }) => {
   });
 
   const onSubmit = (data) => {
-    setIsLoading(true)
-    console.warn(data);
+    setIsLoading(true);
     createUserWithEmailAndPassword(auth, data?.email, data?.password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -53,7 +52,7 @@ export const SignUp = ({ navigation }) => {
         }).then(() => navigation.navigate("SignIn"));
       })
       .catch(() => alert("Ocorreu um erro!"))
-      .finally(()=> setIsLoading(false));
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -88,151 +87,156 @@ export const SignUp = ({ navigation }) => {
             />
           </View>
         </View>
-     
 
-      <View style={{ marginHorizontal: 30 }}>
-        <Text
+        <View style={{ marginHorizontal: 30 }}>
+          <Text
+            style={{
+              color: "#342E29",
+              fontWeight: "bold",
+              fontSize: 32,
+              marginBottom: 10,
+            }}
+          >
+            Seja bem vindo!
+          </Text>
+          <Text style={{ color: "#342E29", opacity: 0.6, fontSize: 20 }}>
+            Preencha os campos{"\n"}para se registrar.
+          </Text>
+        </View>
+
+        <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Controller
+            name="name"
+            control={control}
+            rules={{
+              required: "Campo obrigatório.",
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                value={value}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                error={Boolean(errors.name)}
+                label="NOME COMPLETO"
+                mode="outlined"
+                activeOutlineColor="#342E29"
+                left={<TextInput.Icon icon="account-outline" />}
+              />
+            )}
+          />
+          {Boolean(errors.name) && (
+            <HelperText type="error" visible={Boolean(errors.name)}>
+              {errors.name.message}
+            </HelperText>
+          )}
+        </View>
+
+        <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Controller
+            name="phone"
+            control={control}
+            rules={{
+              required: "Campo obrigatório",
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                value={value}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                error={Boolean(errors.phone)}
+                label="TELEFONE"
+                mode="outlined"
+                activeOutlineColor="#342E29"
+                left={<TextInput.Icon icon="phone-outline" />}
+              />
+            )}
+          />
+          {Boolean(errors.phone) && (
+            <HelperText type="error" visible={Boolean(errors.phone)}>
+              {errors.phone.message}
+            </HelperText>
+          )}
+        </View>
+        <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: "Campo obrigatório.",
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                value={value}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                error={Boolean(errors.email)}
+                label="EMAIL"
+                mode="outlined"
+                activeOutlineColor="#342E29"
+                left={<TextInput.Icon icon="email-outline" />}
+              />
+            )}
+          />
+          {Boolean(errors.email) && (
+            <HelperText type="error" visible={Boolean(errors.email)}>
+              {errors.email.message}
+            </HelperText>
+          )}
+        </View>
+
+        <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Controller
+            name="password"
+            control={control}
+            rules={{ required: "Campo obrigatório." }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                value={value}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                error={Boolean(errors.password)}
+                selectionColor="#FFEDCB"
+                activeOutlineColor="#342E29"
+                secureTextEntry={true}
+                label="SENHA"
+                mode="outlined"
+                textColor="#342E29"
+                activeUnderlineColor="#FFEDCB"
+                left={<TextInput.Icon icon="lock-outline" />}
+              />
+            )}
+          />
+          {Boolean(errors.password) && (
+            <HelperText type="error" visible={Boolean(errors.password)}>
+              {errors.password.message}
+            </HelperText>
+          )}
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Button
+            isLoading={isLoading}
+            animating={isLoading ? true : false}
+            disabled={isLoading}
+            onPress={handleSubmit(onSubmit)}
+            text={"CADASTRAR"}
+          />
+        </View>
+        <View
           style={{
-            color: "#342E29",
-            fontWeight: "bold",
-            fontSize: 32,
-            marginBottom: 10,
+            flexDirection: "row",
+            justifyContent: "center",
+            marginVertical: 20,
           }}
         >
-          Seja bem vindo!
-        </Text>
-        <Text style={{ color: "#342E29", opacity: 0.6, fontSize: 20 }}>
-          Preencha os campos{"\n"}para se registrar.
-        </Text>
-      </View>
-
-      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Controller
-          name="name"
-          control={control}
-          rules={{
-            required: "Campo obrigatório.",
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              error={Boolean(errors.name)}
-              label="NOME COMPLETO"
-              mode="outlined"
-              activeOutlineColor="#342E29"
-              left={<TextInput.Icon icon="account-outline" />}
-            />
-          )}
-        />
-        {Boolean(errors.name) && (
-          <HelperText type="error" visible={Boolean(errors.name)}>
-            {errors.name.message}
-          </HelperText>
-        )}
-      </View>
-
-      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Controller
-          name="phone"
-          control={control}
-          rules={{
-            required: "Campo obrigatório",
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              error={Boolean(errors.phone)}
-              label="TELEFONE"
-              mode="outlined"
-              activeOutlineColor="#342E29"
-              left={<TextInput.Icon icon="phone-outline" />}
-            />
-          )}
-        />
-        {Boolean(errors.phone) && (
-          <HelperText type="error" visible={Boolean(errors.phone)}>
-            {errors.phone.message}
-          </HelperText>
-        )}
-      </View>
-      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: "Campo obrigatório.",
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              error={Boolean(errors.email)}
-              label="EMAIL"
-              mode="outlined"
-              activeOutlineColor="#342E29"
-              left={<TextInput.Icon icon="email-outline" />}
-            />
-          )}
-        />
-        {Boolean(errors.email) && (
-          <HelperText type="error" visible={Boolean(errors.email)}>
-            {errors.email.message}
-          </HelperText>
-        )}
-      </View>
-
-      <View style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Controller
-          name="password"
-          control={control}
-          rules={{ required: "Campo obrigatório." }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              error={Boolean(errors.password)}
-              selectionColor="#FFEDCB"
-              activeOutlineColor="#342E29"
-              secureTextEntry={true}
-              label="SENHA"
-              mode="outlined"
-              textColor="#342E29"
-              activeUnderlineColor="#FFEDCB"
-              left={<TextInput.Icon icon="lock-outline" />}
-            />
-          )}
-        />
-        {Boolean(errors.password) && (
-          <HelperText type="error" visible={Boolean(errors.password)}>
-            {errors.password.message}
-          </HelperText>
-        )}
-      </View>
-      <View style={{ marginVertical: 10 }}>
-        <Button isLoading={isLoading} animating={isLoading? true:false} disabled={isLoading} onPress={handleSubmit(onSubmit)} text={"CADASTRAR"} />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginVertical: 20,
-        }}
-      >
-        <Text style={{ color: "#342E29", fontSize: 20, paddingRight: 10 }}>
-          Já possui uma conta? Faça o
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate(SignIn)}>
-          <Text style={{ color: "#B67830", fontSize: 20, letterSpacing: 1 }}>
-            LOGIN
+          <Text style={{ color: "#342E29", fontSize: 20, paddingRight: 10 }}>
+            Já possui uma conta? Faça o
           </Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity onPress={() => navigation.navigate(SignIn)}>
+            <Text style={{ color: "#B67830", fontSize: 20, letterSpacing: 1 }}>
+              LOGIN
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
