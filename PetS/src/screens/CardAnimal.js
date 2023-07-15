@@ -86,7 +86,7 @@ export const CardAnimal = ({ navigation, route }) => {
               />
             </Pressable>
 
-            {pet?.owner?.uid === user?.uid && (
+         {/*    {pet?.owner?.uid === user?.uid && (
               <Pressable
                 onPress={() => isLost ? navigation.navigate("PostLostPet", { pet: pet }) : navigation.navigate("PostPet", { pet: pet })}
               >
@@ -97,7 +97,7 @@ export const CardAnimal = ({ navigation, route }) => {
                   style={{ margin: 0, padding: 0 }}
                 />
               </Pressable>
-            )}
+            )} */}
           </View>
         </View>
 
