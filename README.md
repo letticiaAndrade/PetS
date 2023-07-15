@@ -44,4 +44,6 @@ Tornando o acesso fácil para os pets com os possíveis tutores e consequentemen
 ```
 npm install
 ```
+<hr>
+
 ### Aplicativo
