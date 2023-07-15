@@ -44,4 +44,4 @@ Tornando o acesso fácil para os pets com os possíveis tutores e consequentemen
 ```
 npm install
 ```
-gifs das telas do aplicativo para cada seção
+### Aplicativo
