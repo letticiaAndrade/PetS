@@ -47,3 +47,24 @@ npm install
 <hr>
 
 ### Aplicativo
+  
+<p>Tela de login e home do aplicativo</p>
+<image src= 20230715_213021.gif/ width= 200>
+
+
+<p>Filtro de pets para adoção do aplicativo</p>
+<image src= 20230715_213207.gif/ width= 200>
+
+<p>Lista de pets perdidos e o filtro do aplicativo</p>
+<image src= 20230715_213427.gif/ width= 200>
+
+<p>Mais informações no card do pet no aplicativo:</p>
+<image src= 20230715_214101.gif/ width= 200>
+
+
+<p>Cadastro de pet para adoção do aplicativo (o mesmo vale para o cadasstro de pet perdido!)</p>
+<image src= 20230715_214406.gif/ width= 200>
+
+
+<p>Lista de publicação postadas do usuário logado no aplicativo</p>
+<image src= 20230715_214620.gif/ width= 200>
