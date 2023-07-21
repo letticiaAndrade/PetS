@@ -68,7 +68,7 @@ npm install
 <image src= 20230715_214101.gif/ width= 200/>
 </p>
 
-<p align= "center" >Cadastro de pet para adoção do aplicativo (o mesmo vale para o cadasstro de pet perdido!) / Lista de publicação postadas do usuário logado no aplicativo</p>
+<p align= "center" >Cadastro de pet para adoção do aplicativo (o mesmo vale para o cadastro de pet perdido!) / Lista de publicação postadas do usuário logado no aplicativo</p>
 <p align="center"> 
 <image src= 20230715_214406.gif/ width= 200/>
 <image src= 20230715_214620.gif/ width= 200/>
